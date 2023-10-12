@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/amazing-routine/static/css/main.ae71d505.css",
+    "main.js": "/amazing-routine/static/js/main.ce5de283.js",
+    "static/js/787.82419e8f.chunk.js": "/amazing-routine/static/js/787.82419e8f.chunk.js",
+    "static/media/logo.svg": "/amazing-routine/static/media/logo.b2e5a01e505f739f1484b881277d5186.svg",
+    "index.html": "/amazing-routine/index.html",
+    "main.ae71d505.css.map": "/amazing-routine/static/css/main.ae71d505.css.map",
+    "main.ce5de283.js.map": "/amazing-routine/static/js/main.ce5de283.js.map",
+    "787.82419e8f.chunk.js.map": "/amazing-routine/static/js/787.82419e8f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ae71d505.css",
+    "static/js/main.ce5de283.js"
+  ]
+}
