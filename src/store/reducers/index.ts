@@ -8,4 +8,4 @@ export {
   incrementByAmount,
 } from './counter'
 
-export { default as routines, selectRoutines } from './routines'
+export { default as routines, selectRoutines, remove } from './routines'

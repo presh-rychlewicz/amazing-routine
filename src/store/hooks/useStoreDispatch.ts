@@ -4,6 +4,7 @@ import {
   incrementAsync,
   incrementByAmount,
   incrementIfOdd,
+  remove,
 } from '../reducers'
 import { useAppDispatch } from './internal'
 
@@ -26,6 +27,11 @@ const useStoreDispatch = () => {
       },
       incrementIfOdd: (value: Parameters<typeof incrementIfOdd>[0]) => {
         return dispatch(incrementIfOdd(value))
+      },
+    },
+    routines: {
+      remove: (value: Parameters<typeof remove>[0]) => {
+        return dispatch(remove(value))
       },
     },
   }

@@ -2,6 +2,7 @@ import { useState } from 'react'
 
 import styles from './Counter.module.css'
 import { useStoreDispatch, useStoreState } from '../../store/hooks'
+import { Stack, Typography } from '@mui/joy'
 
 const Counter = () => {
   const storeState = useStoreState()
@@ -13,8 +14,10 @@ const Counter = () => {
   console.log(storeState.routines)
 
   return (
-    <div>
-      <div className={styles.row}>
+    <Stack spacing={3}>
+      <Typography level="h2">Counter</Typography>
+
+      <Stack direction="row" justifyContent="center">
         <button
           className={styles.button}
           aria-label="Decrement value"
@@ -32,9 +35,9 @@ const Counter = () => {
         >
           +
         </button>
-      </div>
+      </Stack>
 
-      <div className={styles.row}>
+      <Stack spacing={1} alignItems="center">
         <input
           className={styles.textbox}
           aria-label="Set increment amount"
@@ -64,8 +67,8 @@ const Counter = () => {
         >
           Add If Odd
         </button>
-      </div>
-    </div>
+      </Stack>
+    </Stack>
   )
 }
 
