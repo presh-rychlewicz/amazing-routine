@@ -1,11 +1,4 @@
-import {
-  decrement,
-  increment,
-  incrementAsync,
-  incrementByAmount,
-  incrementIfOdd,
-  remove,
-} from '../reducers'
+import { counter, routines } from '../reducers'
 import { useAppDispatch } from './internal'
 
 const useStoreDispatch = () => {
@@ -14,27 +7,37 @@ const useStoreDispatch = () => {
   return {
     counter: {
       decrement: () => {
-        return dispatch(decrement())
+        return dispatch(counter.decrement())
       },
       increment: () => {
-        return dispatch(increment())
+        return dispatch(counter.increment())
       },
-      incrementAsync: (value: Parameters<typeof incrementAsync>[0]) => {
-        return dispatch(incrementAsync(value))
+      incrementAsync: (payload: Payload<typeof counter.incrementAsync>) => {
+        return dispatch(counter.incrementAsync(payload))
       },
-      incrementByAmount: (value: Parameters<typeof incrementByAmount>[0]) => {
-        return dispatch(incrementByAmount(value))
+      incrementByAmount: (
+        payload: Payload<typeof counter.incrementByAmount>
+      ) => {
+        return dispatch(counter.incrementByAmount(payload))
       },
-      incrementIfOdd: (value: Parameters<typeof incrementIfOdd>[0]) => {
-        return dispatch(incrementIfOdd(value))
+      incrementIfOdd: (payload: Payload<typeof counter.incrementIfOdd>) => {
+        return dispatch(counter.incrementIfOdd(payload))
       },
     },
     routines: {
-      remove: (value: Parameters<typeof remove>[0]) => {
-        return dispatch(remove(value))
+      add: (payload: Payload<typeof routines.add>) => {
+        return dispatch(routines.add(payload))
+      },
+      remove: (payload: Payload<typeof routines.remove>) => {
+        return dispatch(routines.remove(payload))
+      },
+      removeAllExpired: () => {
+        return dispatch(routines.removeAllExpired())
       },
     },
   }
 }
+
+type Payload<T extends (param: any) => void> = Parameters<T>[0]
 
 export default useStoreDispatch

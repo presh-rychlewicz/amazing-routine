@@ -1,5 +1,6 @@
-import { RootState } from '../..'
+import { RoutinesState } from './types'
 
-const selectRoutines = (state: RootState) => state.routines.value
+const selectRoutines = (state: { routines: RoutinesState }) =>
+  state.routines.value
 
 export default selectRoutines

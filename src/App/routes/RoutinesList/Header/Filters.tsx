@@ -4,7 +4,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import FormGroup from '@mui/material/FormGroup'
 import { Dispatch, FC, SetStateAction } from 'react'
 import { SelectedStatuses } from '..'
-import { SINGLE_ROUTINE_STATUSES } from '../../../../store/reducers/routines/types'
+import { singleRoutineStatuses } from '../../../../store/reducers/routines/types'
 
 type Props = {
   selectedStatuses: SelectedStatuses
@@ -16,7 +16,7 @@ const Filters: FC<Props> = ({ selectedStatuses, setSelectedStatuses }) => (
     <Typography level="title-lg">Status</Typography>
 
     <FormGroup>
-      {SINGLE_ROUTINE_STATUSES.map((s) => (
+      {singleRoutineStatuses.map((s) => (
         <FormControlLabel
           key={s}
           control={

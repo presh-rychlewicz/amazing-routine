@@ -1,33 +1,71 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import dayjs from 'dayjs'
 import initialState from './initialState'
+import remove, { RemovePayload } from './remove'
 import selectRoutines from './selectRoutines'
-import { SingleRoutine } from './types'
+import removeAllExpired from './removeAllExpired'
+import { SingleRoutine, SingleRoutineStatuses } from './types'
 
-export const routinesSlice = createSlice({
+const routinesSlice = createSlice({
   name: 'routines',
   initialState,
   reducers: {
-    remove: (state, id: PayloadAction<SingleRoutine['id']>) => {
-      const oldValue = state.value
-      const newValue = [...oldValue]
-      const routineToBeRemovedIndex = newValue.findIndex(
-        (r) => r.id === id.payload
-      )
-      const routineToBeRemoved = newValue[routineToBeRemovedIndex]
-      if (!routineToBeRemoved || routineToBeRemoved.status === 'REMOVED') {
+    add: (
+      state,
+      {
+        payload: { name, note, time, startDate, days, interval, endDate },
+      }: PayloadAction<Omit<SingleRoutine, 'id' | 'status'>>
+    ) => {
+      const isInFuture = dayjs(startDate).isAfter(undefined, 'day')
+      const newRoutine: SingleRoutine = {
+        name,
+        note,
+        time,
+        startDate,
+        endDate,
+        days,
+        interval,
+        id: crypto.randomUUID(),
+        status: isInFuture
+          ? SingleRoutineStatuses.FUTURE
+          : SingleRoutineStatuses.ACTIVE,
+      }
+      const newValue = [...state.value, newRoutine]
+
+      state.value = newValue
+    },
+    update: (
+      state,
+      { payload: { id, update } }: PayloadAction<RemovePayload>
+    ) => {
+      const newValue = [...state.value]
+      const routineToBeUpdatedIndex = newValue.findIndex((r) => r.id === id)
+      const routineToBeUpdated = newValue[routineToBeUpdatedIndex]
+      if (!routineToBeUpdated) {
         throw new Error('ERROR')
       }
 
-      const updatedRoutine = { ...routineToBeRemoved }
-      updatedRoutine.status = 'REMOVED'
-      newValue[routineToBeRemovedIndex] = updatedRoutine
+      const updatedRoutine = {
+        ...routineToBeUpdated,
+        ...update,
+      }
+      newValue[routineToBeUpdatedIndex] = updatedRoutine
 
       state.value = newValue
     },
   },
 })
 
-const { remove } = routinesSlice.actions
+const { update, add } = routinesSlice.actions
 
-export default routinesSlice.reducer
-export { selectRoutines, remove }
+const routinesReducer = routinesSlice.reducer
+const routines = {
+  update,
+  add,
+  remove,
+  removeAllExpired,
+  selectRoutines,
+}
+
+export default routines
+export { routinesReducer }

@@ -41,15 +41,14 @@ const counterSlice = createSlice({
   },
 })
 
-const { increment, decrement, incrementByAmount } = counterSlice.actions
-
-export default counterSlice.reducer
-export {
+const counterReducer = counterSlice.reducer
+const counter = {
   counterSlice,
-  decrement,
-  increment,
   incrementAsync,
-  incrementByAmount,
+  ...counterSlice.actions,
   incrementIfOdd,
   selectCount,
 }
+
+export default counter
+export { counterReducer }

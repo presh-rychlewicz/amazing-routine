@@ -1,10 +1,10 @@
 import { RootState } from '..'
-import { selectCount, selectRoutines } from '../reducers'
+import { counter, routines } from '../reducers'
 import { useAppSelector } from './internal'
 
 const useStoreState = (): UseStoreState => ({
-  counter: useAppSelector(selectCount),
-  routines: useAppSelector(selectRoutines),
+  counter: useAppSelector(counter.selectCount),
+  routines: useAppSelector(routines.selectRoutines),
 })
 
 type UseStoreState = RootStateAsValues<RootState>

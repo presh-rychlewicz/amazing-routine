@@ -1,18 +1,21 @@
-export const SINGLE_ROUTINE_STATUSES = ['ACTIVE', 'REMOVED'] as const
-
-type DateObject = {
-  day: number
-  month: number
-  year: number
+export enum SingleRoutineStatuses {
+  'ACTIVE' = 'ACTIVE',
+  'REMOVED' = 'REMOVED',
+  'FUTURE' = 'FUTURE',
 }
+
+export const singleRoutineStatuses = Object.values(SingleRoutineStatuses)
 
 export type SingleRoutine = {
   name: string
   id: string
   note: string
-  status: (typeof SINGLE_ROUTINE_STATUSES)[number]
-  startDate: DateObject
-  // endDate:DateObject|undefined
+  status: SingleRoutineStatuses
+  time: string | undefined
+  startDate: string
+  endDate: string | undefined
+  days: [boolean, boolean, boolean, boolean, boolean, boolean, boolean]
+  interval: number
 }
 
 type RoutinesState = {

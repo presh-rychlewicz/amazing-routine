@@ -1,7 +1,7 @@
 import { Stack } from '@mui/joy'
 import { FC, Fragment } from 'react'
 import { EmptyState } from '../../../../components'
-import { useStoreDispatch } from '../../../../store/hooks'
+import { useStoreDispatch } from '../../../../store'
 import { SingleRoutine } from '../../../../store/reducers/routines/types'
 import ButtonWithConfirmation from './ButtonWithConfirmation'
 

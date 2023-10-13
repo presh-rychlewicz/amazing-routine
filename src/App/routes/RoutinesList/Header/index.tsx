@@ -1,9 +1,10 @@
 import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import { Button, IconButton, Stack } from '@mui/joy'
-import { Dispatch, FC, SetStateAction, useEffect, useState } from 'react'
+import { Dispatch, FC, SetStateAction, useState } from 'react'
 import { SelectedStatuses } from '..'
-import AddNewRoutineModal from './AddNewRoutineModal'
+import { View } from '../../..'
 import Filters from './Filters'
+import { useRouteContext } from '../../../../providers'
 
 type Props = {
   selectedStatuses: SelectedStatuses
@@ -11,28 +12,16 @@ type Props = {
 }
 
 const Header: FC<Props> = ({ selectedStatuses, setSelectedStatuses }) => {
+  const { setView } = useRouteContext()
   const [shouldShowFilters, setShouldShowFilters] = useState(false)
-  const [isAddRoutineModalOpen, setIsAddRoutineModalOpen] = useState(false)
-
-  useEffect(() => {
-    if (isAddRoutineModalOpen) {
-      setShouldShowFilters(false)
-    }
-  }, [isAddRoutineModalOpen])
-
-  useEffect(() => {
-    if (shouldShowFilters) {
-      setIsAddRoutineModalOpen(false)
-    }
-  }, [shouldShowFilters])
 
   return (
     <Stack spacing={0.5}>
       <Stack alignItems="center" direction="row" justifyContent="space-between">
         <Button
-          variant={isAddRoutineModalOpen ? 'solid' : 'soft'}
+          variant="soft"
           size="sm"
-          onClick={() => setIsAddRoutineModalOpen((prev) => !prev)}
+          onClick={() => setView(View.ADD_ROUTINE)}
         >
           New
         </Button>
@@ -51,8 +40,6 @@ const Header: FC<Props> = ({ selectedStatuses, setSelectedStatuses }) => {
           setSelectedStatuses={setSelectedStatuses}
         />
       )}
-
-      {isAddRoutineModalOpen && <AddNewRoutineModal />}
     </Stack>
   )
 }

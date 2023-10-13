@@ -1,4 +1,4 @@
-import { incrementByAmount } from '.'
+import counter from '.'
 import { AppThunk } from '../..'
 import selectCount from './selectCount'
 
@@ -9,7 +9,7 @@ const incrementIfOdd =
   (dispatch, getState) => {
     const currentValue = selectCount(getState())
     if (currentValue % 2 === 1) {
-      dispatch(incrementByAmount(amount))
+      dispatch(counter.incrementByAmount(amount))
     }
   }
 

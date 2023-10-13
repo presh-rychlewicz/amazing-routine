@@ -1,11 +1,11 @@
 import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit'
-import * as reducers from './reducers'
-import * as hooks from './hooks'
+import { counterReducer, routinesReducer } from './reducers'
+export * from './hooks'
 
 export const store = configureStore({
   reducer: {
-    counter: reducers.counter,
-    routines: reducers.routines,
+    counter: counterReducer,
+    routines: routinesReducer,
   },
 })
 
@@ -17,4 +17,3 @@ export type AppThunk<ReturnType = void> = ThunkAction<
   unknown,
   Action<string>
 >
-export { hooks, reducers }

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 import styles from './Counter.module.css'
-import { useStoreDispatch, useStoreState } from '../../store/hooks'
+import { useStoreDispatch, useStoreState } from '../../store'
 import { Stack, Typography } from '@mui/joy'
 
 const Counter = () => {
@@ -10,8 +10,6 @@ const Counter = () => {
 
   const [incrementAmount, setIncrementAmount] = useState(2)
   const incrementValue = incrementAmount || 0
-
-  console.log(storeState.routines)
 
   return (
     <Stack spacing={3}>

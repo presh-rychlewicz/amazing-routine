@@ -5,6 +5,7 @@ import { store } from './store'
 import './styles/index.css'
 import App from './App'
 import { ThemeProvider } from 'styled-components'
+import { RouteProvider } from './providers'
 
 const container = document.getElementById('root')
 if (container) {
@@ -14,7 +15,9 @@ if (container) {
     <StrictMode>
       <Provider store={store}>
         <ThemeProvider theme={{}}>
-          <App />
+          <RouteProvider>
+            <App />
+          </RouteProvider>
         </ThemeProvider>
       </Provider>
     </StrictMode>
