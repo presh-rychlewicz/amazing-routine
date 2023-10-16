@@ -1,18 +1,20 @@
 import routines from '.'
 import { AppThunk } from '../..'
-import { SingleRoutineStatuses, UpdatePayload } from './types'
+import { UpdatePayload } from './types'
 
-const remove =
+const promoteToInProgress =
   (id: UpdatePayload['id']): AppThunk =>
   (dispatch) => {
     const payload: UpdatePayload = {
       id,
       update: {
-        status: SingleRoutineStatuses.REMOVED,
+        routineMeta: {
+          status: 'IN_PROGRESS',
+        },
       },
     }
 
     dispatch(routines.update(payload))
   }
 
-export default remove
+export default promoteToInProgress

@@ -1,26 +1,24 @@
 import { Stack } from '@mui/joy'
 import { FC, useState } from 'react'
-import { EmptyState } from '../../../components'
-import { useStoreState } from '../../../store'
+import { EmptyState } from '../../../../components'
+import { useStoreState } from '../../../../store'
 import {
-  SingleRoutine as SingleRoutineType,
+  SingleRoutine,
   singleRoutineStatuses,
-} from '../../../store/reducers/routines/types'
+} from '../../../../store/reducers/routines/types'
 import Route from '../../Route'
 import Header from './Header'
-import SingleRoutine from './SingleRoutine'
+import Routine from './Routine'
 
 const RoutinesList: FC = () => {
-  const { routines } = useStoreState()
+  const storeState = useStoreState()
   const [selectedStatuses, setSelectedStatuses] = useState<SelectedStatuses>(
     singleRoutineStatuses.filter((a) => a === 'ACTIVE') as Writeable<
       typeof singleRoutineStatuses
     >
   )
 
-  console.log(routines)
-
-  const disibleRoutines = routines.filter((r) =>
+  const disibleRoutines = storeState.routines.filter((r) =>
     selectedStatuses.includes(r.status)
   )
   const hasAnyRoutines = !!disibleRoutines.length
@@ -36,7 +34,7 @@ const RoutinesList: FC = () => {
       {hasAnyRoutines ? (
         <Stack spacing={1}>
           {disibleRoutines.map((routine) => (
-            <SingleRoutine
+            <Routine
               key={routine.id}
               shouldShowStatus={shouldShowStatus}
               routine={routine}
@@ -51,6 +49,6 @@ const RoutinesList: FC = () => {
 }
 
 type Writeable<T> = { -readonly [P in keyof T]: T[P] }
-export type SelectedStatuses = Array<SingleRoutineType['status']>
+export type SelectedStatuses = Array<SingleRoutine['status']>
 
 export default RoutinesList

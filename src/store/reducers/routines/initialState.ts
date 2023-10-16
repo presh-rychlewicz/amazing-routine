@@ -5,7 +5,7 @@ const initialState: RoutinesState = {
     {
       name: 'Routine 1',
       id: 'a9a0b36b-7586-49c6-a6b4-8f0b2495dd20',
-      note: '',
+      note: undefined,
       status: SingleRoutineStatuses.ACTIVE,
       time: '12:12',
       startDate: '2023-05-30',

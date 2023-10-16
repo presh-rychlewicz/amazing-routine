@@ -1,2 +1,2 @@
-export { default as AddRoutine } from './AddRoutine'
-export { default as RoutinesList } from './RoutinesList'
+export * from './routines'
+export * from './tasks'

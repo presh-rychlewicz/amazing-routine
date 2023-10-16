@@ -1,4 +1,4 @@
-import { counter, routines } from '../reducers'
+import { counter, routines, tasks } from '../reducers'
 import { useAppDispatch } from './internal'
 
 const useStoreDispatch = () => {
@@ -33,6 +33,19 @@ const useStoreDispatch = () => {
       },
       removeAllExpired: () => {
         return dispatch(routines.removeAllExpired())
+      },
+    },
+    tasks: {
+      add: (payload: Payload<typeof tasks.add>) => {
+        return dispatch(tasks.add(payload))
+      },
+      update: (payload: Payload<typeof tasks.update>) => {
+        return dispatch(tasks.update(payload))
+      },
+      promoteToInProgress: (
+        payload: Payload<typeof tasks.promoteToInProgress>
+      ) => {
+        return dispatch(tasks.promoteToInProgress(payload))
       },
     },
   }

@@ -1,15 +1,15 @@
-export enum SingleRoutineStatuses {
+enum SingleRoutineStatuses {
   'ACTIVE' = 'ACTIVE',
   'REMOVED' = 'REMOVED',
   'FUTURE' = 'FUTURE',
 }
 
-export const singleRoutineStatuses = Object.values(SingleRoutineStatuses)
+const singleRoutineStatuses = Object.values(SingleRoutineStatuses)
 
-export type SingleRoutine = {
+type SingleRoutine = {
   name: string
   id: string
-  note: string
+  note: string | undefined
   status: SingleRoutineStatuses
   time: string | undefined
   startDate: string
@@ -22,4 +22,10 @@ type RoutinesState = {
   value: Array<SingleRoutine>
 }
 
-export type { RoutinesState }
+type UpdatePayload = {
+  id: SingleRoutine['id']
+  update: Partial<Omit<SingleRoutine, 'id'>>
+}
+
+export type { RoutinesState, SingleRoutine, UpdatePayload }
+export { singleRoutineStatuses, SingleRoutineStatuses }

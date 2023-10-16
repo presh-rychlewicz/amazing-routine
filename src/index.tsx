@@ -1,11 +1,12 @@
-import React, { StrictMode } from 'react'
+import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { Provider } from 'react-redux'
+import { ThemeProvider } from 'styled-components'
+import App from './App'
 import { store } from './store'
 import './styles/index.css'
-import App from './App'
-import { ThemeProvider } from 'styled-components'
-import { RouteProvider } from './providers'
+
+import { GlobalStyles } from '@mui/joy'
 
 const container = document.getElementById('root')
 if (container) {
@@ -15,9 +16,24 @@ if (container) {
     <StrictMode>
       <Provider store={store}>
         <ThemeProvider theme={{}}>
-          <RouteProvider>
-            <App />
-          </RouteProvider>
+          <GlobalStyles
+            styles={{
+              html: {
+                height: '100%',
+              },
+              body: {
+                height: '100%',
+              },
+              '*': {
+                boxSizing: 'border-box',
+              },
+              '#root': {
+                height: '100%',
+              },
+            }}
+          />
+
+          <App />
         </ThemeProvider>
       </Provider>
     </StrictMode>
