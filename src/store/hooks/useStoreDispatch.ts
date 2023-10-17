@@ -1,29 +1,10 @@
-import { counter, routines, tasks } from '../reducers'
+import { routines, tasks } from '../reducers'
 import { useAppDispatch } from './internal'
 
 const useStoreDispatch = () => {
   const dispatch = useAppDispatch()
 
   return {
-    counter: {
-      decrement: () => {
-        return dispatch(counter.decrement())
-      },
-      increment: () => {
-        return dispatch(counter.increment())
-      },
-      incrementAsync: (payload: Payload<typeof counter.incrementAsync>) => {
-        return dispatch(counter.incrementAsync(payload))
-      },
-      incrementByAmount: (
-        payload: Payload<typeof counter.incrementByAmount>
-      ) => {
-        return dispatch(counter.incrementByAmount(payload))
-      },
-      incrementIfOdd: (payload: Payload<typeof counter.incrementIfOdd>) => {
-        return dispatch(counter.incrementIfOdd(payload))
-      },
-    },
     routines: {
       add: (payload: Payload<typeof routines.add>) => {
         return dispatch(routines.add(payload))
@@ -38,6 +19,9 @@ const useStoreDispatch = () => {
     tasks: {
       add: (payload: Payload<typeof tasks.add>) => {
         return dispatch(tasks.add(payload))
+      },
+      addTime: (payload: Payload<typeof tasks.addTime>) => {
+        return dispatch(tasks.addTime(payload))
       },
       update: (payload: Payload<typeof tasks.update>) => {
         return dispatch(tasks.update(payload))

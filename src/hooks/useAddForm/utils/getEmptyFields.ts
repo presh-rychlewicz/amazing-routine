@@ -1,7 +1,7 @@
 import { Field } from '../../../types'
 
 function getEmptyFields<ValuesT extends {}, FieldsT extends Field<ValuesT>>(
-  fields: FieldsT[],
+  fields: Array<FieldsT>,
   values: ValuesT
 ) {
   const emptyFields = fields

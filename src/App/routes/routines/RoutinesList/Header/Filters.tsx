@@ -3,17 +3,19 @@ import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormGroup from '@mui/material/FormGroup'
 import { Dispatch, FC, SetStateAction } from 'react'
-import { SelectedStatuses } from '..'
-import { singleRoutineStatuses } from '../../../../../store/reducers/routines/types'
+import {
+  SingleRoutineStatuses,
+  singleRoutineStatuses,
+} from '../../../../../store/reducers/routines/types'
 
 type Props = {
-  selectedStatuses: SelectedStatuses
-  setSelectedStatuses: Dispatch<SetStateAction<SelectedStatuses>>
+  selectedStatuses: Array<SingleRoutineStatuses>
+  setSelectedStatuses: Dispatch<SetStateAction<Props['selectedStatuses']>>
 }
 
 const Filters: FC<Props> = ({ selectedStatuses, setSelectedStatuses }) => (
   <Stack marginBottom={1}>
-    <Typography level="title-lg">Status</Typography>
+    <Typography level="title-md">Status</Typography>
 
     <FormGroup>
       {singleRoutineStatuses.map((s) => (

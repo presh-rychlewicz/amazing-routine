@@ -1,14 +1,29 @@
+import { SingleRoutine } from '../store/reducers/routines/types'
+
 const routes = {
   routines: {
     core: 'routines' as const,
     children: {
       index: {
-        relative: '' as const,
-        absolute: 'routines/' as const,
+        relative: '',
+        absolute: 'routines/',
       },
       add: {
-        relative: 'add' as const,
-        absolute: 'routines/add' as const,
+        relative: 'add',
+        absolute: 'routines/add',
+      },
+      details: {
+        relative: ':routineId',
+        absolute: (routineId: SingleRoutine['id']) => `routines/${routineId}`,
+      },
+    },
+  },
+  pilot: {
+    core: 'pilot' as const,
+    children: {
+      index: {
+        relative: '',
+        absolute: 'pilot/',
       },
     },
   },
@@ -16,12 +31,12 @@ const routes = {
     core: 'tasks' as const,
     children: {
       index: {
-        relative: '' as const,
-        absolute: 'tasks/' as const,
+        relative: '',
+        absolute: 'tasks/',
       },
       add: {
-        relative: 'add' as const,
-        absolute: 'tasks/add' as const,
+        relative: 'add',
+        absolute: 'tasks/add',
       },
     },
   },
@@ -33,6 +48,9 @@ type Field<ValuesT extends Record<string, any>> = {
   key: keyof ValuesT
   type: 'text' | 'number' | 'date' | 'time'
   required?: true
+  autofocus?: true
 }
+
+type Id = string
 export { routes }
-export type { Field, View }
+export type { Field, Id, View }

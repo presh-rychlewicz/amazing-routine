@@ -8,6 +8,8 @@ const initialState: TasksState = {
       note: undefined,
       routineId: undefined,
       routineMeta: undefined,
+      duration: 8,
+      order: 999,
     },
     {
       id: 'f1e1b779-8db2-45fb-b5b1-50d0c77b79f8',
@@ -15,6 +17,8 @@ const initialState: TasksState = {
       note: 'Lorem ipsum tere fere',
       routineId: '4ab22046-829a-448f-9626-90a0495a4d88',
       routineMeta: { status: 'NEW' },
+      duration: undefined,
+      order: 999,
     },
     {
       id: '9e3bce7e-2b62-4e1a-a5e3-546f737c0ef5',
@@ -22,6 +26,8 @@ const initialState: TasksState = {
       note: 'Lorem ipsum tere fere',
       routineId: '4ab22046-829a-448f-9626-90a0495a4d88',
       routineMeta: { status: 'NEW' },
+      duration: 20,
+      order: 999,
     },
     {
       id: 'b750ae65-1528-4f54-8a8d-d29705bac9b8',
@@ -29,6 +35,8 @@ const initialState: TasksState = {
       note: 'Lorem ipsum tere fere',
       routineId: '4ab22046-829a-448f-9626-90a0495a4d88',
       routineMeta: { status: 'NEW' },
+      duration: 1,
+      order: 999,
     },
   ],
 }

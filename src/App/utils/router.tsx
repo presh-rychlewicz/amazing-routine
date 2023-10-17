@@ -5,6 +5,7 @@ import { routes } from '../../types'
 import {
   AddRoutine,
   AddTask,
+  Pilot,
   RoutineDetails,
   RoutinesList,
   TasksList,
@@ -16,6 +17,15 @@ const router = createHashRouter([
     element: <Navigate to={routes.routines.core} replace={true} />,
   },
   {
+    path: routes.pilot.core,
+    children: [
+      {
+        index: true,
+        element: <Pilot />,
+      },
+    ],
+  },
+  {
     path: routes.routines.core,
     children: [
       {
@@ -23,7 +33,7 @@ const router = createHashRouter([
         element: <RoutinesList />,
       },
       {
-        path: ':routineId',
+        path: routes.routines.children.details.relative,
         element: <RoutineDetails />,
       },
       {

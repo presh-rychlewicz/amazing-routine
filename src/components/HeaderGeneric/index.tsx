@@ -1,31 +1,64 @@
-import { Stack } from '@mui/joy'
+import { Grid } from '@mui/joy'
 import { FC } from 'react'
-import getElement, { ElementVariant } from './getElement'
+import SingleElement from './SingleElement'
+import { ElementVariant, getElement } from './utils'
 
 type Props = {
-  left?: ElementVariant
-  right?: ElementVariant
+  topLeft?: ElementVariant
+  topRight?: ElementVariant | Array<ElementVariant>
+  bottomLeft?: ElementVariant
+  bottomRight?: ElementVariant | Array<ElementVariant>
 }
 
-const HeaderGeneric: FC<Props> = ({ left, right }) => {
-  if (!left && !right) {
+const HeaderGeneric: FC<Props> = ({
+  topLeft,
+  topRight,
+  bottomLeft,
+  bottomRight,
+}) => {
+  if (!topLeft && !topRight && !bottomLeft && !bottomRight) {
     return null
   }
 
-  const leftElem = getElement(left)
-  const rightElem = getElement(right)
+  const topLeftElem = getElement(topLeft)
+  const topRightElem = getElement(topRight)
+  const bottomLeftElem = getElement(bottomLeft)
+  const bottomRightElem = getElement(bottomRight)
+
+  const hasBottom = bottomLeftElem || bottomRightElem
 
   return (
-    <Stack
-      alignItems="center"
-      direction="row"
-      justifyContent="space-between"
-      marginBottom={1}
+    <Grid
+      display="grid"
+      gridTemplateColumns="repeat(2, 1fr)"
+      gridTemplateRows={`repeat(${hasBottom ? 2 : 1}, auto)`}
+      gridTemplateAreas={`
+          'top-left top-right'
+          'bottom-left bottom-right'
+        `}
+      marginBottom={2}
     >
-      {leftElem}
+      <SingleElement element={topLeftElem} gridArea="top-left" />
 
-      {rightElem}
-    </Stack>
+      <SingleElement
+        element={topRightElem}
+        justifySelf="end"
+        gridArea="top-right"
+      />
+
+      <SingleElement
+        element={bottomLeftElem}
+        alignSelf="end"
+        gridArea="bottom-left"
+      />
+
+      <SingleElement
+        element={bottomRightElem}
+        justifySelf="end"
+        alignSelf="end"
+        gridArea="bottom-right"
+      />
+    </Grid>
   )
 }
 

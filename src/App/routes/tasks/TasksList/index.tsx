@@ -1,9 +1,8 @@
 import { Stack } from '@mui/joy'
+import { EmptyState, Route } from '../../../../components'
 import { useStoreState } from '../../../../store'
-import Route from '../../Route'
 import Header from './Header'
 import Task from './Task'
-import { EmptyState } from '../../../../components'
 
 const TasksList = () => {
   const storeState = useStoreState()

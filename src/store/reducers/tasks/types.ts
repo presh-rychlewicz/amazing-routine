@@ -1,3 +1,6 @@
+import { Id } from '../../../types'
+import { SingleRoutine } from '../routines/types'
+
 const routineMetaStatuses = ['IN_PROGRESS', 'NEW'] as const
 
 type RoutineMetaStatus = (typeof routineMetaStatuses)[number]
@@ -6,13 +9,16 @@ type RoutineMeta = {
   status: RoutineMetaStatus
 }
 
+// TODO: add context
 type SingleTask = {
-  id: string
+  id: Id
   name: string
   note: string | undefined
+  duration: number | undefined
+  order: number
 } & (
   | {
-      routineId: string
+      routineId: SingleRoutine['id']
       routineMeta: RoutineMeta
     }
   | {

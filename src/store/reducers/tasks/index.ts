@@ -2,6 +2,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import initialState from './initialState'
 import selectTasks from './selectTasks'
 import promoteToInProgress from './promoteToInProgress'
+import addTime from './addTime'
 import { SingleTask, UpdatePayload } from './types'
 
 const tasksSlice = createSlice({
@@ -10,12 +11,16 @@ const tasksSlice = createSlice({
   reducers: {
     add: (
       state,
-      { payload }: PayloadAction<Omit<SingleTask, 'id' | 'routineMeta'>>
+      {
+        payload,
+      }: PayloadAction<Omit<SingleTask, 'id' | 'routineMeta' | 'order'>>
     ) => {
       const newTaskBase: Omit<SingleTask, 'routineId' | 'routineMeta'> = {
         id: crypto.randomUUID(),
         name: payload.name,
         note: payload.note,
+        duration: payload.duration,
+        order: 999,
       }
       const newTask: SingleTask = {
         ...newTaskBase,
@@ -53,6 +58,7 @@ const { add, update } = tasksSlice.actions
 const tasksReducer = tasksSlice.reducer
 const tasks = {
   add,
+  addTime,
   promoteToInProgress,
   selectTasks,
   update,

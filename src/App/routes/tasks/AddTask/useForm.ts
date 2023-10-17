@@ -16,6 +16,8 @@ const useForm = (returnPath: string | undefined) => {
           name: values.name,
           note: values.note || undefined,
           routineId: state && state.routineId ? state.routineId : undefined,
+          duration:
+            values.duration !== '' ? parseInt(values.duration) : undefined,
         }),
       pathToGoAfterSubmitting: returnPath,
     })
@@ -32,18 +34,24 @@ const useForm = (returnPath: string | undefined) => {
 type Values = {
   name: string
   note: string
+  duration: string
 }
 
 const initialValues: Values = {
   name: '',
   note: '',
+  duration: '',
 }
 
-const fields: Field<Values>[] = [
+const fields: Array<Field<Values>> = [
   {
     key: 'name',
     type: 'text',
     required: true,
+  },
+  {
+    key: 'duration',
+    type: 'number',
   },
   {
     key: 'note',

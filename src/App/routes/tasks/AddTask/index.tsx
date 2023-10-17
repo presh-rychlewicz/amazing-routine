@@ -1,17 +1,23 @@
 import { Stack } from '@mui/joy'
-import { FormField, HeaderGeneric, SubmitButton } from '../../../../components'
-import { getFieldLabel } from '../../../../utils'
-import Route from '../../Route'
-import useForm, { fields } from './useForm'
 import { useLocation } from 'react-router-dom'
+import {
+  FormField,
+  HeaderGeneric,
+  Route,
+  SubmitButton,
+} from '../../../../components'
 import { useNavigate } from '../../../../hooks'
 import { routes } from '../../../../types'
+import { getFormFieldProps } from '../../../../utils'
+import useForm, { fields } from './useForm'
 
 const AddTask = () => {
   const { state } = useLocation()
   const navigate = useNavigate()
   const returnPath =
-    state && state.returnPath ? state.returnPath.slice(1) : routes.tasks.core
+    state && state.returnPath
+      ? state.returnPath.slice(1)
+      : routes.tasks.children.index.absolute
 
   const { error, isSubmitting, values, handleSubmit, setValues } =
     useForm(returnPath)
@@ -19,39 +25,28 @@ const AddTask = () => {
   return (
     <Route>
       <HeaderGeneric
-        left={{
+        topLeft={{
           type: 'TEXT',
           content: 'Add task',
           level: 'h4',
         }}
-        right={{
+        topRight={{
           type: 'X_BUTTON',
           onClick: () => navigate(returnPath),
         }}
       />
 
       <Stack spacing={1} component="form" onSubmit={(e) => e.preventDefault()}>
-        {fields.map(({ key, type, required }) => {
-          const isError = error?.[0] === key
-
-          return (
-            <FormField
-              errorMessage={isError ? error?.[1] || 'Unknown error' : undefined}
-              isRequired={required}
-              isError={isError}
-              onChange={(event) =>
-                setValues((prev) => ({
-                  ...prev,
-                  [key]: event.target.value,
-                }))
-              }
-              value={values[key]}
-              key={key}
-              label={getFieldLabel(key)}
-              isDisabled={isSubmitting}
-              type={type}
-            />
+        {fields.map((field) => {
+          const formFieldProps = getFormFieldProps<typeof values, typeof field>(
+            error,
+            field,
+            values,
+            setValues,
+            isSubmitting
           )
+
+          return <FormField {...formFieldProps} />
         })}
 
         <SubmitButton label="Add" handleSubmit={handleSubmit} />

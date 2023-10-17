@@ -1,3 +1,5 @@
+import { Id } from '../../../types'
+
 enum SingleRoutineStatuses {
   'ACTIVE' = 'ACTIVE',
   'REMOVED' = 'REMOVED',
@@ -8,7 +10,7 @@ const singleRoutineStatuses = Object.values(SingleRoutineStatuses)
 
 type SingleRoutine = {
   name: string
-  id: string
+  id: Id
   note: string | undefined
   status: SingleRoutineStatuses
   time: string | undefined

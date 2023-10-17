@@ -19,7 +19,7 @@ const useForm = () => {
           endDate: values.endDate,
           interval: parseInt(values.interval),
         }),
-      pathToGoAfterSubmitting: routes.routines.core,
+      pathToGoAfterSubmitting: routes.routines.children.index.absolute,
     })
 
   return {
@@ -51,7 +51,7 @@ const initialValues: Values = {
   interval: '1',
 }
 
-const fields: Field<Values>[] = [
+const fields: Array<Field<Values>> = [
   {
     key: 'name',
     type: 'text',

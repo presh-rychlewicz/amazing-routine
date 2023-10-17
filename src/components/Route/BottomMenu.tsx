@@ -2,8 +2,8 @@ import LoopIcon from '@mui/icons-material/Loop'
 import TaskIcon from '@mui/icons-material/Task'
 import { IconButton, Stack } from '@mui/joy'
 import { ReactNode } from 'react'
-import { useNavigate } from '../../../hooks'
-import { View, routes } from '../../../types'
+import { useNavigate } from '../../hooks'
+import { View, routes } from '../../types'
 
 const BottomMenu = () => {
   const navigate = useNavigate()

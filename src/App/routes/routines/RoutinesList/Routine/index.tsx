@@ -22,12 +22,12 @@ const Routine: FC<Props> = ({ shouldShowStatus, routine }) => {
         )}
 
         <HeaderGeneric
-          left={{
+          topLeft={{
             type: 'TEXT',
             content: routine.name,
             level: 'h4',
           }}
-          right={{
+          topRight={{
             type: 'COMPONENT',
             content: <Options id={routine.id} status={routine.status} />,
           }}

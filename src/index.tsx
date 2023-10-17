@@ -7,6 +7,12 @@ import { store } from './store'
 import './styles/index.css'
 
 import { GlobalStyles } from '@mui/joy'
+import dayjs from 'dayjs'
+import duration from 'dayjs/plugin/duration'
+import relativeTime from 'dayjs/plugin/relativeTime'
+
+dayjs.extend(duration)
+dayjs.extend(relativeTime)
 
 const container = document.getElementById('root')
 if (container) {

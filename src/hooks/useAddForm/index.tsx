@@ -5,11 +5,12 @@ import { clearForm, getEmptyFields } from './utils'
 
 function useAddForm<ValuesT extends Record<string, unknown>>(
   initialValues: ValuesT,
-  fields: Field<ValuesT>[]
+  fields: Array<Field<ValuesT>>
 ) {
   const navigate = useNavigate()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [error, setError] = useState<[keyof ValuesT, string]>()
+
+  const [error, setError] = useState<FormError<ValuesT>>()
   const [values, setValues] = useState<ValuesT>(initialValues)
 
   const getHandleSubmit = (params: GetHandleSubmitParams) => {
@@ -58,5 +59,7 @@ type GetHandleSubmitParams = {
   actualJob: () => void
   pathToGoAfterSubmitting: string | undefined
 }
+
+export type FormError<ValuesT> = [keyof ValuesT, string] | undefined
 
 export default useAddForm

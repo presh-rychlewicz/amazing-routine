@@ -11,6 +11,7 @@ type Props = {
   isError?: boolean
   isRequired?: boolean
   label: string
+  autoFocus?: boolean
   onChange: (e: ChangeEvent<HTMLInputElement>) => void
 } & (
   | {
@@ -29,6 +30,7 @@ type Props = {
 )
 
 const FormField: FC<Props> = ({
+  autoFocus,
   errorMessage,
   isDisabled,
   isError,
@@ -43,6 +45,8 @@ const FormField: FC<Props> = ({
   if (['number', 'time', 'text', 'date'].includes(type)) {
     content = (
       <Input
+        // TODO: this seems to not work
+        autoFocus={autoFocus}
         disabled={isDisabled}
         required={isRequired}
         value={value}

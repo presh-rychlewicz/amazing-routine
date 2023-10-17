@@ -6,6 +6,7 @@ import {
   DialogTitle,
   Divider,
   Modal,
+  ModalClose,
   ModalDialog,
 } from '@mui/joy'
 import { ModalData } from '.'
@@ -22,12 +23,14 @@ const RemoveModal: FC<Props> = ({ modalData, setModalData }) => {
   }
 
   return (
-    <Modal open={!!modalData}>
+    <Modal open={!!modalData} onClose={() => setModalData(undefined)}>
       <ModalDialog variant="outlined" role="alertdialog">
         <DialogTitle>
           <WarningRoundedIcon />
           Confirmation
         </DialogTitle>
+
+        <ModalClose variant="plain" sx={{ m: 1 }} />
 
         <Divider />
 

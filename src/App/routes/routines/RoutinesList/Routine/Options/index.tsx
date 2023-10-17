@@ -22,7 +22,8 @@ const Options: FC<Props> = ({ id, status }) => {
 
     options.push({
       children: 'Edit',
-      onClick: () => navigate('TODO'),
+      // TODO
+      onClick: () => navigate(''),
       disabled: true,
     })
 

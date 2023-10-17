@@ -2,11 +2,7 @@ import { Button, IconButton, Typography, TypographySystem } from '@mui/joy'
 import { ReactNode } from 'react'
 import CloseIcon from '@mui/icons-material/Close'
 
-const getElement = (elementVariant: ElementVariant | undefined) => {
-  if (!elementVariant) {
-    return null
-  }
-
+const handleSingleElement = (elementVariant: ElementVariant) => {
   switch (elementVariant.type) {
     case 'BUTTON':
       return (
@@ -38,7 +34,7 @@ const getElement = (elementVariant: ElementVariant | undefined) => {
 
     case 'X_BUTTON':
       return (
-        <IconButton onClick={elementVariant.onClick}>
+        <IconButton size={elementVariant.size} onClick={elementVariant.onClick}>
           <CloseIcon />
         </IconButton>
       )
@@ -47,7 +43,7 @@ const getElement = (elementVariant: ElementVariant | undefined) => {
       return elementVariant.content
 
     default:
-      return <p>TODO</p>
+      return <Typography>Unhandled case</Typography>
   }
 }
 
@@ -76,7 +72,8 @@ type ElementVariant =
   | {
       type: 'X_BUTTON'
       onClick: () => void
+      size?: 'sm' | 'md' | 'lg'
     }
 
-export default getElement
+export default handleSingleElement
 export type { ElementVariant }

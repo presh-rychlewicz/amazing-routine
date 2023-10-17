@@ -1,27 +1,25 @@
-import { Stack } from '@mui/joy'
 import { FC, useState } from 'react'
-import { EmptyState } from '../../../../components'
+import { Route } from '../../../../components'
 import { useStoreState } from '../../../../store'
 import {
-  SingleRoutine,
+  SingleRoutineStatuses,
   singleRoutineStatuses,
 } from '../../../../store/reducers/routines/types'
-import Route from '../../Route'
+import Body from './Body'
 import Header from './Header'
-import Routine from './Routine'
 
 const RoutinesList: FC = () => {
   const storeState = useStoreState()
-  const [selectedStatuses, setSelectedStatuses] = useState<SelectedStatuses>(
+  const [selectedStatuses, setSelectedStatuses] = useState<
+    Array<SingleRoutineStatuses>
+  >(
+    // TODO: this doesn't make sense - status should become enum
     singleRoutineStatuses.filter((a) => a === 'ACTIVE') as Writeable<
       typeof singleRoutineStatuses
     >
   )
 
-  const disibleRoutines = storeState.routines.filter((r) =>
-    selectedStatuses.includes(r.status)
-  )
-  const hasAnyRoutines = !!disibleRoutines.length
+  const statusRoutines = storeState.getRoutinesByStatuses(selectedStatuses)
   const shouldShowStatus = selectedStatuses.length > 1
 
   return (
@@ -31,24 +29,11 @@ const RoutinesList: FC = () => {
         setSelectedStatuses={setSelectedStatuses}
       />
 
-      {hasAnyRoutines ? (
-        <Stack spacing={1}>
-          {disibleRoutines.map((routine) => (
-            <Routine
-              key={routine.id}
-              shouldShowStatus={shouldShowStatus}
-              routine={routine}
-            />
-          ))}
-        </Stack>
-      ) : (
-        <EmptyState message="No routines yet :(" />
-      )}
+      <Body shouldShowStatus={shouldShowStatus} routines={statusRoutines} />
     </Route>
   )
 }
 
 type Writeable<T> = { -readonly [P in keyof T]: T[P] }
-export type SelectedStatuses = Array<SingleRoutine['status']>
 
 export default RoutinesList
