@@ -3,11 +3,7 @@ import { Dropdown, IconButton, Menu, MenuButton, MenuItem } from '@mui/joy'
 import { FC, Fragment, PropsWithChildren } from 'react'
 
 type Props = {
-  options: Array<{
-    onClick: () => void
-    children: string
-    disabled?: boolean
-  }>
+  options: Array<OptionsGenericElement>
 }
 
 const OptionsGeneric: FC<PropsWithChildren<Props>> = ({
@@ -25,7 +21,7 @@ const OptionsGeneric: FC<PropsWithChildren<Props>> = ({
         }}
         slotProps={{
           root: {
-            size: 'sm',
+            size: 'md',
             variant: 'soft',
           },
         }}
@@ -45,4 +41,11 @@ const OptionsGeneric: FC<PropsWithChildren<Props>> = ({
   )
 }
 
+type OptionsGenericElement = {
+  onClick: () => void
+  children: string
+  disabled?: boolean
+}
+
 export default OptionsGeneric
+export type { OptionsGenericElement }

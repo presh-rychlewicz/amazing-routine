@@ -1,19 +1,16 @@
-import { Action, ThunkAction, configureStore } from '@reduxjs/toolkit'
-import { routinesReducer, tasksReducer } from './reducers'
-export * from './hooks'
+import { configureStore } from '@reduxjs/toolkit'
+import reducer from './reducer'
 
-export const store = configureStore({
-  reducer: {
-    routines: routinesReducer,
-    tasks: tasksReducer,
-  },
+import { loadFromLocalStorage, saveToLocalStorage } from './utils'
+
+const preloadedState = loadFromLocalStorage()
+const store = configureStore({
+  preloadedState,
+  reducer,
 })
 
-export type AppDispatch = typeof store.dispatch
-export type RootState = ReturnType<typeof store.getState>
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->
+store.subscribe(() => saveToLocalStorage(store.getState()))
+
+export default store
+export * from './hooks'
+export * from './reducer'

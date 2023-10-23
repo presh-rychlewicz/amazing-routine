@@ -1,4 +1,4 @@
-import { Field } from '../../../types'
+import { Field } from 'schemas'
 
 function getEmptyFields<ValuesT extends {}, FieldsT extends Field<ValuesT>>(
   fields: Array<FieldsT>,
@@ -11,9 +11,9 @@ function getEmptyFields<ValuesT extends {}, FieldsT extends Field<ValuesT>>(
       const value = values[key]
 
       return {
-        key: key,
-        value: value,
         isEmpty: !value,
+        key,
+        value,
       }
     })
     .filter((f) => f.isEmpty)

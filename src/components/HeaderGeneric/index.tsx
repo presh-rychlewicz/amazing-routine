@@ -1,14 +1,9 @@
 import { Grid } from '@mui/joy'
 import { FC } from 'react'
-import SingleElement from './SingleElement'
-import { ElementVariant, getElement } from './utils'
+import { CommonElementProps } from '../CommonElement'
+import { Area } from './components'
 
-type Props = {
-  topLeft?: ElementVariant
-  topRight?: ElementVariant | Array<ElementVariant>
-  bottomLeft?: ElementVariant
-  bottomRight?: ElementVariant | Array<ElementVariant>
-}
+type Props = PropsBase
 
 const HeaderGeneric: FC<Props> = ({
   topLeft,
@@ -20,46 +15,55 @@ const HeaderGeneric: FC<Props> = ({
     return null
   }
 
-  const topLeftElem = getElement(topLeft)
-  const topRightElem = getElement(topRight)
-  const bottomLeftElem = getElement(bottomLeft)
-  const bottomRightElem = getElement(bottomRight)
-
-  const hasBottom = bottomLeftElem || bottomRightElem
+  const hasBottom = !!(bottomLeft || bottomRight)
 
   return (
     <Grid
+      component="header"
       display="grid"
       gridTemplateColumns="repeat(2, 1fr)"
       gridTemplateRows={`repeat(${hasBottom ? 2 : 1}, auto)`}
       gridTemplateAreas={`
-          'top-left top-right'
-          'bottom-left bottom-right'
+          '${GRID_AREA.tl} ${GRID_AREA.tr}'
+          '${GRID_AREA.bl} ${GRID_AREA.br}'
         `}
-      marginBottom={2}
     >
-      <SingleElement element={topLeftElem} gridArea="top-left" />
+      <Area elementVariant={topLeft} gridArea={GRID_AREA.tl} />
 
-      <SingleElement
-        element={topRightElem}
+      <Area
+        elementVariant={topRight}
+        gridArea={GRID_AREA.tr}
         justifySelf="end"
-        gridArea="top-right"
       />
 
-      <SingleElement
-        element={bottomLeftElem}
+      <Area
+        elementVariant={bottomLeft}
+        gridArea={GRID_AREA.bl}
         alignSelf="end"
-        gridArea="bottom-left"
       />
 
-      <SingleElement
-        element={bottomRightElem}
+      <Area
+        elementVariant={bottomRight}
+        gridArea={GRID_AREA.br}
         justifySelf="end"
         alignSelf="end"
-        gridArea="bottom-right"
       />
     </Grid>
   )
 }
 
+const GRID_AREA = {
+  bl: 'bottom-left',
+  br: 'bottom-right',
+  tl: 'top-left',
+  tr: 'top-right',
+}
+
+type PropsBase = {
+  [key in 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight']?:
+    | CommonElementProps
+    | Array<CommonElementProps>
+}
+
 export default HeaderGeneric
+export type { CommonElementProps }

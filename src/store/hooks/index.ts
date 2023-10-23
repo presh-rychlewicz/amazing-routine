@@ -1,2 +1,2 @@
-export { default as useStoreState } from './useStoreState'
-export { default as useStoreDispatch } from './useStoreDispatch'
+export { default as useAppSelector } from './useAppSelector'
+export { default as useAppDispatch } from './useAppDispatch'

@@ -1,16 +1,21 @@
+import { useStoreDispatch } from 'hooks'
 import { useEffect } from 'react'
-import { RouterProvider } from 'react-router-dom'
-import { useStoreDispatch } from '../store'
-import { router } from './utils'
+import { HashRouter } from 'react-router-dom'
+import { Routes } from './components'
 
 const App = () => {
   const storeDispatch = useStoreDispatch()
 
   useEffect(() => {
     storeDispatch.routines.removeAllExpired()
-  }, [storeDispatch.routines])
+    storeDispatch.tasks.fixDurationInSeconds()
+  }, [storeDispatch.routines, storeDispatch.tasks])
 
-  return <RouterProvider router={router} />
+  return (
+    <HashRouter>
+      <Routes />
+    </HashRouter>
+  )
 }
 
 export default App
