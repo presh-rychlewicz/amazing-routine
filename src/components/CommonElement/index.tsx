@@ -1,27 +1,21 @@
 import CloseIcon from '@mui/icons-material/Close'
-import { Button, IconButton, Typography, TypographySystem } from '@mui/joy'
-import { DefaultVariantProp } from '@mui/joy/styles/types'
-import { FC, ReactNode } from 'react'
+import { Typography, TypographySystem } from '@mui/joy'
+import { FC } from 'react'
+import ButtonElement, { ButtonElementProps } from './ButtonElement'
+import IconButtonElement, { IconButtonElementProps } from './IconButtonElement'
 
 type CommonElementProps = { isVisible?: boolean } & (
-  | {
+  | ({
       type: 'BUTTON'
-      label: string
-      disabled?: boolean
-      onClick: () => void
-    }
+    } & ButtonElementProps)
   | {
       type: 'TEXT'
       level: keyof TypographySystem
       content: string
     }
-  | {
+  | ({
       type: 'ICON_BUTTON'
-      disabled?: boolean
-      icon: ReactNode
-      variant?: DefaultVariantProp
-      onClick: () => void
-    }
+    } & IconButtonElementProps)
   | {
       type: 'COMPONENT'
       content: JSX.Element
@@ -29,7 +23,6 @@ type CommonElementProps = { isVisible?: boolean } & (
   | {
       type: 'X_BUTTON'
       onClick: () => void
-      size?: 'sm' | 'md' | 'lg'
     }
 )
 
@@ -43,37 +36,16 @@ const CommonElement: FC<CommonElementProps> = ({
 
   switch (props.type) {
     case 'BUTTON':
-      return (
-        <Button
-          variant="soft"
-          size="sm"
-          disabled={props.disabled}
-          onClick={props.onClick}
-        >
-          {props.label}
-        </Button>
-      )
+      return <ButtonElement {...props} />
 
     case 'TEXT':
       return <Typography level={props.level}>{props.content}</Typography>
 
     case 'ICON_BUTTON':
-      return (
-        <IconButton
-          disabled={props.disabled}
-          variant={props.variant}
-          onClick={props.onClick}
-        >
-          {props.icon}
-        </IconButton>
-      )
+      return <IconButtonElement {...props} />
 
     case 'X_BUTTON':
-      return (
-        <IconButton size={props.size} onClick={props.onClick}>
-          <CloseIcon />
-        </IconButton>
-      )
+      return <IconButtonElement onClick={props.onClick} icon={<CloseIcon />} />
 
     case 'COMPONENT':
       return props.content
@@ -84,4 +56,4 @@ const CommonElement: FC<CommonElementProps> = ({
 }
 
 export default CommonElement
-export type { CommonElementProps }
+export type { ButtonElementProps, CommonElementProps, IconButtonElementProps }

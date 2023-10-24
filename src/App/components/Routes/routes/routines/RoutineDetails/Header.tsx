@@ -1,11 +1,10 @@
-import { HeaderGeneric } from 'components'
-import { FC } from 'react'
-import { SingleRoutine, StatusDataElem } from 'schemas'
-import Options from './Options'
 import SettingsIcon from '@mui/icons-material/Settings'
-import { presentScore } from 'utils'
+import { HeaderGeneric } from 'components'
 import { paths } from 'config'
 import { useNavigate } from 'hooks'
+import { FC } from 'react'
+import { SingleRoutine, StatusDataElem } from 'schemas'
+import { presentScore } from 'utils'
 
 type Props = Pick<SingleRoutine, 'name' | 'score'> & {
   statusData: Array<StatusDataElem>
@@ -26,10 +25,6 @@ const Header: FC<Props> = ({ statusData, name, score }) => {
         type: 'TEXT',
       }}
       topRight={[
-        {
-          content: <Options hasAnyTasksInProgress={hasAnyTasksInProgress} />,
-          type: 'COMPONENT',
-        },
         {
           disabled: true,
           icon: <SettingsIcon />,

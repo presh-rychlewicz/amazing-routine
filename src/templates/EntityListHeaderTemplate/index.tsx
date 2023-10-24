@@ -3,9 +3,10 @@ import { paths } from 'config'
 import { useNavigate } from 'hooks'
 // import Sorting from './Sorting'
 import { UseListControlsReturn } from 'hooks/useListControls'
-import FiltersTemplate from 'templates/FiltersTemplate'
+import Filters from './Filters'
 
-type Props<FiltersShapeT> = UseListControlsReturn<FiltersShapeT>
+type Props<FiltersShapeT> =
+  UseListControlsReturn<FiltersShapeT>['listHeaderProps']
 
 function EntityListHeaderTemplateTemplate<FiltersShapeT>(
   props: Props<FiltersShapeT>
@@ -27,7 +28,7 @@ function EntityListHeaderTemplateTemplate<FiltersShapeT>(
 
       {/* {props.shouldShowSorting && <Sorting />} */}
 
-      <FiltersTemplate
+      <Filters
         shouldShowFilters={props.shouldShowFilters}
         onClose={props.toggleFilters}
         filters={props.filtersConfig}

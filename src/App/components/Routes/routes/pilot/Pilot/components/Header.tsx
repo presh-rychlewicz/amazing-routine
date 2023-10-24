@@ -24,7 +24,6 @@ const Header: FC<Props> = ({ routineId }) => {
       topRight={{
         onClick: () =>
           navigate(paths.routines.children.details.absolute(routineId)),
-        size: 'lg',
         type: 'X_BUTTON',
       }}
     />

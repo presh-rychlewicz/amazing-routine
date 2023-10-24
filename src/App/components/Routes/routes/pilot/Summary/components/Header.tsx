@@ -7,6 +7,11 @@ const Header = () => (
       level: 'h3',
       type: 'TEXT',
     }}
+    topRight={{
+      // TODO
+      onClick: () => null,
+      type: 'X_BUTTON',
+    }}
   />
 )
 

@@ -4,7 +4,8 @@ import LoopIcon from '@mui/icons-material/Loop'
 import MapIcon from '@mui/icons-material/Map'
 import SettingsIcon from '@mui/icons-material/Settings'
 import TaskIcon from '@mui/icons-material/Task'
-import { IconButton, Stack } from '@mui/joy'
+import { Stack } from '@mui/joy'
+import IconButtonElement from 'components/CommonElement/IconButtonElement'
 import { paths } from 'config'
 import { useNavigate } from 'hooks'
 import { ReactNode } from 'react'
@@ -25,17 +26,15 @@ const BottomMenu = () => {
       justifyContent="space-between"
     >
       {menuItems.map((menuItem, index) => (
-        <IconButton
+        <IconButtonElement
           key={index}
           disabled={menuItem.disabled}
-          size="lg"
-          sx={{ width: '100%' }}
+          fullWidth
           // TODO: test and replace to final one
-          title="test-title"
-          {...(menuItem.view && { onClick: () => navigate(menuItem.view) })}
-        >
-          {menuItem.icon}
-        </IconButton>
+          // title="test-title"
+          icon={menuItem.icon}
+          onClick={() => (menuItem.view ? navigate(menuItem.view) : null)}
+        />
       ))}
     </Stack>
   )

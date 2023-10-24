@@ -2,8 +2,10 @@ import { Route } from 'components'
 import { paths } from 'config'
 import { useStoreState } from 'hooks'
 import { Navigate, useParams } from 'react-router-dom'
-import { Body, Header } from './components'
+import Body from './Body'
+import Header from './Header'
 import { getStatusData } from './utils'
+import Footer from './Footer'
 
 const RoutineDetails = () => {
   const { routineId } = useParams()
@@ -21,6 +23,10 @@ const RoutineDetails = () => {
   const routineTasks = storeState.getActiveTasksByRoutineId(routineId)
   const statusData = getStatusData(routineTasks)
 
+  const inProgressTasks =
+    statusData.find((s) => s.status === 'IN_PROGRESS')?.tasks ?? []
+  const hasAnyTasksInProgress = Boolean(inProgressTasks.length)
+
   return (
     <Route>
       <Header
@@ -30,6 +36,8 @@ const RoutineDetails = () => {
       />
 
       <Body pastRuns={thisRoutine.pastRuns} statusData={statusData} />
+
+      <Footer hasAnyTasksInProgress={hasAnyTasksInProgress} />
     </Route>
   )
 }

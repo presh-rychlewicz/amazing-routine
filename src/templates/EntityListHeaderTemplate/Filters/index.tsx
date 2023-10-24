@@ -8,17 +8,11 @@ type Props = {
   shouldShowFilters: boolean
 }
 
-const FiltersTemplate: FC<Props> = ({
-  shouldShowFilters,
-  filters,
-  onClose,
-}) => {
+const Filters: FC<Props> = ({ shouldShowFilters, filters, onClose }) => {
   const hasAnyFilters = filters.length
   if (!hasAnyFilters) {
     return null
   }
-
-  console.log(filters)
 
   return (
     <Drawer
@@ -54,5 +48,5 @@ type SingleFilter = SingleFilterProps & {
   label: string
 }
 
-export default FiltersTemplate
+export default Filters
 export type { SingleFilterProps }

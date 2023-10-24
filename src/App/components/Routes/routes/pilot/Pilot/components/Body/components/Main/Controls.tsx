@@ -4,7 +4,8 @@ import ListIcon from '@mui/icons-material/List'
 import PauseIcon from '@mui/icons-material/Pause'
 import PlayArrowIcon from '@mui/icons-material/PlayArrow'
 import SkipNextIcon from '@mui/icons-material/SkipNext'
-import { ColorPaletteProp, IconButton, Stack, VariantProp } from '@mui/joy'
+import { ColorPaletteProp, Stack, VariantProp } from '@mui/joy'
+import IconButtonElement from 'components/CommonElement/IconButtonElement'
 import { FC, ReactNode } from 'react'
 import { CLOCK_SIZE } from './Clock'
 
@@ -68,20 +69,9 @@ const Controls: FC<Props> = ({
       alignItems="center"
       justifyContent="space-between"
     >
-      {controlButtons.map(
-        ({ variant, color, onClick, disabled, icon }, index) => (
-          <IconButton
-            key={index}
-            onClick={onClick}
-            variant={variant ?? 'soft'}
-            disabled={disabled}
-            size="lg"
-            color={color}
-          >
-            {icon}
-          </IconButton>
-        )
-      )}
+      {controlButtons.map((b, index) => (
+        <IconButtonElement variant="soft" {...b} key={index} />
+      ))}
     </Stack>
   )
 }

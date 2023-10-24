@@ -1,8 +1,12 @@
 IN PROGRESS:
-...
+
 
 BUGS:
 - addRoutine: days checkboxes are not working
+
+
+TECH DEBT:
+-
 
 
 FEATURES:
@@ -17,6 +21,7 @@ UNDER TESTS:
 
 
 DONE:
+- add main to each list
 - routineDetails: deleted tasks appear on the list 
 - enable filters by status in contexts
 - contextList: missing filtering by status

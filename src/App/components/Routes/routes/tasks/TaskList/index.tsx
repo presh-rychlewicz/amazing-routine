@@ -7,22 +7,23 @@ import Task from './Task'
 
 const TaskList = () => {
   const storeState = useStoreState()
-  const useListControlsReturn = useListControls({
-    disableAddButton: true,
-    disableOptions: true,
-    disableSorting: true,
-    entityType: 'task',
-    filtersConfigFn: (filters, setFilters) => [
-      {
-        label: 'Status',
-        options: singleTaskStatusEnum.options.map((o) =>
-          getSingleFilterMultiTypeOption(o, filters, 'status', setFilters)
-        ),
-        type: 'MULTI',
-      },
-    ],
-    initialFiltersState,
-  })
+  const { listBodyProps, listHeaderProps, ...useListControlsReturn } =
+    useListControls({
+      disableAddButton: true,
+      disableOptions: true,
+      disableSorting: true,
+      entityType: 'task',
+      filtersConfigFn: (filters, setFilters) => [
+        {
+          label: 'Status',
+          options: singleTaskStatusEnum.options.map((o) =>
+            getSingleFilterMultiTypeOption(o, filters, 'status', setFilters)
+          ),
+          type: 'MULTI',
+        },
+      ],
+      initialFiltersState,
+    })
 
   const tasks = storeState.getTasksByStatus(
     useListControlsReturn.filters.status
@@ -36,11 +37,11 @@ const TaskList = () => {
 
   return (
     <Route>
-      <EntityListHeaderTemplate {...useListControlsReturn} />
+      <EntityListHeaderTemplate {...listHeaderProps} />
 
       <ElementList
         elements={visibleTasks}
-        emptyStateMessage={useListControlsReturn.emptyMessage}
+        {...listBodyProps}
         renderElement={(t) => <Task key={t.id} task={t} />}
       />
     </Route>
