@@ -9,6 +9,10 @@ const paths = {
         relative: '',
         absolute: 'contexts/',
       },
+      add: {
+        relative: 'add',
+        absolute: 'contexts/add',
+      },
     },
   },
   dashboard: {

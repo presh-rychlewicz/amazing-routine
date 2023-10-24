@@ -1,9 +1,10 @@
 import { Route } from 'components'
-import { Body, Header } from './components'
+import { AddFormHeaderTemplate } from 'templates'
+import { Body } from './components'
 
 const AddRoutine = () => (
   <Route>
-    <Header />
+    <AddFormHeaderTemplate entityType="routine" />
 
     <Body />
   </Route>

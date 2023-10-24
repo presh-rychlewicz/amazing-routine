@@ -1,6 +1,11 @@
-import { SingleTask, TaskUpdatePayload, TasksState } from 'schemas'
-import { updateReducerGeneric } from 'store/reducer/_generics'
+import { Id, SingleTask, TasksState } from 'schemas'
+import { updateReducerTemplate } from 'store/reducer/_generics'
 
-const update = updateReducerGeneric<SingleTask, TasksState, TaskUpdatePayload>
+const update = updateReducerTemplate<SingleTask, TasksState, TaskUpdatePayload>
+
+type TaskUpdatePayload = {
+  id: Id
+  update: Partial<Omit<SingleTask, 'id'>>
+}
 
 export default update

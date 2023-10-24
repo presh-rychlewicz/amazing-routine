@@ -3,17 +3,26 @@ import useNavigate from '../useNavigate'
 import { clearForm, getEmptyFields } from './utils'
 import { Field } from 'schemas'
 
-function useAddForm<ValuesT extends Record<string, unknown>>(
-  initialValues: ValuesT,
+type AddFormParams<ValuesT extends Record<string, unknown>> = {
+  initialValues: ValuesT
   fields: Array<Field<ValuesT>>
-) {
+  pathToGoAfterSubmitting: string | undefined
+  // TODO
+  // elementType?: 'context' | 'routine' | 'task'
+}
+
+function useAddForm<ValuesT extends Record<string, unknown>>({
+  initialValues,
+  fields,
+  pathToGoAfterSubmitting,
+}: AddFormParams<ValuesT>) {
   const navigate = useNavigate()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   const [error, setError] = useState<FormError<ValuesT>>()
   const [values, setValues] = useState<ValuesT>(initialValues)
 
-  const getHandleSubmit = (params: GetHandleSubmitParams) => {
+  const getHandleSubmit = (doActualJob: (values: ValuesT) => void) => {
     // CHECK FOR ERRORS
     const emptyFields = getEmptyFields(fields, values)
 
@@ -28,7 +37,7 @@ function useAddForm<ValuesT extends Record<string, unknown>>(
     //
 
     // ADD ROUTINE TO REDUX
-    params.actualJob()
+    doActualJob(values)
     //
 
     // CLEAR FORM
@@ -39,25 +48,23 @@ function useAddForm<ValuesT extends Record<string, unknown>>(
     setIsSubmitting(false)
     //
 
-    if (params.pathToGoAfterSubmitting) {
+    if (pathToGoAfterSubmitting) {
       // NAVIGATE TO ROUTINES
-      navigate(params.pathToGoAfterSubmitting, true)
+      navigate(pathToGoAfterSubmitting, true)
       //
     }
   }
 
   return {
-    error,
     getHandleSubmit,
-    isSubmitting,
-    setValues,
-    values,
+    restValues: {
+      error,
+      fields,
+      isSubmitting,
+      setValues,
+      values,
+    },
   }
-}
-
-type GetHandleSubmitParams = {
-  actualJob: () => void
-  pathToGoAfterSubmitting: string | undefined
 }
 
 type FormError<ValuesT> = [keyof ValuesT, string] | undefined

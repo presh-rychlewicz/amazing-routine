@@ -21,6 +21,7 @@ const BigCard: FC<BigCardProps> = ({
   optionsBase,
   note,
   name,
+  canRemove,
 }) => (
   <Card>
     <Header
@@ -28,6 +29,7 @@ const BigCard: FC<BigCardProps> = ({
       entityName={entityName}
       optionsBase={optionsBase}
       name={name}
+      canRemove={canRemove}
     />
 
     <DetailsGeneric generatedData={generatedData} rawData={rawData} />

@@ -4,6 +4,7 @@ import { Navigate, useRoutes } from 'react-router-dom'
 import { Typography } from '@mui/joy'
 import { paths } from 'config'
 import {
+  AddContext,
   AddRoutine,
   AddTask,
   ContextList,
@@ -26,6 +27,10 @@ const Routes = () =>
         {
           index: true,
           element: <ContextList />,
+        },
+        {
+          path: paths.contexts.children.add.relative,
+          element: <AddContext />,
         },
       ],
     },

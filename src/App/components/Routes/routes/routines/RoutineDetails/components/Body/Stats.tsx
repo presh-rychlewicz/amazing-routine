@@ -18,7 +18,10 @@ const Stats: FC<Props> = ({ pastRuns }) => {
   // - previous day score
   // - so far score
 
-  // const hasAnyPastRuns = !!pastRuns.length
+  const hasAnyPastRuns = !!pastRuns.length
+  if (!hasAnyPastRuns) {
+    return null
+  }
 
   // const pastRunsDates = pastRuns.map((p) => dayjs.unix(p.timestamp))
   // console.log(pastRunsDates)

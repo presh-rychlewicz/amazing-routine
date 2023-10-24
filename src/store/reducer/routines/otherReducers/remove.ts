@@ -1,20 +1,8 @@
-import { AppThunk, SingleRoutine, singleRoutineStatusEnum } from 'schemas'
+import { RemovePayload } from 'schemas'
+import { removeReducerTemplate } from 'store/reducer/_generics'
 import routines from '..'
 
-const remove =
-  ({ id }: RemovePayload): AppThunk =>
-  (dispatch) =>
-    dispatch(
-      routines.update({
-        id,
-        update: {
-          status: singleRoutineStatusEnum.enum.REMOVED,
-        },
-      })
-    )
-
-type RemovePayload = {
-  id: SingleRoutine['id']
-}
+const remove = (payload: RemovePayload) =>
+  removeReducerTemplate(routines.update)(payload)
 
 export default remove

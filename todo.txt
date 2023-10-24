@@ -1,0 +1,23 @@
+IN PROGRESS:
+...
+
+BUGS:
+- addRoutine: days checkboxes are not working
+
+
+FEATURES:
+- eslint: props sorted
+- eslint: destruc sorted
+- prevent screen dim
+- newTask: allow to select context
+
+
+UNDER TESTS:
+- mobile view 100vh
+
+
+DONE:
+- routineDetails: deleted tasks appear on the list 
+- enable filters by status in contexts
+- contextList: missing filtering by status
+- *List: remove is avaiable all the times

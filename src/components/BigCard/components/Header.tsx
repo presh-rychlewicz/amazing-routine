@@ -9,6 +9,7 @@ type HeaderProps = {
   name: string
   onRemoveConfirm: () => void
   optionsBase: Array<OptionsGenericElement>
+  canRemove: boolean
 }
 
 const Header: FC<HeaderProps> = ({
@@ -16,9 +17,14 @@ const Header: FC<HeaderProps> = ({
   entityName,
   optionsBase,
   name,
+  canRemove,
 }) => {
   const { removeOption, ...removeModalProps } = useRemoveModal()
-  const options = [...optionsBase, removeOption]
+  const options = [...optionsBase]
+
+  if (canRemove) {
+    options.push(removeOption)
+  }
 
   return (
     <HeaderGeneric

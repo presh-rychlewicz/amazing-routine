@@ -1,4 +1,5 @@
 import { REDUX_LOCAL_STORAGE_KEY } from 'config'
+import migrateContexts from './migrateContexts'
 import migrateRoutines from './migrateRoutines'
 import migrateTasks from './migrateTasks'
 
@@ -11,6 +12,7 @@ const loadFromLocalStorage = () => {
 
     const rawState = JSON.parse(serialisedState)
     const rootState = {
+      contexts: migrateContexts(rawState.contexts),
       routines: migrateRoutines(rawState.routines),
       tasks: migrateTasks(rawState.tasks),
     }

@@ -1,16 +1,48 @@
-import { Route } from 'components'
-import { useFilters } from 'hooks'
+import { ElementList, Route } from 'components'
+import { useListControls, useStoreState } from 'hooks'
 import { TaskListFilters, singleTaskStatusEnum } from 'schemas'
-import { Body, Header } from './components'
+import { EntityListHeaderTemplate } from 'templates'
+import { getSingleFilterMultiTypeOption } from 'utils'
+import Task from './Task'
 
 const TaskList = () => {
-  const { filters, setFilters } = useFilters(initialFiltersState)
+  const storeState = useStoreState()
+  const useListControlsReturn = useListControls({
+    disableAddButton: true,
+    disableOptions: true,
+    disableSorting: true,
+    entityType: 'task',
+    filtersConfigFn: (filters, setFilters) => [
+      {
+        label: 'Status',
+        options: singleTaskStatusEnum.options.map((o) =>
+          getSingleFilterMultiTypeOption(o, filters, 'status', setFilters)
+        ),
+        type: 'MULTI',
+      },
+    ],
+    initialFiltersState,
+  })
+
+  const tasks = storeState.getTasksByStatus(
+    useListControlsReturn.filters.status
+  )
+
+  let visibleTasks = tasks
+  // TODO: create reducer
+  if (useListControlsReturn.filters.shouldShowTasksWithoutRoutine) {
+    visibleTasks = tasks.filter((t) => !t.routineId)
+  }
 
   return (
     <Route>
-      <Header filters={filters} setFilters={setFilters} />
+      <EntityListHeaderTemplate {...useListControlsReturn} />
 
-      <Body filters={filters} />
+      <ElementList
+        elements={visibleTasks}
+        emptyStateMessage={useListControlsReturn.emptyMessage}
+        renderElement={(t) => <Task key={t.id} task={t} />}
+      />
     </Route>
   )
 }

@@ -4,13 +4,11 @@ import {
   Modal,
   ModalClose,
   ModalDialog,
-  Stack,
 } from '@mui/joy'
-import { FC, FormEvent } from 'react'
-import { FormField, SubmitButton } from 'components'
+import { FC } from 'react'
 import { SingleTask } from 'schemas'
-import { getFormFieldProps } from 'utils'
-import useForm, { fields } from './useForm'
+import { AddFormBodyTemplate } from 'templates'
+import { useForm } from './hooks'
 
 type Props = {
   onClose: () => void
@@ -18,10 +16,7 @@ type Props = {
 }
 
 const AddTimeModal: FC<Props> = ({ onClose, taskId }) => {
-  const { error, isSubmitting, values, setValues, handleSubmit } = useForm(
-    taskId,
-    onClose
-  )
+  const useFormReturn = useForm(taskId, onClose)
 
   return (
     <Modal open={true} onClose={onClose}>
@@ -32,25 +27,7 @@ const AddTimeModal: FC<Props> = ({ onClose, taskId }) => {
 
         <DialogContent>You can change it any time.</DialogContent>
 
-        <Stack
-          component="form"
-          spacing={1}
-          onSubmit={(e: FormEvent<HTMLFormElement>) => e.preventDefault()}
-        >
-          {fields.map((field) => {
-            const formFieldProps = getFormFieldProps(
-              error,
-              field,
-              values,
-              setValues,
-              isSubmitting
-            )
-
-            return <FormField {...formFieldProps} key={formFieldProps.key} />
-          })}
-
-          <SubmitButton handleSubmit={handleSubmit} label="Add" />
-        </Stack>
+        <AddFormBodyTemplate useFormReturn={useFormReturn} />
       </ModalDialog>
     </Modal>
   )

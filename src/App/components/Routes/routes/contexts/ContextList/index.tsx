@@ -1,23 +1,47 @@
-import { Route } from 'components'
-import { useFilters } from 'hooks'
-import { ContextsListFilters, singleTaskStatusEnum } from 'schemas'
-import { Body, Header } from './components'
+import { ElementList, Route } from 'components'
+import { useListControls, useStoreState } from 'hooks'
+import { ContextsListFilters, singleContextStatusEnum } from 'schemas'
+import { EntityListHeaderTemplate } from 'templates'
+import { getSingleFilterMultiTypeOption } from 'utils'
+import Context from './Context'
 
 const ContextList = () => {
-  const { filters, setFilters } = useFilters(initialFiltersState)
+  const storeState = useStoreState()
+  const useListControlsReturn = useListControls({
+    disableOptions: true,
+    disableSorting: true,
+    entityType: 'context',
+    filtersConfigFn: (filters, setFilters) => [
+      {
+        label: 'Status',
+        options: singleContextStatusEnum.options.map((o) =>
+          getSingleFilterMultiTypeOption(o, filters, 'status', setFilters)
+        ),
+        type: 'MULTI',
+      },
+    ],
+    initialFiltersState,
+  })
+
+  const contexts = storeState.getContextsByStatus(
+    useListControlsReturn.filters.status
+  )
 
   return (
     <Route>
-      <Header filters={filters} setFilters={setFilters} />
+      <EntityListHeaderTemplate {...useListControlsReturn} />
 
-      <Body />
+      <ElementList
+        elements={contexts}
+        emptyStateMessage={useListControlsReturn.emptyMessage}
+        renderElement={(c) => <Context key={c.id} context={c} />}
+      />
     </Route>
   )
 }
 
 const initialFiltersState: ContextsListFilters = {
-  shouldShowTasksWithoutRoutine: false,
-  status: [singleTaskStatusEnum.enum.ACTIVE],
+  status: [singleContextStatusEnum.enum.ACTIVE],
 }
 
 export default ContextList

@@ -17,6 +17,7 @@
   "rules": {
     "sort-keys": 2,
     "object-shorthand": 2,
+    "react/jsx-no-useless-fragment": [2, { "allowExpressions": true }],
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/ban-ts-comment": 0,
     "@typescript-eslint/ban-types": 0,

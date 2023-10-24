@@ -1,22 +1,47 @@
-import { Route } from 'components'
-import { useFilters } from 'hooks'
+import { ElementList, Route } from 'components'
+import { useListControls, useStoreState } from 'hooks'
 import { FC } from 'react'
 import { RoutineListFilters, singleRoutineStatusEnum } from 'schemas'
-import { Body, Header } from './components'
+import { EntityListHeaderTemplate } from 'templates'
+import { getSingleFilterMultiTypeOption } from 'utils'
+import Routine from './Routine'
 
 const RoutineList: FC = () => {
-  const { filters, setFilters } = useFilters(initialFiltersState)
+  const storeState = useStoreState()
+
+  const useListControlsReturn = useListControls({
+    disableOptions: true,
+    disableSorting: true,
+    entityType: 'routine',
+    filtersConfigFn: (filters, setFilters) => [
+      {
+        label: 'Status',
+        options: singleRoutineStatusEnum.options.map((o) =>
+          getSingleFilterMultiTypeOption(o, filters, 'status', setFilters)
+        ),
+        type: 'MULTI',
+      },
+    ],
+    initialFiltersState,
+  })
+  const routines = storeState.getRoutinesByStatus(
+    useListControlsReturn.filters.status
+  )
 
   return (
     <Route>
-      <Header filters={filters} setFilters={setFilters} />
+      <EntityListHeaderTemplate {...useListControlsReturn} />
 
-      <Body filters={filters} />
+      <ElementList
+        elements={routines}
+        emptyStateMessage={useListControlsReturn.emptyMessage}
+        renderElement={(r) => <Routine key={r.id} routine={r} />}
+      />
     </Route>
   )
 }
 
-const initialFiltersState: RoutineListFilters = {
+export const initialFiltersState: RoutineListFilters = {
   status: [singleRoutineStatusEnum.enum.ACTIVE],
 }
 

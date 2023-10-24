@@ -1,10 +1,15 @@
-import { RoutineUpdatePayload, RoutinesState, SingleRoutine } from 'schemas'
-import { updateReducerGeneric } from 'store/reducer/_generics'
+import { Id, RoutinesState, SingleRoutine } from 'schemas'
+import { updateReducerTemplate } from 'store/reducer/_generics'
 
-const update = updateReducerGeneric<
+const update = updateReducerTemplate<
   SingleRoutine,
   RoutinesState,
   RoutineUpdatePayload
 >
+
+type RoutineUpdatePayload = {
+  id: Id
+  update: Partial<Omit<SingleRoutine, 'id'>>
+}
 
 export default update

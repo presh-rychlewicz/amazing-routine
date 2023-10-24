@@ -4,12 +4,15 @@ import { SingleRoutine, StatusDataElem } from 'schemas'
 import Options from './Options'
 import SettingsIcon from '@mui/icons-material/Settings'
 import { presentScore } from 'utils'
+import { paths } from 'config'
+import { useNavigate } from 'hooks'
 
 type Props = Pick<SingleRoutine, 'name' | 'score'> & {
   statusData: Array<StatusDataElem>
 }
 
 const Header: FC<Props> = ({ statusData, name, score }) => {
+  const navigate = useNavigate()
   const inProgressTasks =
     statusData.find((s) => s.status === 'IN_PROGRESS')?.tasks ?? []
   const hasAnyTasksInProgress = Boolean(inProgressTasks.length)
@@ -32,6 +35,10 @@ const Header: FC<Props> = ({ statusData, name, score }) => {
           icon: <SettingsIcon />,
           onClick: () => null,
           type: 'ICON_BUTTON',
+        },
+        {
+          onClick: () => navigate(paths.routines.children.index.absolute),
+          type: 'X_BUTTON',
         },
       ]}
       bottomLeft={

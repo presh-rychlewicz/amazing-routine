@@ -18,7 +18,7 @@ const RoutineDetails = () => {
     return <Navigate to={'/' + paths.routines.children.index.absolute} />
   }
 
-  const routineTasks = storeState.getTasksByRoutineId(routineId)
+  const routineTasks = storeState.getActiveTasksByRoutineId(routineId)
   const statusData = getStatusData(routineTasks)
 
   return (
