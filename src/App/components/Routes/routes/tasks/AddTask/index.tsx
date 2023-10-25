@@ -2,7 +2,7 @@ import { Route } from 'components'
 import { paths } from 'config'
 import { useLocation } from 'react-router-dom'
 import { AddFormBodyTemplate, AddFormHeaderTemplate } from 'templates'
-import { useForm } from './hooks'
+import useForm from './useForm'
 
 const AddTask = () => {
   const { state } = useLocation()

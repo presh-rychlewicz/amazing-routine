@@ -1,40 +1,30 @@
-import { HeaderGeneric } from 'components'
-import { paths } from 'config'
-import { useNavigate } from 'hooks'
+import { CommonElementProps, HeaderGeneric } from 'components'
 // import Sorting from './Sorting'
-import { UseListControlsReturn } from 'hooks/useListControls'
-import Filters from './Filters'
+import Filters, { SingleFilterProps } from './Filters'
 
-type Props<FiltersShapeT> =
-  UseListControlsReturn<FiltersShapeT>['listHeaderProps']
-
-function EntityListHeaderTemplateTemplate<FiltersShapeT>(
-  props: Props<FiltersShapeT>
-) {
-  const navigate = useNavigate()
-
-  return (
-    <>
-      <HeaderGeneric
-        topLeft={{
-          disabled: props.shouldDisableAddButton,
-          label: 'New',
-          onClick: () =>
-            navigate(paths[`${props.entityType}s`].children.add.absolute),
-          type: 'BUTTON',
-        }}
-        topRight={props.topRight}
-      />
-
-      {/* {props.shouldShowSorting && <Sorting />} */}
-
-      <Filters
-        shouldShowFilters={props.shouldShowFilters}
-        onClose={props.toggleFilters}
-        filters={props.filtersConfig}
-      />
-    </>
-  )
+type EntityListHeaderTemplateTemplateProps = {
+  shouldShowFilters: boolean
+  shouldShowSorting: boolean
+  toggleFilters: () => void
+  topRight: Array<CommonElementProps>
+  filtersConfig: Array<SingleFilterProps>
 }
 
+const EntityListHeaderTemplateTemplate = (
+  props: EntityListHeaderTemplateTemplateProps
+) => (
+  <>
+    <HeaderGeneric topRight={props.topRight} />
+
+    {/* {props.shouldShowSorting && <Sorting />} */}
+
+    <Filters
+      shouldShowFilters={props.shouldShowFilters}
+      onClose={props.toggleFilters}
+      filters={props.filtersConfig}
+    />
+  </>
+)
+
 export default EntityListHeaderTemplateTemplate
+export type { EntityListHeaderTemplateTemplateProps }

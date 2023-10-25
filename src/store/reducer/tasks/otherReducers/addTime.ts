@@ -1,4 +1,4 @@
-import { AppThunk, SingleTask } from 'schemas'
+import { AppThunk, Id, SingleTask } from 'schemas'
 import routines from '..'
 
 const addTime =
@@ -14,7 +14,7 @@ const addTime =
     )
 
 type AddTimePayload = {
-  id: SingleTask['id']
+  id: Id
   durationInSeconds: NonNullable<SingleTask['durationInSeconds']>
 }
 

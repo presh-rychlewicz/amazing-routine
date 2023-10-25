@@ -12,12 +12,12 @@ const RoutineDetails = () => {
   const storeState = useStoreState()
 
   if (!routineId) {
-    return <Navigate to={'/' + paths.routines.children.index.absolute} />
+    return <Navigate to={'/' + paths.routines.core} />
   }
 
   const thisRoutine = storeState.getRoutinesById(routineId)
   if (!thisRoutine) {
-    return <Navigate to={'/' + paths.routines.children.index.absolute} />
+    return <Navigate to={'/' + paths.routines.core} />
   }
 
   const routineTasks = storeState.getActiveTasksByRoutineId(routineId)

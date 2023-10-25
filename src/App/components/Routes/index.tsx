@@ -1,4 +1,5 @@
 /* eslint-disable sort-keys */
+
 import { Navigate, useRoutes } from 'react-router-dom'
 
 import { Typography } from '@mui/joy'
@@ -11,6 +12,7 @@ import {
   Pilot,
   RoutineDetails,
   RoutineList,
+  Settings,
   Summary,
   TaskList,
 } from './routes'
@@ -31,6 +33,16 @@ const Routes = () =>
         {
           path: paths.contexts.children.add.relative,
           element: <AddContext />,
+        },
+      ],
+    },
+    {
+      path: paths.dashboard.core,
+      children: [
+        {
+          index: true,
+          // TODO
+          element: <Navigate to={'/' + paths.routines.core} />,
         },
       ],
     },
@@ -74,6 +86,15 @@ const Routes = () =>
         {
           path: paths.tasks.children.add.relative,
           element: <AddTask />,
+        },
+      ],
+    },
+    {
+      path: paths.settings.core,
+      children: [
+        {
+          index: true,
+          element: <Settings />,
         },
       ],
     },

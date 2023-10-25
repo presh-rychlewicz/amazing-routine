@@ -22,6 +22,9 @@ const tasks = (dispatch: ReturnType<typeof useAppDispatch>) => ({
   update: (payload: Payload<typeof tasks_.update>) => {
     return dispatch(tasks_.update(payload))
   },
+  updateIndex: (payload: Payload<typeof tasks_.updateIndex>) => {
+    return dispatch(tasks_.updateIndex(payload))
+  },
 })
 
 export default tasks

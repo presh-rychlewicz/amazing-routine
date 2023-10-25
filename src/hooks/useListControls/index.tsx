@@ -3,9 +3,11 @@ import SettingsIcon from '@mui/icons-material/Settings'
 import SortIcon from '@mui/icons-material/Sort'
 import { CommonElementProps } from 'components'
 import { useState } from 'react'
-import useFilters, { UseFilters } from './useFilters'
-import { SingleFilterProps } from 'templates/EntityListHeaderTemplate/Filters'
 import { EntityType } from 'schemas'
+import { EntityListFooterTemplateProps } from 'templates/EntityListFooterTemplate'
+import { EntityListHeaderTemplateTemplateProps } from 'templates/EntityListHeaderTemplate'
+import { SingleFilterProps } from 'templates/EntityListHeaderTemplate/Filters'
+import useFilters, { UseFilters } from './useFilters'
 
 function useListControls<FiltersShapeT extends Record<string, any>>(
   params: Params<FiltersShapeT>
@@ -60,13 +62,15 @@ function useListControls<FiltersShapeT extends Record<string, any>>(
       component: 'main',
       emptyMessage: `No ${params.entityType}s yet:(`,
     },
-    listHeaderProps: {
+    listFooterProps: {
       entityType: params.entityType,
+      shouldDisableAddButton: params.disableAddButton ?? false,
+    },
+    listHeaderProps: {
       filtersConfig: params.filtersConfigFn(
         filtersProps.filters,
         filtersProps.setFilters
       ),
-      shouldDisableAddButton: params.disableAddButton ?? false,
       shouldShowFilters,
       shouldShowSorting,
       toggleFilters,
@@ -93,14 +97,8 @@ type UseListControlsReturn<FiltersShapeT> = {
     emptyMessage: string
     component: 'main'
   }
-  listHeaderProps: {
-    shouldDisableAddButton: boolean
-    shouldShowFilters: boolean
-    shouldShowSorting: boolean
-    toggleFilters: () => void
-    topRight: Array<CommonElementProps>
-    filtersConfig: ReturnType<Params<FiltersShapeT>['filtersConfigFn']>
-  } & Pick<Params<FiltersShapeT>, 'entityType'>
+  listFooterProps: EntityListFooterTemplateProps
+  listHeaderProps: EntityListHeaderTemplateTemplateProps
 } & Pick<UseFilters<FiltersShapeT>, 'filters'>
 
 export default useListControls

@@ -71,6 +71,15 @@ const paths = {
       },
     },
   },
+  settings: {
+    core: 'settings' as const,
+    children: {
+      index: {
+        relative: '',
+        absolute: 'settings/',
+      },
+    },
+  },
 }
 
 export default paths

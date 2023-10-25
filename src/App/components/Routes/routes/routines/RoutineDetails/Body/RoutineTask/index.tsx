@@ -1,19 +1,32 @@
 import AddIcon from '@mui/icons-material/Add'
 import MoreTimeIcon from '@mui/icons-material/MoreTime'
 import { SmallCard } from 'components'
-import { useStoreDispatch } from 'hooks'
-import { FC, useState } from 'react'
+import { useModal, useStoreDispatch } from 'hooks'
+import { FC } from 'react'
 import { SingleTask } from 'schemas'
 import { getDurationString } from 'utils'
 import AddTimeModal from './AddTimeModal'
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
 
 type Props = {
   routineTask: SingleTask
+  isEditingOrder: boolean
+  onDown?: () => void
+  onUp?: () => void
 }
 
-const RoutineTask: FC<Props> = ({ routineTask }) => {
+const RoutineTask: FC<Props> = ({
+  isEditingOrder,
+  onDown,
+  onUp,
+  routineTask,
+}) => {
   const storeDispatch = useStoreDispatch()
-  const [isAddTimeModalVisible, setIsAddTimeModalVisible] = useState(false)
+  const {
+    isModalVisible: isAddTimeModalVisible,
+    setIsModalVisible: setIsAddTimeModalVisible,
+  } = useModal()
 
   const inStatusNew = routineTask.routineMeta?.status === 'NEW'
   const hasDuration = !!routineTask.durationInSeconds
@@ -27,7 +40,7 @@ const RoutineTask: FC<Props> = ({ routineTask }) => {
         elements={[
           {
             icon: <MoreTimeIcon />,
-            isVisible: !hasDuration,
+            isVisible: !hasDuration && !isEditingOrder,
             onClick: () => setIsAddTimeModalVisible(true),
             type: 'ICON_BUTTON',
             variant: 'outlined',
@@ -36,23 +49,40 @@ const RoutineTask: FC<Props> = ({ routineTask }) => {
             // TODO: to be implemented
             disabled: !hasDuration,
             icon: <AddIcon />,
-            isVisible: inStatusNew,
+            isVisible: inStatusNew && !isEditingOrder,
             onClick: () =>
               storeDispatch.tasks.promoteToInProgress({ id: routineTask.id }),
             type: 'ICON_BUTTON',
             variant: 'outlined',
           },
+          // LIST EDIT
+          {
+            disabled: !onDown,
+            icon: <ArrowDownwardIcon />,
+            isVisible: isEditingOrder,
+            onClick: () => onDown?.(),
+            type: 'ICON_BUTTON',
+            variant: 'outlined',
+          },
+          {
+            disabled: !onUp,
+            icon: <ArrowUpwardIcon />,
+            isVisible: isEditingOrder,
+            onClick: () => onUp?.(),
+            type: 'ICON_BUTTON',
+            variant: 'outlined',
+          },
+          //
         ]}
         title={routineTask.name}
         subtitle={durationInMins}
       />
 
-      {isAddTimeModalVisible && (
-        <AddTimeModal
-          taskId={routineTask.id}
-          onClose={() => setIsAddTimeModalVisible(false)}
-        />
-      )}
+      <AddTimeModal
+        isOpen={isAddTimeModalVisible}
+        taskId={routineTask.id}
+        onClose={() => setIsAddTimeModalVisible(false)}
+      />
     </>
   )
 }

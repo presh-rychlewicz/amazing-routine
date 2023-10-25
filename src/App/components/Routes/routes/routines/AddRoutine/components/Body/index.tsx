@@ -13,6 +13,7 @@ const Body = () => {
   return (
     <AddFormBodyTemplate useFormReturn={useFormReturn}>
       <FormField
+        key="days"
         options={days}
         label="Days"
         isRequired

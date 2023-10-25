@@ -1,68 +1,81 @@
-import { Input } from '@mui/joy'
+import { Input, Option, Select } from '@mui/joy'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import FormGroup from '@mui/material/FormGroup'
-import { ChangeEvent, FC, ReactNode } from 'react'
-import { Field } from './components'
+import { ChangeEvent, FocusEvent, KeyboardEvent, ReactNode } from 'react'
+import FieldWrapper from './FieldWrapper'
 
-type Props = {
+type FormFieldProps = {
   errorMessage: string | undefined
-  isDisabled?: boolean
   isError?: boolean
   isRequired?: boolean
   label: string
-  autoFocus?: boolean
-  onChange: (e: ChangeEvent<HTMLInputElement>) => void
 } & (
   | {
-      type: 'number' | 'time' | 'text' | 'date'
-      options?: undefined
+      type: 'date' | 'number' | 'time' | 'text'
+      autoFocus?: boolean
       value: string
+      isDisabled?: boolean
+      onChange: (e: ChangeEvent<HTMLInputElement>) => void
     }
   | {
       type: 'checkbox_group'
+      onChange: (e: ChangeEvent<HTMLInputElement>) => void
       options: Array<{
         label: string
         isChecked: boolean
       }>
-      value?: undefined
+    }
+  | {
+      type: 'select'
+      onChange: (
+        event:
+          | React.MouseEvent<Element, MouseEvent>
+          | KeyboardEvent<Element>
+          | FocusEvent<Element, Element>
+          | null,
+        value: {} | null
+      ) => void
+
+      options: Array<{
+        label: string
+        value: string
+      }>
+      value: string
+      placeholder?: string
     }
 )
 
-const FormField: FC<Props> = ({
-  autoFocus,
-  errorMessage,
-  isDisabled,
-  isError,
-  isRequired,
-  label,
-  onChange,
-  type,
-  value,
-  options,
-}) => {
+const FormField = (props: FormFieldProps) => {
   let content: ReactNode
-  if (['number', 'time', 'text', 'date'].includes(type)) {
+  if (
+    props.type === 'number' ||
+    props.type === 'time' ||
+    props.type === 'text' ||
+    props.type === 'date'
+  ) {
     content = (
       <Input
         // TODO: this seems to not work
-        autoFocus={autoFocus}
-        disabled={isDisabled}
-        required={isRequired}
-        value={value}
-        onChange={onChange}
-        type={type}
+        autoFocus={props.autoFocus}
+        disabled={props.isDisabled}
+        required={props.isRequired}
+        value={props.value}
+        type={props.type}
+        onChange={props.onChange}
       />
     )
   }
 
-  if (type === 'checkbox_group') {
+  if (props.type === 'checkbox_group') {
     content = (
       <FormGroup>
-        {options.map((o) => (
+        {props.options.map((o) => (
           <FormControlLabel
             key={o.label}
-            control={<Checkbox checked={o.isChecked} onChange={onChange} />}
+            control={
+              <Checkbox checked={o.isChecked} onChange={props.onChange} />
+            }
             label={o.label}
           />
         ))}
@@ -70,16 +83,33 @@ const FormField: FC<Props> = ({
     )
   }
 
+  if (props.type === 'select') {
+    content = (
+      <Select placeholder={props.placeholder} onChange={props.onChange}>
+        {props.options.map(({ label, value }) => (
+          <Option key={value} value={value}>
+            {label}
+          </Option>
+        ))}
+      </Select>
+    )
+  }
+
+  if (!content) {
+    return null
+  }
+
   return (
-    <Field
-      isRequired={isRequired}
-      isError={isError}
-      label={label}
-      errorMessage={errorMessage}
+    <FieldWrapper
+      isRequired={props.isRequired}
+      isError={props.isError}
+      label={props.label}
+      errorMessage={props.errorMessage}
     >
       {content}
-    </Field>
+    </FieldWrapper>
   )
 }
 
 export default FormField
+export type { FormFieldProps }

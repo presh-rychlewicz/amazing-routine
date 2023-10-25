@@ -24,7 +24,6 @@ const Stats: FC<Props> = ({ pastRuns }) => {
   }
 
   // const pastRunsDates = pastRuns.map((p) => dayjs.unix(p.timestamp))
-  // console.log(pastRunsDates)
 
   // const today = dayjs()
   // const previousDays = [...new Array(5)]
@@ -39,8 +38,6 @@ const Stats: FC<Props> = ({ pastRuns }) => {
 
   //   value: i + 1,
   // }))
-
-  // console.log(data)
 
   const pastRunsSorted = [...pastRuns].sort((prev, next) =>
     dayjs.unix(prev.timestamp).isAfter(dayjs.unix(next.timestamp)) ? -1 : 1

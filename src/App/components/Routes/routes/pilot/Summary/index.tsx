@@ -1,11 +1,16 @@
-import { Route } from 'components'
+import { DialogModalGeneric, Route } from 'components'
 import { paths } from 'config'
 import { Navigate, useLocation } from 'react-router-dom'
-import { Body, Footer, Header } from './components'
 import { SingleRoutine, TaskDataElem } from 'schemas'
+import { useModal, useNavigate } from 'hooks'
+import Header from './Header'
+import Body from './Body'
+import Footer from './Footer'
 
 const Summary = () => {
   const { state } = useLocation()
+  const navigate = useNavigate()
+  const { isModalVisible, setIsModalVisible } = useModal()
 
   const taskData: Array<TaskDataElem> | undefined = state?.taskData
   const routineId: SingleRoutine['id'] | undefined = state?.routineId
@@ -13,14 +18,26 @@ const Summary = () => {
     return <Navigate to={'/' + paths.routines.core} />
   }
 
+  const onExit = () => setIsModalVisible(true)
+
   return (
-    <Route>
-      <Header />
+    <>
+      <Route>
+        <Header onExit={onExit} />
 
-      <Body taskData={taskData} />
+        <Body taskData={taskData} />
 
-      <Footer routineId={routineId} />
-    </Route>
+        <Footer onExit={onExit} routineId={routineId} />
+      </Route>
+
+      <DialogModalGeneric
+        setIsModalVisible={setIsModalVisible}
+        isModalVisible={isModalVisible}
+        onConfirm={() => navigate(paths.dashboard.core)}
+        message="Are you sure you want to leave without saving result?"
+        confirmButtonLabel="Yes"
+      />
+    </>
   )
 }
 

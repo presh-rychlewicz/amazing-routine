@@ -2,20 +2,22 @@ import { Route } from 'components'
 import { paths } from 'config'
 import { useStoreState } from 'hooks'
 import { Navigate, useLocation } from 'react-router-dom'
-import { Body, Header, NoTasks } from './components'
+import Body from './Body'
+import Header from './Header'
+import NoTasks from './NoTasks'
 
 const Pilot = () => {
   const { state } = useLocation()
   const storeState = useStoreState()
-  const { routineId } = state
 
+  const routineId = state?.routineId
   if (!routineId) {
-    return <Navigate to={'/' + paths.routines.children.index.absolute} />
+    return <Navigate to={'/' + paths.routines.core} />
   }
 
   const routine = storeState.getRoutinesById(routineId)
   if (!routine) {
-    return <Navigate to={'/' + paths.routines.children.index.absolute} />
+    return <Navigate to={'/' + paths.routines.core} />
   }
 
   const tasks = storeState
@@ -25,7 +27,7 @@ const Pilot = () => {
   const hasTasks = !!tasksLen
 
   return (
-    <Route>
+    <Route shouldShowMenu={false}>
       <Header routineId={routineId} />
 
       {hasTasks ? <Body routineId={routineId} tasks={tasks} /> : <NoTasks />}

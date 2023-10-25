@@ -6,20 +6,21 @@ import {
   ModalDialog,
 } from '@mui/joy'
 import { FC } from 'react'
-import { SingleTask } from 'schemas'
+import { Id } from 'schemas'
 import { AddFormBodyTemplate } from 'templates'
 import { useForm } from './hooks'
 
 type Props = {
   onClose: () => void
-  taskId: SingleTask['id']
+  taskId: Id
+  isOpen: boolean
 }
 
-const AddTimeModal: FC<Props> = ({ onClose, taskId }) => {
+const AddTimeModal: FC<Props> = ({ isOpen, onClose, taskId }) => {
   const useFormReturn = useForm(taskId, onClose)
 
   return (
-    <Modal open={true} onClose={onClose}>
+    <Modal open={isOpen} onClose={onClose}>
       <ModalDialog>
         <DialogTitle>Add Time</DialogTitle>
 

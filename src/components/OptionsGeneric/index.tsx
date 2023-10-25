@@ -28,7 +28,7 @@ const OptionsGeneric: FC<PropsWithChildren<Props>> = ({
         startDecorator={<MoreHorizIcon />}
       />
 
-      <Menu>
+      <Menu size="lg">
         {options.map((option, index) => (
           <Fragment key={index}>
             <MenuItem {...option} />

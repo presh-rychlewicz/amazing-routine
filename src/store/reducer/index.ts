@@ -1,10 +1,12 @@
 import { routinesReducer } from './routines'
 import { tasksReducer } from './tasks'
 import { contextsReducer } from './contexts'
+import { settingsReducer } from './settings'
 
 const reducer = {
   contexts: contextsReducer,
   routines: routinesReducer,
+  settings: settingsReducer,
   tasks: tasksReducer,
 }
 

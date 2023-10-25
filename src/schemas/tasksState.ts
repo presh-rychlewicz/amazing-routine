@@ -3,7 +3,7 @@ import { singleTaskSchema } from './singleTask'
 
 const tasksStateSchema = object({
   value: array(singleTaskSchema),
-  version: literal(3),
+  version: literal(5),
 })
 type TasksState = TypeOf<typeof tasksStateSchema>
 

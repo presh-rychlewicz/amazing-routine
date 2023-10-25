@@ -20,6 +20,7 @@ const BottomMenu = () => {
       bottom={0}
       left={0}
       right={0}
+      paddingTop={0.5}
       borderTop="1px solid lightgray"
       direction="row"
       alignItems="center"
@@ -78,8 +79,9 @@ const menuItems: Array<MenuItem> = [
     icon: <AnalyticsIcon />,
   },
   {
-    disabled: true,
+    disabled: false,
     icon: <SettingsIcon />,
+    view: paths.settings.core,
   },
 ]
 

@@ -1,31 +1,19 @@
-import { Grid, Typography } from '@mui/joy'
+import { Grid } from '@mui/joy'
 import { Children, FC, PropsWithChildren } from 'react'
-import { useLocation } from 'react-router-dom'
 import { BottomMenu } from './components'
 
-const Route: FC<PropsWithChildren> = ({ children }) => {
-  const { pathname } = useLocation()
-  const viewName = pathname
-    .slice(pathname.indexOf('/') + 1)
-    .toUpperCase()
-    .replace('-', '_')
-  const caption = `[${viewName}]`
+type Props = {
+  shouldShowMenu?: boolean
+}
 
+const Route: FC<PropsWithChildren<Props>> = ({
+  children,
+  shouldShowMenu = true,
+}) => {
   const childrenCount = Children.count(children)
 
   return (
     <>
-      <Typography
-        paddingX={INNER_PADDING}
-        component="header"
-        level="body-xs"
-        whiteSpace="nowrap"
-        overflow="hidden"
-        textOverflow="ellipsis"
-      >
-        {caption}
-      </Typography>
-
       <Grid
         component="main"
         height="100%"
@@ -61,7 +49,7 @@ const Route: FC<PropsWithChildren> = ({ children }) => {
         {children}
       </Grid>
 
-      <BottomMenu />
+      {shouldShowMenu && <BottomMenu />}
     </>
   )
 }

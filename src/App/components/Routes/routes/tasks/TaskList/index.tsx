@@ -1,13 +1,13 @@
 import { ElementList, Route } from 'components'
 import { useListControls, useStoreState } from 'hooks'
 import { TaskListFilters, singleTaskStatusEnum } from 'schemas'
-import { EntityListHeaderTemplate } from 'templates'
+import { EntityListFooterTemplate, EntityListHeaderTemplate } from 'templates'
 import { getSingleFilterMultiTypeOption } from 'utils'
 import Task from './Task'
 
 const TaskList = () => {
   const storeState = useStoreState()
-  const { listBodyProps, listHeaderProps, ...useListControlsReturn } =
+  const { listBodyProps, listHeaderProps, listFooterProps, filters } =
     useListControls({
       disableAddButton: true,
       disableOptions: true,
@@ -25,13 +25,11 @@ const TaskList = () => {
       initialFiltersState,
     })
 
-  const tasks = storeState.getTasksByStatus(
-    useListControlsReturn.filters.status
-  )
+  const tasks = storeState.getTasksByStatus(filters.status)
 
   let visibleTasks = tasks
   // TODO: create reducer
-  if (useListControlsReturn.filters.shouldShowTasksWithoutRoutine) {
+  if (filters.shouldShowTasksWithoutRoutine) {
     visibleTasks = tasks.filter((t) => !t.routineId)
   }
 
@@ -40,10 +38,12 @@ const TaskList = () => {
       <EntityListHeaderTemplate {...listHeaderProps} />
 
       <ElementList
-        elements={visibleTasks}
         {...listBodyProps}
+        elements={visibleTasks}
         renderElement={(t) => <Task key={t.id} task={t} />}
       />
+
+      <EntityListFooterTemplate {...listFooterProps} />
     </Route>
   )
 }

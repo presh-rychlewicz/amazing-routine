@@ -5,12 +5,21 @@ import { getDurationString } from 'utils'
 
 const getDetailsGenericProps = (
   task: SingleTask,
-  getRoutinesBeId: ReturnType<typeof useStoreState>['getRoutinesById']
+  getRoutinesBeId: ReturnType<typeof useStoreState>['getRoutinesById'],
+  getContextsById: ReturnType<typeof useStoreState>['getContextsById']
 ) => {
   const rawData: Array<DetailsElem> = [
     {
+      label: 'CONTEXT ID',
+      value: task.contextId ?? 'undefined',
+    },
+    {
       label: 'DURATION IN SEC',
       value: task.durationInSeconds ?? 'undefined',
+    },
+    {
+      label: 'INDEX',
+      value: task.index,
     },
     {
       label: 'ROUTINE ID',
@@ -43,12 +52,25 @@ const getDetailsGenericProps = (
     durationInMins = getDurationString(task.durationInSeconds)
   }
 
+  let contextName: string | undefined
+  if (task.contextId) {
+    contextName = getContextsById(task.contextId)?.name
+  }
+
   const generatedData: Array<DetailsElem> = [
+    ...(contextName
+      ? [
+          {
+            label: 'CONTEXT NAME',
+            value: contextName,
+          },
+        ]
+      : []),
     ...(durationInMins
       ? [
           {
             label: 'DURATION FORMATTED',
-            value: `${durationInMins}`,
+            value: durationInMins,
           },
         ]
       : []),

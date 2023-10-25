@@ -14,6 +14,7 @@ dayjs.extend(relativeTime)
 
 const container = document.getElementById('root')
 if (container) {
+  const SPACING = '8px'
   const root = createRoot(container)
 
   root.render(
@@ -24,9 +25,11 @@ if (container) {
             styles={{
               '#root': {
                 display: 'grid',
-                gap: '8px',
-                gridTemplateRows: 'auto 1fr auto',
+                gap: SPACING,
+                gridTemplateRows: '1fr auto',
                 height: '100%',
+                paddingBottom: `calc(${SPACING} / 2)`,
+                paddingTop: SPACING,
                 position: 'relative',
               },
               '*': {

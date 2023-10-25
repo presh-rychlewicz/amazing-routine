@@ -4,10 +4,11 @@ import { routineMetaStatusSchema } from './routineMetaStatuses'
 import { singleTaskStatusEnum } from './singleTaskStatusEnum'
 import { scoreSchema } from './score'
 
-// TODO: add context
 const singleTaskSchema = object({
+  contextId: string().optional(),
   durationInSeconds: number().optional(),
   id: idSchema,
+  index: number(),
   name: string(),
   note: string().optional(),
   order: number(),

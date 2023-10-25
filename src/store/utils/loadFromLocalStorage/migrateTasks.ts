@@ -17,6 +17,7 @@ const migrateTasks = (rawTasks: any): TasksState => {
         version: 2,
       }
       break
+
     case 2:
       newTasks = {
         ...rawTasks,
@@ -25,6 +26,28 @@ const migrateTasks = (rawTasks: any): TasksState => {
           score: 0,
         })),
         version: 3,
+      }
+      break
+
+    case 3:
+      newTasks = {
+        ...rawTasks,
+        value: rawTasks.value.map((t: any) => ({
+          ...t,
+          contextId: undefined,
+        })),
+        version: 4,
+      }
+      break
+
+    case 4:
+      newTasks = {
+        ...rawTasks,
+        value: rawTasks.value.map((t: any, index: number) => ({
+          ...t,
+          index,
+        })),
+        version: 5,
       }
       break
   }

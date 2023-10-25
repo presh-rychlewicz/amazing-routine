@@ -18,7 +18,9 @@ function ElementList<ElementT extends ElementBase>({
       {...(!hasAnyTitle && { component })}
       spacing={spacingBetweenElementsMapping[spacingBetweenElements]}
     >
-      {elements.map((routine) => renderElement(routine))}
+      {elements.map((routine, index, array) =>
+        renderElement(routine, index, array)
+      )}
     </Stack>
   )
 }
@@ -35,7 +37,7 @@ type ElementBase = unknown
 type ElementListPropsBase<T extends ElementBase> = {
   elements: Array<T>
   gridArea?: string
-  renderElement: (elementProps: T) => ReactNode
+  renderElement: (elementProps: T, index: number, array: Array<T>) => ReactNode
   spacingBetweenElements?: SpacingBetweenElements
   component?: ElementType<any>
 }

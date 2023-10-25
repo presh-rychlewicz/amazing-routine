@@ -1,4 +1,5 @@
-import { Drawer, Stack, Typography } from '@mui/joy'
+import { Stack, Typography } from '@mui/joy'
+import { DrawerWrapper } from 'components'
 import { FC } from 'react'
 import SingleFilter, { SingleFilterProps } from './SingleFilter'
 
@@ -15,12 +16,7 @@ const Filters: FC<Props> = ({ shouldShowFilters, filters, onClose }) => {
   }
 
   return (
-    <Drawer
-      anchor="bottom"
-      size="lg"
-      open={shouldShowFilters}
-      onClose={onClose}
-    >
+    <DrawerWrapper open={shouldShowFilters} onClose={onClose}>
       {filters.map(({ label, ...singleFilterProps }) => {
         const visibleLabel =
           singleFilterProps.type !== 'BOOLEAN' ? label : undefined
@@ -40,7 +36,7 @@ const Filters: FC<Props> = ({ shouldShowFilters, filters, onClose }) => {
           </Stack>
         )
       })}
-    </Drawer>
+    </DrawerWrapper>
   )
 }
 

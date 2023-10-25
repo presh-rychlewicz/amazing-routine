@@ -6,7 +6,7 @@ type Props = {
 }
 
 const EmptyState: FC<Props> = ({ message = 'This list is empty' }) => (
-  <Stack alignItems="center" width="100%">
+  <Stack height="100%" justifyContent="center" alignItems="center" width="100%">
     <Typography>{message}</Typography>
   </Stack>
 )

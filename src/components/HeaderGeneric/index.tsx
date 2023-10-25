@@ -5,17 +5,28 @@ import { Area } from './components'
 
 type Props = PropsBase
 
-const HeaderGeneric: FC<Props> = ({
-  topLeft,
-  topRight,
-  bottomLeft,
-  bottomRight,
-}) => {
-  if (!topLeft && !topRight && !bottomLeft && !bottomRight) {
-    return null
+const HeaderGeneric: FC<Props> = (props) => {
+  if (props.mergedRight) {
+    if (!props.topLeft && !props.right && !props.bottomLeft) {
+      return null
+    }
+  } else {
+    if (
+      !props.topLeft &&
+      !props.topRight &&
+      !props.bottomLeft &&
+      !props.bottomRight
+    ) {
+      return null
+    }
   }
 
-  const hasBottom = !!(bottomLeft || bottomRight)
+  let hasBottom = false
+  if (props.mergedRight) {
+    hasBottom = !!props.bottomLeft
+  } else {
+    hasBottom = !!(props.bottomLeft || props.bottomRight)
+  }
 
   return (
     <Grid
@@ -23,47 +34,81 @@ const HeaderGeneric: FC<Props> = ({
       display="grid"
       gridTemplateColumns="repeat(2, 1fr)"
       gridTemplateRows={`repeat(${hasBottom ? 2 : 1}, auto)`}
-      gridTemplateAreas={`
-          '${GRID_AREA.tl} ${GRID_AREA.tr}'
-          '${GRID_AREA.bl} ${GRID_AREA.br}'
-        `}
+      gridTemplateAreas={
+        GRID_TEMPLATE_AREAS[props.mergedRight ? 'elements3' : 'elements4']
+      }
     >
-      <Area elementVariant={topLeft} gridArea={GRID_AREA.tl} />
+      <Area elementVariant={props.topLeft} gridArea={GRID_AREAS.tl} />
 
       <Area
-        elementVariant={topRight}
-        gridArea={GRID_AREA.tr}
-        justifySelf="end"
-      />
-
-      <Area
-        elementVariant={bottomLeft}
-        gridArea={GRID_AREA.bl}
+        elementVariant={props.bottomLeft}
+        gridArea={GRID_AREAS.bl}
         alignSelf="end"
       />
 
-      <Area
-        elementVariant={bottomRight}
-        gridArea={GRID_AREA.br}
-        justifySelf="end"
-        alignSelf="end"
-      />
+      {props.mergedRight ? (
+        <Area
+          elementVariant={props.right}
+          gridArea={GRID_AREAS.r}
+          // TEMP
+          justifySelf="end"
+          alignSelf="end"
+          //
+        />
+      ) : (
+        <>
+          <Area
+            elementVariant={props.topRight}
+            gridArea={GRID_AREAS.tr}
+            justifySelf="end"
+          />
+
+          <Area
+            elementVariant={props.bottomRight}
+            gridArea={GRID_AREAS.br}
+            justifySelf="end"
+            alignSelf="end"
+          />
+        </>
+      )}
     </Grid>
   )
 }
 
-const GRID_AREA = {
+const GRID_AREAS = {
   bl: 'bottom-left',
   br: 'bottom-right',
+  r: 'right',
   tl: 'top-left',
   tr: 'top-right',
 }
 
-type PropsBase = {
-  [key in 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight']?:
-    | CommonElementProps
-    | Array<CommonElementProps>
+const GRID_TEMPLATE_AREAS = {
+  elements3: `
+  '${GRID_AREAS.tl} ${GRID_AREAS.r}'
+  '${GRID_AREAS.bl} ${GRID_AREAS.r}'
+  `,
+  elements4: `
+  '${GRID_AREAS.tl} ${GRID_AREAS.tr}'
+  '${GRID_AREAS.bl} ${GRID_AREAS.br}'
+  `,
 }
+
+type Content = CommonElementProps | Array<CommonElementProps>
+type PropsBase = {
+  topLeft?: Content
+  bottomLeft?: Content
+} & (
+  | {
+      mergedRight?: false
+      topRight?: Content
+      bottomRight?: Content
+    }
+  | {
+      mergedRight: true
+      right?: Content
+    }
+)
 
 export default HeaderGeneric
 export type { CommonElementProps }

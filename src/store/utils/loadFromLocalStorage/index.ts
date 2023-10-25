@@ -2,6 +2,7 @@ import { REDUX_LOCAL_STORAGE_KEY } from 'config'
 import migrateContexts from './migrateContexts'
 import migrateRoutines from './migrateRoutines'
 import migrateTasks from './migrateTasks'
+import migrateSettings from './migrateSettings'
 
 const loadFromLocalStorage = () => {
   try {
@@ -14,6 +15,7 @@ const loadFromLocalStorage = () => {
     const rootState = {
       contexts: migrateContexts(rawState.contexts),
       routines: migrateRoutines(rawState.routines),
+      settings: migrateSettings(rawState.settings),
       tasks: migrateTasks(rawState.tasks),
     }
 

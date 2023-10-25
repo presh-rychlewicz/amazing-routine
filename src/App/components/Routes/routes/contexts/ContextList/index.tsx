@@ -1,13 +1,13 @@
 import { ElementList, Route } from 'components'
 import { useListControls, useStoreState } from 'hooks'
 import { ContextsListFilters, singleContextStatusEnum } from 'schemas'
-import { EntityListHeaderTemplate } from 'templates'
+import { EntityListFooterTemplate, EntityListHeaderTemplate } from 'templates'
 import { getSingleFilterMultiTypeOption } from 'utils'
 import Context from './Context'
 
 const ContextList = () => {
   const storeState = useStoreState()
-  const { listBodyProps, listHeaderProps, ...useListControlsReturn } =
+  const { listBodyProps, listFooterProps, listHeaderProps, filters } =
     useListControls({
       disableOptions: true,
       disableSorting: true,
@@ -24,19 +24,19 @@ const ContextList = () => {
       initialFiltersState,
     })
 
-  const contexts = storeState.getContextsByStatus(
-    useListControlsReturn.filters.status
-  )
+  const contexts = storeState.getContextsByStatus(filters.status)
 
   return (
     <Route>
       <EntityListHeaderTemplate {...listHeaderProps} />
 
       <ElementList
-        elements={contexts}
         {...listBodyProps}
+        elements={contexts}
         renderElement={(c) => <Context key={c.id} context={c} />}
       />
+
+      <EntityListFooterTemplate {...listFooterProps} />
     </Route>
   )
 }

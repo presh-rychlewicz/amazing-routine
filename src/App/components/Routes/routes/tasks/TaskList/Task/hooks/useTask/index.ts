@@ -15,7 +15,8 @@ const useTask = (task: SingleTask): BigCardProps => {
 
   const detailsGenericProps = getDetailsGenericProps(
     task,
-    storeState.getRoutinesById
+    storeState.getRoutinesById,
+    storeState.getContextsById
   )
 
   return {

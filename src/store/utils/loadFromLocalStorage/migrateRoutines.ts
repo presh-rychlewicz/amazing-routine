@@ -17,8 +17,8 @@ const migrateRoutines = (rawRoutines: any): RoutinesState => {
         ...rawRoutines,
         version: 2,
       }
-
       break
+
     case 2:
       newRoutines = {
         ...rawRoutines,

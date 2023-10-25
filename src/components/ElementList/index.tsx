@@ -1,13 +1,16 @@
-import { Stack, Typography } from '@mui/joy'
+import { Stack } from '@mui/joy'
+import HeaderGeneric, { CommonElementProps } from 'components/HeaderGeneric'
 import EmptyState from '../EmptyState'
 import { Content } from './components'
 import { ElementListPropsBase } from './components/Content'
+import { PropsWithChildren } from 'react'
 
 type Props<T extends ElementBase> = ElementListPropsBase<T> & {
   emptyStateMessage?: string
   title?: string
   subtitle?: string
   shouldShowEmptyState?: boolean
+  right?: CommonElementProps | Array<CommonElementProps>
 }
 
 function ElementList<ElementT extends ElementBase>({
@@ -19,7 +22,8 @@ function ElementList<ElementT extends ElementBase>({
   component,
   subtitle,
   shouldShowEmptyState = true,
-}: Props<ElementT>) {
+  right,
+}: PropsWithChildren<Props<ElementT>>) {
   const hasAnyelements = !!elements.length
   if (!hasAnyelements) {
     if (shouldShowEmptyState) {
@@ -29,7 +33,7 @@ function ElementList<ElementT extends ElementBase>({
     return null
   }
 
-  const hasAnyTitle = !!(title || subtitle)
+  const hasAnyTitle = !!(title || subtitle || right)
   const content = (
     <Content
       elements={elements}
@@ -46,10 +50,24 @@ function ElementList<ElementT extends ElementBase>({
 
   return (
     <Stack {...(component && { component })} width="100%" spacing={1}>
-      <Stack>
-        {title && <Typography level="title-sm">{title}</Typography>}
-        {subtitle && <Typography level="body-xs">{subtitle}</Typography>}
-      </Stack>
+      <HeaderGeneric
+        {...(title && {
+          topLeft: {
+            content: title,
+            level: 'title-sm',
+            type: 'TEXT',
+          },
+        })}
+        {...(subtitle && {
+          bottomLeft: {
+            content: subtitle,
+            level: 'body-xs',
+            type: 'TEXT',
+          },
+        })}
+        mergedRight
+        right={right}
+      />
 
       {content}
     </Stack>

@@ -1,14 +1,26 @@
-import { TypeOf, boolean, object, enum as zEnum } from 'zod'
-
-const fieldBaseSchema = object({
-  autofocus: boolean().optional(),
-  required: boolean().optional(),
-  type: zEnum(['text', 'number', 'date', 'time']),
-})
-type FieldBase = TypeOf<typeof fieldBaseSchema>
-
-type Field<ValuesT extends Record<string, any>> = FieldBase & {
+type Field<ValuesT extends Record<string, any>> = {
   key: keyof ValuesT
-}
+  required?: boolean | undefined
+} & (
+  | {
+      type: 'date' | 'number' | 'time' | 'text'
+      autofocus?: boolean | undefined
+    }
+  | {
+      type: 'checkbox_group'
+      options: Array<{
+        label: string
+        isChecked: boolean
+      }>
+    }
+  | {
+      type: 'select'
+      options: Array<{
+        label: string
+        value: string
+      }>
+      placeholder?: string
+    }
+)
 
 export type { Field }

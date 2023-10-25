@@ -1,10 +1,7 @@
 import { useAddForm, useStoreDispatch } from 'hooks'
-import { Field, ReturnUseAddForm, SingleTask } from 'schemas'
+import { Field, Id, ReturnUseAddForm } from 'schemas'
 
-const useForm = (
-  taskId: SingleTask['id'],
-  onClose: () => void
-): ReturnUseAddForm<Values> => {
+const useForm = (taskId: Id, onClose: () => void): ReturnUseAddForm<Values> => {
   const storeDispatch = useStoreDispatch()
   const { getHandleSubmit, restValues } = useAddForm({
     fields,

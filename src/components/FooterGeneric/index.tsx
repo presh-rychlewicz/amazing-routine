@@ -13,16 +13,17 @@ type Props = {
 
 const FooterGeneric: FC<Props> = ({ smallButton, largeButton }) => {
   const hasAnyButton = smallButton || largeButton
+  if (!hasAnyButton) {
+    return null
+  }
 
   return (
     <Stack component="footer" spacing={1}>
-      {hasAnyButton && (
-        <Stack direction="row" alignItems="center" spacing={1}>
-          {smallButton && <IconButtonElement {...smallButton} />}
+      <Stack direction="row" alignItems="center" spacing={1}>
+        {smallButton && <IconButtonElement {...smallButton} />}
 
-          {largeButton && <ButtonElement {...largeButton} />}
-        </Stack>
-      )}
+        {largeButton && <ButtonElement {...largeButton} />}
+      </Stack>
     </Stack>
   )
 }

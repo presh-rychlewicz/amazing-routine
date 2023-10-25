@@ -1,4 +1,4 @@
-import { AppThunk, SingleTask } from 'schemas'
+import { AppThunk, Id } from 'schemas'
 import routines from '..'
 
 const promoteToInProgress =
@@ -16,7 +16,7 @@ const promoteToInProgress =
     )
 
 type PromoteToInProgressPayload = {
-  id: SingleTask['id']
+  id: Id
 }
 
 export default promoteToInProgress

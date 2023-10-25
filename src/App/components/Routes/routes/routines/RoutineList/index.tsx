@@ -2,14 +2,14 @@ import { ElementList, Route } from 'components'
 import { useListControls, useStoreState } from 'hooks'
 import { FC } from 'react'
 import { RoutineListFilters, singleRoutineStatusEnum } from 'schemas'
-import { EntityListHeaderTemplate } from 'templates'
+import { EntityListFooterTemplate, EntityListHeaderTemplate } from 'templates'
 import { getSingleFilterMultiTypeOption } from 'utils'
 import Routine from './Routine'
 
 const RoutineList: FC = () => {
   const storeState = useStoreState()
 
-  const { listBodyProps, listHeaderProps, ...useListControlsReturn } =
+  const { listBodyProps, listFooterProps, listHeaderProps, filters } =
     useListControls({
       disableOptions: true,
       disableSorting: true,
@@ -25,20 +25,19 @@ const RoutineList: FC = () => {
       ],
       initialFiltersState,
     })
-  const routines = storeState.getRoutinesByStatus(
-    useListControlsReturn.filters.status
-  )
+  const routines = storeState.getRoutinesByStatus(filters.status)
 
   return (
     <Route>
       <EntityListHeaderTemplate {...listHeaderProps} />
 
       <ElementList
-        // component="main"
-        elements={routines}
         {...listBodyProps}
+        elements={routines}
         renderElement={(r) => <Routine key={r.id} routine={r} />}
       />
+
+      <EntityListFooterTemplate {...listFooterProps} />
     </Route>
   )
 }

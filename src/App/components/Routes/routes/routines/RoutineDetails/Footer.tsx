@@ -30,16 +30,9 @@ const Footer: FC<Props> = ({ hasAnyTasksInProgress }) => {
     variant: 'outlined',
   }
 
-  const addTaskLargeButton: ButtonElementProps = {
-    color: 'success',
-    fullWidth: true,
-    label: 'Add task',
-    onClick: addTaskOnClick,
-    variant: 'solid',
-  }
-
   const runButton: ButtonElementProps = {
     color: 'success',
+    disabled: !hasAnyTasksInProgress,
     fullWidth: true,
     label: 'Run',
     onClick: () =>
@@ -50,10 +43,7 @@ const Footer: FC<Props> = ({ hasAnyTasksInProgress }) => {
   }
 
   return (
-    <FooterGeneric
-      smallButton={hasAnyTasksInProgress ? addTaskSmallButton : undefined}
-      largeButton={hasAnyTasksInProgress ? runButton : addTaskLargeButton}
-    />
+    <FooterGeneric smallButton={addTaskSmallButton} largeButton={runButton} />
   )
 }
 
