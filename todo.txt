@@ -7,6 +7,7 @@
 - Input type=number allows text and durationInSec in not present
 - Pilot: tts blocking moving to next step immediately
 - Pilot: outro screen
+- PilotSummary: wake lock
 ###
 
 
@@ -53,13 +54,10 @@
 
 
 #UNDER TESTS:
-- Pilot: prevent screen dim
 ###
 
 
 
 #DONE:
-- Pilot: intro 'are' to 'is' conditionally
-- eslint: arrow body
-- Pilot: intro timer
+- Pilot: prevent screen dim
 ###
