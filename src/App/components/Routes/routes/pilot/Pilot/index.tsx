@@ -1,14 +1,16 @@
 import { Route } from 'components'
 import { paths } from 'config'
-import { useStoreState } from 'hooks'
+import { useStoreState, useWakeLock } from 'hooks'
 import { Navigate, useLocation } from 'react-router-dom'
 import Body from './Body'
 import Header from './Header'
 import NoTasks from './NoTasks'
+import { useEffect } from 'react'
 
 const Pilot = () => {
   const { state } = useLocation()
   const storeState = useStoreState()
+  const { turnOn } = useWakeLock()
 
   const redirect = <Navigate to={`/${paths.routines.core}`} />
 
@@ -26,6 +28,10 @@ const Pilot = () => {
     .getTasksByRoutineId(routineId)
     .filter((t) => t.routineMeta?.status === 'IN_PROGRESS')
   const hasTasks = !!tasks.length
+
+  useEffect(() => {
+    turnOn()
+  }, [])
 
   return (
     <Route shouldShowMenu={false}>
