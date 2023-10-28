@@ -7,6 +7,7 @@ const getDurationTotal = (tasks: Array<SingleTask>) =>
     if (curr.durationInSeconds !== undefined) {
       newAcc.secs = newAcc.secs + curr.durationInSeconds
     } else {
+      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       newAcc.count = newAcc.count + 1
     }
 

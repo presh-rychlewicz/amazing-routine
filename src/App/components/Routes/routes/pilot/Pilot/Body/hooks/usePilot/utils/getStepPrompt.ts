@@ -12,13 +12,16 @@ const getStepPrompt = (currentStep: ScheduleStep) => {
       const routinePart = routineName.toLowerCase().includes('routine')
         ? routineName
         : `${routineName} routine`
-      const taskPart = `${taskCount}task${getPluralPart(taskCount)}`
+      const taskPart = `${
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+        taskCount === 1 ? 'is only' : 'are'
+      } ${taskCount}task${getPluralPart(taskCount)}`
       const durationPart = getDurationString(durationInSecondsTotal)
       const estimationPart = dayjs()
         .add(durationInSecondsTotal, 'seconds')
         .format('h:mm')
 
-      return `Welcome in ${routinePart}. There are ${taskPart}, which should take ${durationPart}. Estimated end at ${estimationPart}.`
+      return `Welcome in ${routinePart}. There ${taskPart}, which should take ${durationPart}. Estimated end at ${estimationPart}.`
     }
 
     case 'TASK': {

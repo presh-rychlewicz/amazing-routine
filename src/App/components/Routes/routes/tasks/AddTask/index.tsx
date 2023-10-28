@@ -8,7 +8,7 @@ const AddTask = () => {
   const { state } = useLocation()
   const returnPath =
     state && state.returnPath
-      ? state.returnPath.slice(1)
+      ? state.returnPath.slice(SLICE_START)
       : paths.tasks.children.index.absolute
   const useFormReturn = useForm(returnPath)
 
@@ -20,5 +20,7 @@ const AddTask = () => {
     </Route>
   )
 }
+
+const SLICE_START = 1
 
 export default AddTask

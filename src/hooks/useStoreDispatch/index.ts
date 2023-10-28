@@ -15,6 +15,8 @@ const useStoreDispatch = () => {
   }
 }
 
-export type Payload<T extends (param: any) => void> = Parameters<T>[0]
+const FIRST_INDEX = 0
+type Payload<T extends (param: any) => void> = Parameters<T>[typeof FIRST_INDEX]
 
 export default useStoreDispatch
+export type { Payload }

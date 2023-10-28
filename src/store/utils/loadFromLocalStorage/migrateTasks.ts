@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { TasksState, tasksStateSchema } from 'schemas'
 
 const migrateTasks = (rawTasks: any): TasksState => {

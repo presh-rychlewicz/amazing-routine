@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { useStoreState } from 'hooks'
 import { SingleTask, TaskDataElem } from 'schemas'
 

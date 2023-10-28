@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { MISSING_CONTEXT_VALUE, paths } from 'config'
 import { useModal, useNavigate, useTTS } from 'hooks'
 import { useEffect, useState } from 'react'
@@ -111,8 +113,8 @@ const usePilot = (
     })
 
   const isIntro = currentStep.type === 'INTRO'
-  const isOutro = currentStep.type === 'OUTRO'
   const isTask = currentStep.type === 'TASK'
+  const isOutro = currentStep.type === 'OUTRO'
 
   useEffect(() => {
     if (isOutro) {
@@ -122,11 +124,11 @@ const usePilot = (
         onEnd()
       }
     }
-  }, [navigate, isOutro, tasksDataSkipped])
+  }, [navigate, isOutro, tasksDataSkipped, currentStep])
 
   const durationInSeconds = currentStep.data.durationInSeconds ?? 0
   const stepName = isTask
-    ? currentStep.data.name
+    ? currentStep?.data.name
     : isIntro
     ? `${currentStep.data.taskCount} tasks`
     : currentStep.data.name
@@ -191,6 +193,14 @@ const usePilot = (
 
             modifyStepDataElementById(currentStep.data.id, setStepData, {
               completionSeconds: Math.round(elapsedTime),
+              isDone: true,
+            })
+          }
+
+          if (isOutro) {
+            await speak("Let's start!")
+
+            modifyStepDataElementById(currentStep.data.id, setStepData, {
               isDone: true,
             })
           }

@@ -1,42 +1,64 @@
-IN PROGRESS:
+#IN PROGRESS:
 - Pilot: outro screen
+###
 
 
 
-BUGS:
+#BUGS:
 - Input type=number allows text and durationInSec in not present
+- Pilot: tts blocking moving to next step immediately
+###
 
 
-TECH DEBT:
+
+#TECH DEBT:
 - AddRoutineBody: why checkboxes field cannot be inside fields?
+###
 
 
-FEATURES:
-- BigCard: make is clickable
-- config: add build version
-- eslint: props sorted
-- eslint: destruc sorted
-- Pilot: handle time elapsed
-- PilotSummary: save run
-- PilotSettings: switch off intro
-- Pilot: undo
-- ?Pilot: move logic to redux
-- PilotList: allow to custom sort context 
-- ?SingleTaskSchema: should index be moved to routeMeta
-- RoutineDetail: add ability to hide incoming section tasks
-- RoutineDetails: add settings
-- General: dark mode
+
+#FEATURES:
+- CONFIG
+-- package: add build version
+-- eslint: props sorted
+-- eslint: destruc sorted
+-- BigCard: make is clickable
+-- General: dark mode
+
+- CONTEXTS
+...
+
+- PILOT
+-- Pilot: handle time elapsed
+-- Pilot: undo
+-- PilotSummary: save run
+-- PilotSettings: switch off intro
+-- ?Pilot: move logic to redux
+-- PilotList: allow to custom sort context 
+-- PilotIntro: add Estimation string
+
+- ROUTINES
+-- ?SingleTaskSchema: should index be moved to routeMeta
+-- RoutineDetail: add ability to hide incoming section tasks
+-- RoutineDetails: add settings
+
+- SETTINGS
+...
+
+- TASKS
+...
+###
 
 
-UNDER TESTS:
+
+#UNDER TESTS:
 - Pilot: prevent screen dim
+###
 
 
-DONE:
+
+#DONE:
+- Pilot: intro 'are' to 'is' conditionally
 - eslint: arrow body
 - Pilot: intro timer
-- PilotSettings: tts on/off
-- RoutineList: move New button to footer
-- Pilot: tts
-- RoutineDetails: add context as subtitle
-- addRoutine: days checkboxes are not working
+###

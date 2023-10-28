@@ -40,6 +40,7 @@ const Stats: FC<Props> = ({ pastRuns }) => {
   // }))
 
   const pastRunsSorted = [...pastRuns].sort((prev, next) =>
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     dayjs.unix(prev.timestamp).isAfter(dayjs.unix(next.timestamp)) ? -1 : 1
   )
 

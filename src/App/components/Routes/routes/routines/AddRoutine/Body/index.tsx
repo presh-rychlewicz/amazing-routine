@@ -18,6 +18,7 @@ const Body = () => {
         label="Days"
         isRequired
         type="checkbox_group"
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
         isError={useFormReturn.error?.[0] === 'days'}
         errorMessage={undefined}
         onChange={(e, index) => {

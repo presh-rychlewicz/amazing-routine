@@ -4,6 +4,9 @@ import { Dispatch, SetStateAction } from 'react'
 import { Field } from 'schemas'
 import getFieldLabel from './getFieldLabel'
 
+const KEY_INDEX = 0
+const MESSAGE_INDEX = 1
+
 function getFormFieldProps<
   ValuesT extends Record<string, string>,
   FieldT extends Field<ValuesT>
@@ -15,15 +18,18 @@ function getFormFieldProps<
   isSubmitting: boolean
 ): FormFieldProps {
   const { key } = field
-  const isError = error?.[0] === key
+  const isError = error?.[KEY_INDEX] === key
 
   const onChange = (value: string) =>
     setValues((prev) => ({
       ...prev,
       [key]: value,
     }))
+
   const common = {
-    errorMessage: isError ? error?.[1] || 'Unknown error' : undefined,
+    errorMessage: isError
+      ? error?.[MESSAGE_INDEX] || 'Unknown error'
+      : undefined,
     isError,
     isRequired: field.required,
     key: field.key,

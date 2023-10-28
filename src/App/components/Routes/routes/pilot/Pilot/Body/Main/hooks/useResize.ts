@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { useEffect, useRef, useState } from 'react'
 
 const useResize = () => {

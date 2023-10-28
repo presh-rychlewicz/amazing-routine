@@ -14,7 +14,7 @@ const getDetailsGenericProps = (routine: SingleRoutine) => {
       value: (
         <>
           {routine.days.map((d, index) => {
-            const label = DAYS[index].slice(0, 1)
+            const label = DAYS[index].slice(SLICE_START, SLICE_END)
 
             return (
               <Typography key={index} variant={d ? 'outlined' : 'plain'}>
@@ -74,5 +74,8 @@ const getDetailsGenericProps = (routine: SingleRoutine) => {
     rawData,
   }
 }
+
+const SLICE_START = 0
+const SLICE_END = 1
 
 export default getDetailsGenericProps

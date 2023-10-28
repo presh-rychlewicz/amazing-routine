@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { RoutinesState, routinesStateSchema } from 'schemas'
 import { getUnixFromDateString } from 'utils'
 

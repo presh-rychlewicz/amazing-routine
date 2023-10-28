@@ -37,6 +37,7 @@ const Body: FC<Props> = ({ taskData }) => {
               const diffInSeconds = completionSeconds - durationInSeconds
               const diffFormatted = getDurationString(Math.abs(diffInSeconds))
               // TODO: missing x factor
+              // eslint-disable-next-line @typescript-eslint/no-magic-numbers
               const isNegative = diffInSeconds < 0
               const minusCharacter = isNegative ? '-' : ''
               const inParens = `(${minusCharacter}${diffFormatted})`

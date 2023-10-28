@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { Stack, Typography } from '@mui/joy'
 import { Dispatch, FC, SetStateAction } from 'react'
 import { ColorHex, CountdownCircleTimer } from 'react-countdown-circle-timer'

@@ -5,6 +5,7 @@ const getStatusData = (tasksArray: Array<SingleTask>) =>
     .map((status): StatusDataElem => {
       const tasks = tasksArray
         .filter((t) => t.routineMeta && t.routineMeta.status === status)
+        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
         .sort((prev, next) => (prev.index > next.index ? 1 : -1))
       const hasTasks = !!tasks.length
 

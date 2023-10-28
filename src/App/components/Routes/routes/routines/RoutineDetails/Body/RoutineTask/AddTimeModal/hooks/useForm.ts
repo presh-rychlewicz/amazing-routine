@@ -13,6 +13,7 @@ const useForm = (taskId: Id, onClose: () => void): ReturnUseAddForm<Values> => {
     handleSubmit: () =>
       getHandleSubmit((values) => {
         storeDispatch.tasks.addTime({
+          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
           durationInSeconds: parseInt(values.duration) * 60,
           id: taskId,
         })

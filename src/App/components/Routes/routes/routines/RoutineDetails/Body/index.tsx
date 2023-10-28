@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { Stack } from '@mui/joy'
 import { ElementList } from 'components'
 import { FC, useState } from 'react'
