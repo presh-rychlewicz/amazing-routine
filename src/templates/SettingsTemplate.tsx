@@ -33,12 +33,7 @@ const SettingsTemplate: FC<Props> = ({ name, settings }) => (
         <Switch
           disabled={s.isDisabled}
           checked={s.isEnabled}
-          onChange={(
-            // eslint-disable-next-line @typescript-eslint/no-unused-vars
-            event: React.ChangeEvent<HTMLInputElement>
-          ) => {
-            //  setChecked(event.target.checked)
-          }}
+          onChange={s.toggle}
           color={s.isEnabled ? 'success' : 'neutral'}
           variant={s.isEnabled ? 'solid' : 'outlined'}
           endDecorator={s.isEnabled ? 'On' : 'Off'}

@@ -42,7 +42,7 @@ const Routes = () =>
         {
           index: true,
           // TODO
-          element: <Navigate to={'/' + paths.routines.core} />,
+          element: <Navigate to={`/${paths.routines.core}`} />,
         },
       ],
     },

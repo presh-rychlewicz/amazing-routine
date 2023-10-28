@@ -15,7 +15,7 @@ const Summary = () => {
   const taskData: Array<TaskDataElem> | undefined = state?.taskData
   const routineId: SingleRoutine['id'] | undefined = state?.routineId
   if (!taskData || !routineId) {
-    return <Navigate to={'/' + paths.routines.core} />
+    return <Navigate to={`/${paths.routines.core}`} />
   }
 
   const onExit = () => setIsModalVisible(true)

@@ -20,11 +20,11 @@ const Route: FC<PropsWithChildren<Props>> = ({
         display="grid"
         gridAutoColumns="1fr"
         gridTemplateRows={(() => {
-          if (childrenCount > 3) {
+          if (childrenCount > MAX_PAGE_CHILDREN_COUNT) {
             throw new Error('<Route /> cannot have more that 3 children')
           }
 
-          if (childrenCount === 3) {
+          if (childrenCount === MAX_PAGE_CHILDREN_COUNT) {
             return 'auto 1fr auto'
           }
 
@@ -54,6 +54,7 @@ const Route: FC<PropsWithChildren<Props>> = ({
   )
 }
 
+const MAX_PAGE_CHILDREN_COUNT = 3
 const INNER_PADDING = 1
 
 export default Route

@@ -1,6 +1,7 @@
 import { useAppDispatch } from 'store'
 import contexts from './contexts'
 import routines from './routines'
+import settings from './settings'
 import tasks from './tasks'
 
 const useStoreDispatch = () => {
@@ -9,6 +10,7 @@ const useStoreDispatch = () => {
   return {
     contexts: contexts(dispatch),
     routines: routines(dispatch),
+    settings: settings(dispatch),
     tasks: tasks(dispatch),
   }
 }

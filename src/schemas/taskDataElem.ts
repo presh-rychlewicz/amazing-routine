@@ -4,7 +4,7 @@ import { singleContextSchema } from './singleContext'
 
 const taskDataElemSchema = object({
   completionSeconds: number(),
-  contextName: singleContextSchema._def.shape().name,
+  contextName: singleContextSchema._def.shape().name.optional(),
   durationInSeconds: singleTaskSchema._def.shape().durationInSeconds.nullish(),
   id: singleTaskSchema._def.shape().id,
   index: number(),

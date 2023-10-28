@@ -8,7 +8,7 @@ type ReturnUseAddForm<ValuesT extends Record<string, any>> = {
   isSubmitting: boolean
   setValues: Dispatch<SetStateAction<ValuesT>>
   values: ValuesT
-  fields: Field<ValuesT>[]
+  fields: Array<Field<ValuesT>>
 }
 
 export type { ReturnUseAddForm }

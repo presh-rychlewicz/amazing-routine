@@ -1,31 +1,31 @@
 IN PROGRESS:
-- Pilot: tts
+- Pilot: outro screen
+
 
 
 BUGS:
-- addRoutine: days checkboxes are not working
-- select should have empty options message
+- Input type=number allows text and durationInSec in not present
 
 
 TECH DEBT:
+- AddRoutineBody: why checkboxes field cannot be inside fields?
 
 
 FEATURES:
+- BigCard: make is clickable
 - config: add build version
 - eslint: props sorted
 - eslint: destruc sorted
-- eslint: arrow body
-- RoutineList: move New button to footer
 - Pilot: handle time elapsed
 - PilotSummary: save run
-- Pilot: intro timer
-- Pilot: undo
 - PilotSettings: switch off intro
-- PilotSettings: tts on/off
+- Pilot: undo
 - ?Pilot: move logic to redux
 - PilotList: allow to custom sort context 
 - ?SingleTaskSchema: should index be moved to routeMeta
-- RoutineDetails: add context as subtitle
+- RoutineDetail: add ability to hide incoming section tasks
+- RoutineDetails: add settings
+- General: dark mode
 
 
 UNDER TESTS:
@@ -33,4 +33,10 @@ UNDER TESTS:
 
 
 DONE:
-- PilotList: highlight current task
+- eslint: arrow body
+- Pilot: intro timer
+- PilotSettings: tts on/off
+- RoutineList: move New button to footer
+- Pilot: tts
+- RoutineDetails: add context as subtitle
+- addRoutine: days checkboxes are not working

@@ -14,7 +14,7 @@ function getFormFieldProps<
   setValues: Dispatch<SetStateAction<ValuesT>>,
   isSubmitting: boolean
 ): FormFieldProps {
-  const key = field.key
+  const { key } = field
   const isError = error?.[0] === key
 
   const onChange = (value: string) =>
@@ -74,7 +74,6 @@ function getFormFieldProps<
       options: field.options,
       placeholder: field.placeholder,
       type: field.type,
-      value: values[key],
     }
   }
 

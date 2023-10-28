@@ -7,7 +7,7 @@ function getEmptyFields<ValuesT extends {}, FieldsT extends Field<ValuesT>>(
   const emptyFields = fields
     .filter((f) => f.required)
     .map((f) => {
-      const key = f.key
+      const { key } = f
       const value = values[key]
 
       return {
@@ -18,7 +18,7 @@ function getEmptyFields<ValuesT extends {}, FieldsT extends Field<ValuesT>>(
     })
     .filter((f) => f.isEmpty)
 
-  const firstError = emptyFields[0]
+  const [firstError] = emptyFields
   const hasErrors = !!firstError
 
   if (hasErrors) {

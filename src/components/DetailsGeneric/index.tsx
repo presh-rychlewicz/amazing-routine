@@ -6,33 +6,40 @@ import { FC } from 'react'
 type DetailsGenericProps = {
   rawData: Array<DetailsElem>
   generatedData?: Array<DetailsElem>
+  shouldDisplayDetails?: boolean
 }
 
 const DetailsGeneric: FC<DetailsGenericProps> = ({
   rawData,
   generatedData,
+  shouldDisplayDetails = true,
 }) => {
+  if (!shouldDisplayDetails) {
+    return null
+  }
+
+  const hasAnyRawData = !!rawData.length
   const hasAnyGeneratedData = !!generatedData?.length
+  const shouldDisplayDivider = hasAnyRawData && hasAnyGeneratedData
 
   return (
     <Stack>
-      {rawData.map((d) => (
-        <Typography key={d.label} level="body-xs" color={d.color}>
-          {d.label}: {d.value}
-        </Typography>
-      ))}
+      {hasAnyRawData &&
+        rawData.map((d) => (
+          <Typography key={d.label} level="body-xs" color={d.color}>
+            {d.label}: {d.value}
+          </Typography>
+        ))}
+
+      {shouldDisplayDivider && <Typography level="body-xs">---</Typography>}
 
       {hasAnyGeneratedData && (
         <>
-          <Typography level="body-xs">---</Typography>
-
-          <>
-            {generatedData.map((d) => (
-              <Typography key={d.label} level="body-xs" color={d.color}>
-                {d.label}: {d.value}
-              </Typography>
-            ))}
-          </>
+          {generatedData.map((d) => (
+            <Typography key={d.label} level="body-xs" color={d.color}>
+              {d.label}: {d.value}
+            </Typography>
+          ))}
         </>
       )}
     </Stack>

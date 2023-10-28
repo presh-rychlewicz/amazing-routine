@@ -1,63 +1,25 @@
-import { Stack, Typography } from '@mui/joy'
-import { Dispatch, FC, SetStateAction } from 'react'
-import { TaskDataElem } from 'schemas'
-import Clock from './Clock'
-import Controls from './Controls'
+import { Stack } from '@mui/joy'
+import { FC } from 'react'
+import Clock, { ClockProps } from './Clock'
+import Controls, { ControlsProps } from './Controls'
+import { useResize } from './hooks'
 
-type Props = {
-  currentTask: TaskDataElem
-  duration: number
-  isPlaying: boolean
-  onPlayOrPauseClick: () => void
-  onDone: () => void
-  onSkip: () => void
-  onFail: () => void
-  toggleList: () => void
-  setElapsedTime: Dispatch<SetStateAction<number>>
+type MainProps = {
+  controlsProps: Omit<ControlsProps, 'elementsWidth'>
+  clockProps: Omit<ClockProps, 'elementsWidth'>
 }
 
-const Main: FC<Props> = ({
-  onPlayOrPauseClick,
-  currentTask,
-  duration,
-  isPlaying,
-  onDone,
-  toggleList,
-  onSkip,
-  onFail,
-  setElapsedTime,
-}) => {
+const Main: FC<MainProps> = ({ clockProps, controlsProps }) => {
+  const { elementsWidth, ref } = useResize()
+
   return (
-    <Stack alignItems="center" spacing={3}>
-      <Stack>
-        <Typography textAlign="center" level="h2">
-          {currentTask.name}
-        </Typography>
+    <Stack ref={ref} alignItems="center" spacing={3}>
+      <Clock {...clockProps} elementsWidth={elementsWidth} />
 
-        <Typography textAlign="center" level="body-md">
-          {currentTask.contextName}
-        </Typography>
-      </Stack>
-
-      <Clock
-        setElapsedTime={setElapsedTime}
-        taskId={currentTask.id}
-        durationInSeconds={duration}
-        isPlaying={isPlaying}
-      />
-
-      <Controls
-        canSkip={!currentTask.isSkipped && !currentTask.isDone}
-        canDone={!currentTask.isDone}
-        onDone={onDone}
-        onPlayOrPauseClick={onPlayOrPauseClick}
-        isPlaying={isPlaying}
-        onFail={onFail}
-        onSkip={onSkip}
-        toggleList={toggleList}
-      />
+      <Controls {...controlsProps} elementsWidth={elementsWidth} />
     </Stack>
   )
 }
 
 export default Main
+export type { MainProps }

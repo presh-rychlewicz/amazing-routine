@@ -1,6 +1,6 @@
 import { Route } from 'components'
 import { AddFormHeaderTemplate } from 'templates'
-import { Body } from './components'
+import Body from './Body'
 
 const AddRoutine = () => (
   <Route>

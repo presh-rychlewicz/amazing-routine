@@ -1,17 +1,18 @@
 import { useStoreState } from 'hooks'
 import { SingleTask, TaskDataElem } from 'schemas'
 
-const useGetInitialTaskData = (tasks: Array<SingleTask>) => {
+const useGetInitialTaskData = (
+  tasks: Array<SingleTask>
+): Array<TaskDataElem> => {
   const storeState = useStoreState()
 
   return tasks
     .map((t, index, aray): TaskDataElem => {
-      let contextName = 'Missing context'
+      let contextName
       if (t.contextId) {
-        const context = storeState.getContextsById(t.contextId)
-        if (context) {
-          contextName = context.name
-        }
+        contextName = storeState.getContextsById(t.contextId)?.name
+      } else {
+        contextName = undefined
       }
 
       return {

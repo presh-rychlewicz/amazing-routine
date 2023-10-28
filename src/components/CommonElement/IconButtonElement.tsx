@@ -8,6 +8,8 @@ type IconButtonElementProps = {
   variant?: DefaultVariantProp
   onClick: () => void
   fullWidth?: boolean
+  fullHeight?: boolean
+  gridArea?: string
 }
 
 const IconButtonElement: FC<IconButtonElementProps> = (props) => (
@@ -17,6 +19,8 @@ const IconButtonElement: FC<IconButtonElementProps> = (props) => (
     onClick={props.onClick}
     size="lg"
     sx={{
+      gridArea: props.gridArea,
+      height: props.fullHeight ? '100%' : undefined,
       width: props.fullWidth ? '100%' : undefined,
     }}
   >

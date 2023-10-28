@@ -3,7 +3,7 @@ import { singleSettingSchema } from './singleSetting'
 
 const settingsStateSchema = object({
   value: array(singleSettingSchema),
-  version: literal(3),
+  version: literal(8),
 })
 type SettingsState = TypeOf<typeof settingsStateSchema>
 

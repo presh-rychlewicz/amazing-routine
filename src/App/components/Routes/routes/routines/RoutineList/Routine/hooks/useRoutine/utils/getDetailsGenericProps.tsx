@@ -31,6 +31,10 @@ const getDetailsGenericProps = (routine: SingleRoutine) => {
       value: routine.endDateInUnix ? routine.endDateInUnix : '∞',
     },
     {
+      label: 'ID',
+      value: routine.id,
+    },
+    {
       label: 'INTERVAL',
       value: routine.interval,
     },

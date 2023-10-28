@@ -1,11 +1,11 @@
 import { Card, Typography } from '@mui/joy'
 import { FC } from 'react'
-import { Header } from './components'
-import { HeaderProps } from './components/Header'
 import DetailsGeneric, {
   DetailsElem,
   DetailsGenericProps,
 } from '../DetailsGeneric'
+import { Header } from './components'
+import { HeaderProps } from './components/Header'
 
 type BigCardProps = HeaderProps &
   DetailsGenericProps & {
@@ -22,6 +22,7 @@ const BigCard: FC<BigCardProps> = ({
   note,
   name,
   canRemove,
+  shouldDisplayDetails,
 }) => (
   <Card>
     <Header
@@ -32,7 +33,11 @@ const BigCard: FC<BigCardProps> = ({
       canRemove={canRemove}
     />
 
-    <DetailsGeneric generatedData={generatedData} rawData={rawData} />
+    <DetailsGeneric
+      shouldDisplayDetails={shouldDisplayDetails}
+      generatedData={generatedData}
+      rawData={rawData}
+    />
 
     {note && <Typography level="body-xs">{note}</Typography>}
   </Card>

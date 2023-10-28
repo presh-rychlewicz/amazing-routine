@@ -1,7 +1,7 @@
+import { BigCard } from 'components'
 import { FC } from 'react'
 import { SingleRoutine } from 'schemas'
 import { useRoutine } from './hooks'
-import { BigCard } from 'components'
 
 type Props = {
   routine: SingleRoutine

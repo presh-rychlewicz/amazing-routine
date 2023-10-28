@@ -1,34 +1,41 @@
 import { DrawerWrapper, ElementList } from 'components'
 import { FC } from 'react'
-import { Id, TaskDataElem } from 'schemas'
+import { Id, ScheduleStep, TaskDataElem } from 'schemas'
 import groupTaskDataByContextName from './utils/groupTaskDataByContextName'
 import ListTask from './ListTask'
+import { MISSING_CONTEXT_VALUE } from 'config'
 
-type Props = {
+type ListProps = {
   taskData: Array<TaskDataElem>
+  stepData: Array<ScheduleStep>
   isListVisible: boolean
   onClose: () => void
-  currentTaskId: Id
+  currentTaskId: Id | undefined
 }
 
-const List: FC<Props> = ({
+const List: FC<ListProps> = ({
   currentTaskId,
   taskData,
   isListVisible,
   onClose,
-}) => {
-  const groups = groupTaskDataByContextName(taskData)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  stepData,
+}) => (
+  // const taskData2 = stepData.filter(s => s.type === 'TASK').map(s => s.data)
 
-  return (
-    <DrawerWrapper open={isListVisible} onClose={onClose}>
-      <ElementList
-        spacingBetweenElements="medium"
-        elements={groups}
-        renderElement={({ name, tasks }) => (
+  <DrawerWrapper open={isListVisible} onClose={onClose}>
+    <ElementList
+      spacingBetweenElements="medium"
+      elements={groupTaskDataByContextName(taskData)}
+      renderElement={({ name, tasks }) => {
+        const visibleContextName =
+          name === 'undefined' ? MISSING_CONTEXT_VALUE : name
+
+        return (
           <ElementList
             shouldShowEmptyState={false}
-            key={name}
-            title={name}
+            key={visibleContextName}
+            title={visibleContextName}
             elements={tasks}
             renderElement={(task) => (
               <ListTask
@@ -42,10 +49,11 @@ const List: FC<Props> = ({
               />
             )}
           />
-        )}
-      />
-    </DrawerWrapper>
-  )
-}
+        )
+      }}
+    />
+  </DrawerWrapper>
+)
 
 export default List
+export type { ListProps }

@@ -20,11 +20,9 @@ const Body = () => {
         type="checkbox_group"
         isError={useFormReturn.error?.[0] === 'days'}
         errorMessage={undefined}
-        onChange={(e) =>
+        onChange={(e, index) => {
           useFormReturn.setValues((prev) => {
-            const newDays = prev.days
-            // @ts-ignore
-            const index = DAYS.indexOf(e.target.computedName)
+            const newDays = [...prev.days] as typeof prev.days
             newDays[index] = e.target.checked
 
             return {
@@ -32,7 +30,7 @@ const Body = () => {
               days: newDays,
             }
           })
-        }
+        }}
       />
     </AddFormBodyTemplate>
   )

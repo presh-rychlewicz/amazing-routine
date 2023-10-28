@@ -11,6 +11,7 @@ const reducer = {
 }
 
 export default reducer
-export { default as routines } from './routines'
-export { default as tasks } from './tasks'
 export { default as contexts } from './contexts'
+export { default as routines } from './routines'
+export { default as settings } from './settings'
+export { default as tasks } from './tasks'

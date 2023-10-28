@@ -8,10 +8,12 @@ type ButtonElementProps = {
   color?: ColorPaletteProp
   fullWidth?: boolean
   variant?: VariantProp
+  type?: string
 }
 
 const ButtonElement: FC<ButtonElementProps> = (props) => (
   <Button
+    type={props.type}
     fullWidth={props.fullWidth}
     color={props.color}
     variant={props.variant}

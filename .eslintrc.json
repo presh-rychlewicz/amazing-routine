@@ -21,6 +21,26 @@
     "@typescript-eslint/no-explicit-any": 0,
     "@typescript-eslint/ban-ts-comment": 0,
     "@typescript-eslint/ban-types": 0,
-    "react/react-in-jsx-scope": 0
+    "react/react-in-jsx-scope": 0,
+    "no-useless-rename": 2,
+    "arrow-body-style": 2,
+    "camelcase": 2,
+    "yoda": 2,
+    "prefer-template": 2,
+    "prefer-destructuring": 2,
+    "prefer-const": 2,
+    "prefer-arrow-callback": 2,
+    "no-unsafe-negation": 2,
+    "no-var": 2,
+    "no-useless-concat": 2,
+    "max-lines": [2, 300],
+    "@typescript-eslint/array-type": [
+      2,
+      {
+        "default": "generic"
+      }
+    ],
+    "@typescript-eslint/padding-line-between-statements": 2,
+    "@typescript-eslint/no-magic-numbers": 1
   }
 }

@@ -10,27 +10,32 @@ const Pilot = () => {
   const { state } = useLocation()
   const storeState = useStoreState()
 
+  const redirect = <Navigate to={`/${paths.routines.core}`} />
+
   const routineId = state?.routineId
   if (!routineId) {
-    return <Navigate to={'/' + paths.routines.core} />
+    return redirect
   }
 
   const routine = storeState.getRoutinesById(routineId)
   if (!routine) {
-    return <Navigate to={'/' + paths.routines.core} />
+    return redirect
   }
 
   const tasks = storeState
     .getTasksByRoutineId(routineId)
     .filter((t) => t.routineMeta?.status === 'IN_PROGRESS')
-  const tasksLen = tasks.length
-  const hasTasks = !!tasksLen
+  const hasTasks = !!tasks.length
 
   return (
     <Route shouldShowMenu={false}>
       <Header routineId={routineId} />
 
-      {hasTasks ? <Body routineId={routineId} tasks={tasks} /> : <NoTasks />}
+      {hasTasks ? (
+        <Body routineName={routine.name} routineId={routineId} tasks={tasks} />
+      ) : (
+        <NoTasks />
+      )}
     </Route>
   )
 }

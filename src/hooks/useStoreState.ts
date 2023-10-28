@@ -6,8 +6,6 @@ import {
   SingleContextStatusEnum,
   SingleRoutine,
   SingleRoutineStatusEnum,
-  SingleSetting,
-  SingleSettingCategoryEnum,
   SingleTask,
   SingleTaskStatusEnum,
   singleTaskStatusEnum,
@@ -38,8 +36,6 @@ const useStoreState = (): UseStoreState => {
 
     // SETTINGS
     settings: settingsData,
-    getSettingsByCategory: (categories) =>
-      settingsData.filter((s) => categories.includes(s.category)),
     getSettingsById: (id) => settingsData.find((s) => s.id === id),
     //
 
@@ -92,9 +88,6 @@ type CustomGetters = {
   //
 
   // SETTINGS
-  getSettingsByCategory: (
-    categories: Array<SingleSettingCategoryEnum>
-  ) => Array<SingleSetting>
   //
 
   // TASKS

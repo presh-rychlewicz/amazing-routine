@@ -1,4 +1,5 @@
-import { Button, Stack } from '@mui/joy'
+import { Stack } from '@mui/joy'
+import ButtonElement from 'components/CommonElement/ButtonElement'
 import { FC } from 'react'
 import { ReturnUseAddForm } from 'schemas'
 
@@ -9,9 +10,7 @@ type Props = {
 
 const SubmitButton: FC<Props> = ({ handleSubmit, label }) => (
   <Stack alignItems="flex-end">
-    <Button type="submit" onClick={handleSubmit} size="md">
-      {label}
-    </Button>
+    <ButtonElement label={label} type="submit" onClick={handleSubmit} />
   </Stack>
 )
 

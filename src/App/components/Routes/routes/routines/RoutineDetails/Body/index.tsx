@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Stack } from '@mui/joy'
 import { ElementList } from 'components'
 import { FC, useState } from 'react'
@@ -54,7 +53,7 @@ const Body: FC<Props> = ({ pastRuns, statusData }) => {
               title={titleMapping[status]}
               subtitle={subtitleMapping[status](tasks)}
               elements={tasks}
-              renderElement={(routineTask, index, aray) => {
+              renderElement={(task, index, aray) => {
                 const isFirstOnTheList = index === 0
                 const isLastOnTheList = index === aray.length - 1
 
@@ -64,19 +63,19 @@ const Body: FC<Props> = ({ pastRuns, statusData }) => {
                       onDown: () =>
                         storeDispatch.tasks.updateIndex({
                           downId: aray[index + 1].id,
-                          upId: routineTask.id,
+                          upId: task.id,
                         }),
                     })}
                     {...(!isFirstOnTheList && {
                       onUp: () =>
                         storeDispatch.tasks.updateIndex({
                           downId: aray[index - 1].id,
-                          upId: routineTask.id,
+                          upId: task.id,
                         }),
                     })}
                     isEditingOrder={isEditingList}
-                    routineTask={routineTask}
-                    key={routineTask.id}
+                    task={task}
+                    key={task.id}
                   />
                 )
               }}

@@ -9,7 +9,9 @@ const DAYS = [
   'Sunday',
 ]
 
+const MISSING_CONTEXT_VALUE = 'Missing context'
+
 export { default as paths } from './paths'
 export * from './paths'
 
-export { DAYS, REDUX_LOCAL_STORAGE_KEY }
+export { DAYS, MISSING_CONTEXT_VALUE, REDUX_LOCAL_STORAGE_KEY }
