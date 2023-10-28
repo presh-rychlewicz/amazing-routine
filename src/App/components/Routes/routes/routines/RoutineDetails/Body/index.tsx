@@ -62,14 +62,14 @@ const Body: FC<Props> = ({ pastRuns, statusData }) => {
                   <RoutineTask
                     {...(!isLastOnTheList && {
                       onDown: () =>
-                        storeDispatch.tasks.updateIndex({
+                        storeDispatch.tasks.swapIndexes({
                           downId: aray[index + 1].id,
                           upId: task.id,
                         }),
                     })}
                     {...(!isFirstOnTheList && {
                       onUp: () =>
-                        storeDispatch.tasks.updateIndex({
+                        storeDispatch.tasks.swapIndexes({
                           downId: aray[index - 1].id,
                           upId: task.id,
                         }),

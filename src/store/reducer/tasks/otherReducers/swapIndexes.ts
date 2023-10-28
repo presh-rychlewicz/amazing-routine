@@ -1,9 +1,9 @@
 import { AppThunk, Id } from 'schemas'
-import routines from '..'
+import tasks from '..'
 import selectTasks from '../selectTasks'
 
-const updateIndex =
-  ({ downId, upId }: UpdateIndexPayload): AppThunk =>
+const swapIndexes =
+  ({ downId, upId }: SwapIndexesPayload): AppThunk =>
   (dispatch, getState) => {
     const currentValue = selectTasks(getState())
     const upIndex = currentValue.findIndex((t) => t.id === upId)
@@ -16,7 +16,7 @@ const updateIndex =
     }
 
     dispatch(
-      routines.update({
+      tasks.update({
         id: upId,
         update: {
           index: down.index,
@@ -24,7 +24,7 @@ const updateIndex =
       })
     )
     dispatch(
-      routines.update({
+      tasks.update({
         id: downId,
         update: {
           index: up.index,
@@ -33,9 +33,9 @@ const updateIndex =
     )
   }
 
-type UpdateIndexPayload = {
+type SwapIndexesPayload = {
   upId: Id
   downId: Id
 }
 
-export default updateIndex
+export default swapIndexes

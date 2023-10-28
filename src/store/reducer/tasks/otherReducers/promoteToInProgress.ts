@@ -1,11 +1,11 @@
 import { AppThunk, Id } from 'schemas'
-import routines from '..'
+import tasks from '..'
 
 const promoteToInProgress =
   ({ id }: PromoteToInProgressPayload): AppThunk =>
   (dispatch) =>
     dispatch(
-      routines.update({
+      tasks.update({
         id,
         update: {
           routineMeta: {

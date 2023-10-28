@@ -1,11 +1,11 @@
 import { AppThunk, Id, SingleTask } from 'schemas'
-import routines from '..'
+import tasks from '..'
 
 const addTime =
   ({ id, durationInSeconds }: AddTimePayload): AppThunk =>
   (dispatch) =>
     dispatch(
-      routines.update({
+      tasks.update({
         id,
         update: {
           durationInSeconds,

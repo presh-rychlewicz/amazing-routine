@@ -1,3 +1,4 @@
+import { NUMBER_OF_SECONDS_IN_MINUTE } from 'config'
 import { useAddForm, useStoreDispatch } from 'hooks'
 import { Field, Id, ReturnUseAddForm } from 'schemas'
 
@@ -13,8 +14,8 @@ const useForm = (taskId: Id, onClose: () => void): ReturnUseAddForm<Values> => {
     handleSubmit: () =>
       getHandleSubmit((values) => {
         storeDispatch.tasks.addTime({
-          // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-          durationInSeconds: parseInt(values.duration) * 60,
+          durationInSeconds:
+            parseInt(values.duration) * NUMBER_OF_SECONDS_IN_MINUTE,
           id: taskId,
         })
         onClose()

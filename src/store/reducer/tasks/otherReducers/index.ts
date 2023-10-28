@@ -2,14 +2,16 @@ import addTime from './addTime'
 import fixDurationInSeconds from './fixDurationInSeconds'
 import promoteToInProgress from './promoteToInProgress'
 import remove from './remove'
-import updateIndex from './updateIndex'
+import swapIndexes from './swapIndexes'
+import updateScore from './updateScore'
 
 const otherReducers = {
   addTime,
   fixDurationInSeconds,
   promoteToInProgress,
   remove,
-  updateIndex,
+  swapIndexes,
+  updateScore,
 }
 
 export default otherReducers

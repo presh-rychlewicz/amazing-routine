@@ -1,3 +1,4 @@
+import { SETTINGS_SCHEMA_CURRENT_VERSION } from 'config'
 import { SettingsState } from 'schemas'
 
 const initialState: SettingsState = {
@@ -19,7 +20,7 @@ const initialState: SettingsState = {
       value: false,
     },
   ],
-  version: 8,
+  version: SETTINGS_SCHEMA_CURRENT_VERSION,
 }
 
 export default initialState

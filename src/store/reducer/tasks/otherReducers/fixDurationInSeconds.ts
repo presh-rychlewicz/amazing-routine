@@ -1,3 +1,4 @@
+import { NUMBER_OF_SECONDS_IN_MINUTE } from 'config'
 import { AppThunk } from 'schemas'
 import tasks from '..'
 import selectTasks from '../selectTasks'
@@ -20,7 +21,5 @@ const fixDurationInSeconds = (): AppThunk => (dispatch, getState) => {
     }
   })
 }
-
-const NUMBER_OF_SECONDS_IN_MINUTE = 60
 
 export default fixDurationInSeconds

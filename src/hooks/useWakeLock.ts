@@ -15,6 +15,8 @@ const useWakeLock = () => {
 
       const wakeLock = await getLock()
       await wakeLock?.release()
+      // TEMP
+      alert('released')
     },
 
     turnOn: async () => {

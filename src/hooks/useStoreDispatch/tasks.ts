@@ -10,10 +10,12 @@ const tasks = (dispatch: ReturnType<typeof useAppDispatch>) => ({
     dispatch(tasks_.promoteToInProgress(payload)),
   remove: (payload: Payload<typeof tasks_.remove>) =>
     dispatch(tasks_.remove(payload)),
+  swapIndexes: (payload: Payload<typeof tasks_.swapIndexes>) =>
+    dispatch(tasks_.swapIndexes(payload)),
   update: (payload: Payload<typeof tasks_.update>) =>
     dispatch(tasks_.update(payload)),
-  updateIndex: (payload: Payload<typeof tasks_.updateIndex>) =>
-    dispatch(tasks_.updateIndex(payload)),
+  updateScore: (payload: Payload<typeof tasks_.updateScore>) =>
+    dispatch(tasks_.updateScore(payload)),
 })
 
 export default tasks

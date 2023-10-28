@@ -1,4 +1,5 @@
 #IN PROGRESS:
+-- [M1 BLOCKER]PilotSummary: save run
 ###
 
 
@@ -32,7 +33,6 @@
 - PILOT
 -- Pilot: handle time elapsed
 -- Pilot: undo
--- [M1 BLOCKER]PilotSummary: save run
 -- PilotSettings: switch off intro
 -- ?Pilot: move logic to redux
 -- PilotList: allow to custom sort context 
