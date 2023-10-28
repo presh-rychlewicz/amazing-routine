@@ -1,7 +1,9 @@
-import { TaskDataElem } from 'schemas'
+import { ScheduleTaskStepData } from 'schemas'
 
 // TODO: move to component
-const getTaskDataSections = (taskData: Array<TaskDataElem>): Array<Section> => [
+const getTaskDataSections = (
+  taskData: Array<ScheduleTaskStepData>
+): Array<Section> => [
   {
     name: 'Todo',
     tasks: taskData.filter((t) => !t.isDone && !t.isSkipped && !t.isFailed),
@@ -22,7 +24,7 @@ const getTaskDataSections = (taskData: Array<TaskDataElem>): Array<Section> => [
 
 type Section = {
   name: string
-  tasks: Array<TaskDataElem>
+  tasks: Array<ScheduleTaskStepData>
 }
 
 export default getTaskDataSections

@@ -1,13 +1,13 @@
 import DoneIcon from '@mui/icons-material/Done'
 import { SmallCard } from 'components'
 import { FC } from 'react'
-import { TaskDataElem } from 'schemas'
+import { ScheduleTaskStepData } from 'schemas'
 import { getDurationString } from 'utils'
 import SkipNextIcon from '@mui/icons-material/SkipNext'
 import DangerousIcon from '@mui/icons-material/Dangerous'
 
 type Props = Pick<
-  TaskDataElem,
+  ScheduleTaskStepData,
   'name' | 'isDone' | 'durationInSeconds' | 'isSkipped' | 'isFailed'
 > & {
   isCurrent: boolean

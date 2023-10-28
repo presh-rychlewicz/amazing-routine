@@ -1,7 +1,7 @@
 import { Typography } from '@mui/joy'
 import { ElementList, SmallCard } from 'components'
 import { FC } from 'react'
-import { TaskDataElem } from 'schemas'
+import { ScheduleTaskStepData } from 'schemas'
 import {
   getDurationString,
   getTaskDataSections,
@@ -9,7 +9,7 @@ import {
 } from 'utils'
 
 type Props = {
-  taskData: Array<TaskDataElem>
+  taskData: Array<ScheduleTaskStepData>
 }
 const Body: FC<Props> = ({ taskData }) => {
   const sections = getTaskDataSections(taskData)

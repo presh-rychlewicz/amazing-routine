@@ -16,7 +16,9 @@ const getStepPrompt = (currentStep: ScheduleStep) => {
         // eslint-disable-next-line @typescript-eslint/no-magic-numbers
         taskCount === 1 ? 'is only' : 'are'
       } ${taskCount}task${getPluralPart(taskCount)}`
-      const durationPart = getDurationString(durationInSecondsTotal)
+      const durationPart = getDurationString(durationInSecondsTotal, {
+        shouldShowFullUnits: true,
+      })
       const estimationPart = dayjs()
         .add(durationInSecondsTotal, 'seconds')
         .format('h:mm')

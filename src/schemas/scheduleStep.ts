@@ -1,32 +1,7 @@
-import { Id } from './id'
-import { SingleRoutine } from './singleRoutine'
-import { TaskDataElem } from './taskDataElem'
+import { ScheduleIntroStep } from './scheduleIntroStep'
+import { ScheduleOutroStep } from './scheduleOutroStep'
+import { ScheduleTaskStep } from './scheduleTaskStep'
 
-type ScheduleStep =
-  | {
-      type: 'INTRO'
-      data: {
-        id: Id
-        durationInSeconds: number
-        name: string
-        routineName: SingleRoutine['name']
-        isDone: boolean
-        taskCount: number
-        durationInSecondsTotal: number
-      }
-    }
-  | {
-      type: 'TASK'
-      data: TaskDataElem
-    }
-  | {
-      data: {
-        id: Id
-        isDone: boolean
-        durationInSeconds: number
-        name: string
-      }
-      type: 'OUTRO'
-    }
+type ScheduleStep = ScheduleIntroStep | ScheduleTaskStep | ScheduleOutroStep
 
 export type { ScheduleStep }

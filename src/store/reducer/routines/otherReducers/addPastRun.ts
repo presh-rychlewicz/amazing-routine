@@ -1,6 +1,6 @@
 import dayjs from 'dayjs'
 import { AppThunk, SingleRoutine } from 'schemas'
-import { PastRun } from 'schemas/pastRun'
+import { PastRun } from 'schemas'
 import routines from '..'
 import selectRoutines from '../selectRoutines'
 

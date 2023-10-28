@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { useStoreState } from 'hooks'
-import { SingleTask, TaskDataElem } from 'schemas'
+import { SingleTask, ScheduleTaskStepData } from 'schemas'
 
 const useGetInitialTaskData = (
   tasks: Array<SingleTask>
-): Array<TaskDataElem> => {
+): Array<ScheduleTaskStepData> => {
   const storeState = useStoreState()
 
   return tasks
-    .map((t, index, aray): TaskDataElem => {
+    .map((t, index, aray): ScheduleTaskStepData => {
       let contextName
       if (t.contextId) {
         contextName = storeState.getContextsById(t.contextId)?.name

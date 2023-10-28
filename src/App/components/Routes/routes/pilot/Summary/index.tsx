@@ -1,7 +1,7 @@
 import { DialogModalGeneric, Route } from 'components'
 import { paths } from 'config'
 import { Navigate, useLocation } from 'react-router-dom'
-import { SingleRoutine, TaskDataElem } from 'schemas'
+import { SingleRoutine, ScheduleTaskStepData } from 'schemas'
 import { useModal, useNavigate } from 'hooks'
 import Header from './Header'
 import Body from './Body'
@@ -12,7 +12,7 @@ const Summary = () => {
   const navigate = useNavigate()
   const { isModalVisible, setIsModalVisible } = useModal()
 
-  const taskData: Array<TaskDataElem> | undefined = state?.taskData
+  const taskData: Array<ScheduleTaskStepData> | undefined = state?.taskData
   const routineId: SingleRoutine['id'] | undefined = state?.routineId
   if (!taskData || !routineId) {
     return <Navigate to={`/${paths.routines.core}`} />
@@ -27,7 +27,7 @@ const Summary = () => {
 
         <Body taskData={taskData} />
 
-        <Footer onExit={onExit} routineId={routineId} />
+        <Footer taskData={taskData} onExit={onExit} routineId={routineId} />
       </Route>
 
       <DialogModalGeneric

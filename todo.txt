@@ -1,5 +1,4 @@
 #IN PROGRESS:
-- Pilot: outro screen
 ###
 
 
@@ -7,6 +6,7 @@
 #BUGS:
 - Input type=number allows text and durationInSec in not present
 - Pilot: tts blocking moving to next step immediately
+- Pilot: outro screen
 ###
 
 
@@ -31,7 +31,7 @@
 - PILOT
 -- Pilot: handle time elapsed
 -- Pilot: undo
--- PilotSummary: save run
+-- [M1 BLOCKER]PilotSummary: save run
 -- PilotSettings: switch off intro
 -- ?Pilot: move logic to redux
 -- PilotList: allow to custom sort context 
@@ -41,6 +41,7 @@
 -- ?SingleTaskSchema: should index be moved to routeMeta
 -- RoutineDetail: add ability to hide incoming section tasks
 -- RoutineDetails: add settings
+-- [M1 BLOCKER]RoutineDetails: add stats
 
 - SETTINGS
 ...

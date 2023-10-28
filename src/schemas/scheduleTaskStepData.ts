@@ -2,7 +2,7 @@ import { TypeOf, boolean, number, object } from 'zod'
 import { singleTaskSchema } from './singleTask'
 import { singleContextSchema } from './singleContext'
 
-const taskDataElemSchema = object({
+const scheduleTaskStepDataSchema = object({
   completionSeconds: number(),
   contextName: singleContextSchema._def.shape().name.optional(),
   durationInSeconds: singleTaskSchema._def.shape().durationInSeconds.nullish(),
@@ -15,7 +15,7 @@ const taskDataElemSchema = object({
   isSkipped: boolean(),
   name: singleTaskSchema._def.shape().name,
 })
-type TaskDataElem = TypeOf<typeof taskDataElemSchema>
+type ScheduleTaskStepData = TypeOf<typeof scheduleTaskStepDataSchema>
 
-export { taskDataElemSchema }
-export type { TaskDataElem }
+export { scheduleTaskStepDataSchema }
+export type { ScheduleTaskStepData }

@@ -8,6 +8,7 @@ const getSomeProps = (
   const userSettingValue = setting.value
 
   return {
+    errorMessage: isAvailableOnDevice ? undefined : 'Not supported by device',
     isDisabled: !isAvailableOnDevice,
     isEnabled: isAvailableOnDevice && userSettingValue,
     key: setting.id,

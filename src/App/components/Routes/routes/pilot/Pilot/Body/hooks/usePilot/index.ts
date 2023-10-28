@@ -1,15 +1,25 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { MISSING_CONTEXT_VALUE, paths } from 'config'
+import { paths } from 'config'
 import { useModal, useNavigate, useTTS } from 'hooks'
 import { useEffect, useState } from 'react'
 import { ScheduleStep, SingleRoutine, SingleTask } from 'schemas'
-import { getDurationString } from 'utils'
 import { EndDecisionModalProps } from '../../EndDecisionModal'
 import { ListProps } from '../../List'
 import { MainProps } from '../../Main'
 import useGetInitialTaskData from './useGetInitialTaskData'
-import { getStepPrompt, modifyStepDataElementById } from './utils'
+import {
+  getCurrentStep,
+  getIsStepIntro,
+  getIsStepOutro,
+  getIsStepTask,
+  getScheduleSteps,
+  getStepDataToDo,
+  getStepName,
+  getStepPrompt,
+  getSubtitle,
+  getTasksDataSkipped,
+  modifyStepDataElementById,
+} from './utils'
 
 const usePilot = (
   tasks: Array<SingleTask>,
@@ -20,43 +30,12 @@ const usePilot = (
   const { speak } = useTTS()
 
   const initialTaskData = useGetInitialTaskData(tasks)
-  const scheduleSteps: Array<ScheduleStep> = [
-    {
-      data: {
-        durationInSeconds: 10,
-        durationInSecondsTotal: initialTaskData.reduce(
-          (acc, curr) => acc + (curr.durationInSeconds ?? 0),
-          0
-        ),
-        id: 'INTRO',
-        isDone: false,
-        name: 'Intro',
-        routineName,
-        taskCount: initialTaskData.length,
-      },
-      type: 'INTRO',
-    },
-
-    ...initialTaskData.map(
-      (t): ScheduleStep => ({
-        data: t,
-        type: 'TASK',
-      })
-    ),
-
-    {
-      data: {
-        durationInSeconds: 10,
-        id: 'OUTRO',
-        isDone: false,
-        name: 'Outro',
-      },
-      type: 'OUTRO',
-    },
-  ]
+  const scheduleSteps: Array<ScheduleStep> = getScheduleSteps(
+    initialTaskData,
+    routineName
+  )
 
   const [elapsedTime, setElapsedTime] = useState(0)
-  const [taskData] = useState(initialTaskData)
   const [stepData, setStepData] = useState(scheduleSteps)
   const [isPlaying, setIsPlaying] = useState(true)
 
@@ -67,27 +46,14 @@ const usePilot = (
     setIsModalVisible: setIsEndDecisionModalVisible,
   } = useModal()
 
-  const stepDataToDo = stepData.filter((t) => {
-    if (t.type === 'TASK') {
-      return !t.data.isDone && !t.data.isSkipped && !t.data.isFailed
-    }
-
-    return !t.data.isDone
-  })
-  const tasksDataSkipped = stepData.filter((t) => {
-    if (t.type === 'TASK') {
-      return !t.data.isDone && t.data.isSkipped
-    }
-
-    return false
-  })
-
-  const [currentStep] = stepDataToDo
+  const stepDataToDo = getStepDataToDo(stepData)
+  const tasksDataSkipped = getTasksDataSkipped(stepData)
+  const currentStep = getCurrentStep(stepDataToDo)
 
   // TODO: Autoskip
   // useEffect(() => {
   //   if (
-  //     currentStep.type === 'INTRO' &&
+  //     getIsStepIntro(currentStep) &&
   //     currentStep.data.durationInSeconds === elapsedTime &&
   //     !currentStep.data.isDone
   //   ) {
@@ -106,15 +72,18 @@ const usePilot = (
     })()
   }, [currentStep])
 
-  const onEnd = () =>
-    navigate(paths.pilot.children.summary.absolute, undefined, {
+  const onEnd = () => {
+    const taskData = stepData.filter(getIsStepTask).map((s) => s.data)
+
+    return navigate(paths.pilot.children.summary.absolute, undefined, {
       routineId,
       taskData,
     })
+  }
 
-  const isIntro = currentStep.type === 'INTRO'
-  const isTask = currentStep.type === 'TASK'
-  const isOutro = currentStep.type === 'OUTRO'
+  const isIntro = getIsStepIntro(currentStep)
+  const isTask = getIsStepTask(currentStep)
+  const isOutro = getIsStepOutro(currentStep)
 
   useEffect(() => {
     if (isOutro) {
@@ -127,16 +96,8 @@ const usePilot = (
   }, [navigate, isOutro, tasksDataSkipped, currentStep])
 
   const durationInSeconds = currentStep.data.durationInSeconds ?? 0
-  const stepName = isTask
-    ? currentStep?.data.name
-    : isIntro
-    ? `${currentStep.data.taskCount} tasks`
-    : currentStep.data.name
-  const subtitle = isTask
-    ? currentStep.data.contextName ?? MISSING_CONTEXT_VALUE
-    : isIntro
-    ? `${getDurationString(currentStep.data.durationInSecondsTotal)}`
-    : undefined
+  const stepName = getStepName(currentStep)
+  const subtitle = getSubtitle(currentStep)
   const { id } = currentStep.data
 
   return {
@@ -149,7 +110,6 @@ const usePilot = (
       isListVisible,
       onClose: () => setIsListVisible(false),
       stepData,
-      taskData,
     },
     mainProps: {
       clockProps: {
