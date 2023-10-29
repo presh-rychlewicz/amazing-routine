@@ -1,39 +1,45 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { RoutinesState, routinesStateSchema } from 'schemas'
 import { getUnixFromDateString } from 'utils'
+import { getNewVersion } from './utils'
 
 const migrateRoutines = (rawRoutines: any): RoutinesState => {
   let newRoutines: RoutinesState = rawRoutines
+
+  const commonProps = {
+    version: getNewVersion(rawRoutines.version),
+  }
 
   switch (rawRoutines.version) {
     case undefined:
       newRoutines = {
         ...rawRoutines,
-        version: 1,
+        ...commonProps,
       }
       break
 
     case 1:
       newRoutines = {
         ...rawRoutines,
-        version: 2,
+        ...commonProps,
       }
       break
 
     case 2:
       newRoutines = {
         ...rawRoutines,
+        ...commonProps,
         value: rawRoutines.value.map((r: any) => ({
           ...r,
           pastRuns: [],
         })),
-        version: 3,
       }
       break
 
     case 3:
       newRoutines = {
         ...rawRoutines,
+        ...commonProps,
         value: rawRoutines.value.map((r: any) => ({
           ...r,
           endDateInUnix: r.endDate
@@ -41,18 +47,17 @@ const migrateRoutines = (rawRoutines: any): RoutinesState => {
             : undefined,
           startDateInUnix: getUnixFromDateString(r.startDate),
         })),
-        version: 4,
       }
       break
 
     case 4:
       newRoutines = {
         ...rawRoutines,
+        ...commonProps,
         value: rawRoutines.value.map((r: any) => ({
           ...r,
           score: 0,
         })),
-        version: 5,
       }
       break
   }

@@ -100,3 +100,4 @@ type CustomGetters = {
 }
 
 export default useStoreState
+export type { UseStoreState }

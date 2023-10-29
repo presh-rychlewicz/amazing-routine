@@ -4,26 +4,31 @@ import {
   contextsStateSchema,
   singleContextStatusEnum,
 } from 'schemas'
+import { getNewVersion } from './utils'
 
 const migrateContexts = (rawContexts: any): ContextsState => {
   let newContexts: ContextsState = rawContexts
+
+  const commonProps = {
+    version: getNewVersion(rawContexts.version),
+  }
 
   switch (rawContexts.version) {
     case undefined:
       newContexts = {
         ...rawContexts,
-        version: 1,
+        ...commonProps,
       }
       break
 
     case 1:
       newContexts = {
         ...rawContexts,
+        ...commonProps,
         value: rawContexts.value.map((c: any) => ({
           ...c,
           status: singleContextStatusEnum.enum.ACTIVE,
         })),
-        version: 2,
       }
       break
   }

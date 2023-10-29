@@ -1,54 +1,70 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { TasksState, tasksStateSchema } from 'schemas'
+import { getNewVersion } from './utils'
 
 const migrateTasks = (rawTasks: any): TasksState => {
   let newTasks: TasksState = rawTasks
+
+  const commonProps = {
+    version: getNewVersion(rawTasks.version),
+  }
 
   switch (rawTasks.version) {
     case undefined:
       newTasks = {
         ...rawTasks,
-        version: 1,
+        ...commonProps,
       }
       break
 
     case 1:
       newTasks = {
         ...rawTasks,
-        version: 2,
+        ...commonProps,
       }
       break
 
     case 2:
       newTasks = {
         ...rawTasks,
+        ...commonProps,
         value: rawTasks.value.map((t: any) => ({
           ...t,
           score: 0,
         })),
-        version: 3,
       }
       break
 
     case 3:
       newTasks = {
         ...rawTasks,
+        ...commonProps,
         value: rawTasks.value.map((t: any) => ({
           ...t,
           contextId: undefined,
         })),
-        version: 4,
       }
       break
 
     case 4:
       newTasks = {
         ...rawTasks,
+        ...commonProps,
         value: rawTasks.value.map((t: any, index: number) => ({
           ...t,
           index,
         })),
-        version: 5,
+      }
+      break
+
+    case 5:
+      newTasks = {
+        ...rawTasks,
+        ...commonProps,
+        value: rawTasks.value.map((t: any) => ({
+          ...t,
+          runs: [],
+        })),
       }
       break
   }

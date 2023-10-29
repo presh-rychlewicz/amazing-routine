@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 
-function useFilters<ShapeT extends Record<string, any>>(
+const useFilters = <ShapeT extends Record<string, any>>(
   initialState: ShapeT
-): UseFilters<ShapeT> {
+): UseFilters<ShapeT> => {
   const [filters, setFilters] = useState<ShapeT>(initialState)
 
   return {

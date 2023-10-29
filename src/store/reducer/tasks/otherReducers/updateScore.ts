@@ -1,21 +1,35 @@
-import { AppThunk, Id } from 'schemas'
+import mean from 'lodash.mean'
+import { AppThunk, Id, ScheduleTaskStepData, SingleTask } from 'schemas'
 import tasks from '..'
+import { TASK_COMPLETION_SCORE, TASK_FAIL_SCORE } from 'config'
 
 const updateScore =
-  ({ id }: UpdateScorePayload): AppThunk =>
-  (dispatch) =>
+  ({ id, isSkipped, isDone }: UpdateScorePayload): AppThunk =>
+  (dispatch) => {
+    if (isSkipped) {
+      return
+    }
+
     dispatch(
       tasks.update({
         id,
-        update: {
-          // TEMP
-          score: 0,
+        update: (prev) => {
+          let score: SingleTask['score'] = TASK_FAIL_SCORE
+          if (isDone) {
+            score = TASK_COMPLETION_SCORE
+          }
+
+          return {
+            score: mean([prev.score, score]),
+          }
         },
       })
     )
+  }
 
-type UpdateScorePayload = {
-  id: Id
-}
+type UpdateScorePayload = { id: Id } & Pick<
+  ScheduleTaskStepData,
+  'isDone' | 'isFailed' | 'isSkipped'
+>
 
 export default updateScore

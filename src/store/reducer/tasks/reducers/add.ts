@@ -1,7 +1,14 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import { SingleTask, TasksState, singleTaskStatusEnum } from 'schemas'
 
-type Keys = 'id' | 'routineMeta' | 'order' | 'status' | 'score' | 'index'
+type Keys =
+  | 'id'
+  | 'index'
+  | 'order'
+  | 'routineMeta'
+  | 'runs'
+  | 'score'
+  | 'status'
 
 const add = (
   state: TasksState,
@@ -11,6 +18,7 @@ const add = (
     id: crypto.randomUUID(),
     index: state.value.length,
     order: 999,
+    runs: [],
     score: 0,
     status: singleTaskStatusEnum.enum.ACTIVE,
   }

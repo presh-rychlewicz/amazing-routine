@@ -15,8 +15,7 @@ const useWakeLock = () => {
 
       const wakeLock = await getLock()
       await wakeLock?.release()
-      // TEMP
-      alert('released')
+      console.log('wakelock off', wakeLock.released)
     },
 
     turnOn: async () => {
@@ -26,6 +25,8 @@ const useWakeLock = () => {
 
       try {
         await getLock()
+
+        console.log('wakelock on')
       } catch (err: any) {
         console.log(`${err.name}, ${err.message}`)
       }

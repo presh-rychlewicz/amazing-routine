@@ -1,8 +1,7 @@
+import { useTTS, useStoreDispatch } from 'hooks'
 import { SingleSettingCategoryEnum } from 'schemas'
 import useStoreState from '../useStoreState'
 import getProps from './getProps'
-import useStoreDispatch from 'hooks/useStoreDispatch'
-import useTTS from 'hooks/useTTS'
 
 const useSettings = (categories?: Array<SingleSettingCategoryEnum>) => {
   const storeState = useStoreState()

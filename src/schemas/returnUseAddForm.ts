@@ -1,14 +1,9 @@
-import { FormError } from 'hooks/useAddForm'
-import { Dispatch, SetStateAction } from 'react'
-import { Field } from './field'
+import { AddFormBodyTemplateProps } from 'templates/AddFormBodyTemplate'
+import { AddFormHeaderTemplateProps } from 'templates/AddFormHeaderTemplate'
 
-type ReturnUseAddForm<ValuesT extends Record<string, any>> = {
-  error: FormError<ValuesT>
-  handleSubmit: () => void
-  isSubmitting: boolean
-  setValues: Dispatch<SetStateAction<ValuesT>>
-  values: ValuesT
-  fields: Array<Field<ValuesT>>
+type UseAddFormReturn<ValuesT extends Record<string, any>> = {
+  bodyProps: AddFormBodyTemplateProps<ValuesT>
+  headerProps: AddFormHeaderTemplateProps
 }
 
-export type { ReturnUseAddForm }
+export type { UseAddFormReturn }

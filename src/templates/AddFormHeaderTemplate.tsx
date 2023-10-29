@@ -4,23 +4,31 @@ import { useNavigate } from 'hooks'
 import { FC } from 'react'
 import { EntityType } from 'schemas'
 
-type Props = {
-  entityType: EntityType
-  returnPath?: string
-}
+type AddFormHeaderTemplateProps =
+  | {
+      entityType: EntityType
+      returnPath?: undefined
+    }
+  | {
+      entityType?: undefined
+      returnPath: string
+    }
 
-const AddFormHeaderTemplate: FC<Props> = ({ entityType, returnPath }) => {
+const AddFormHeaderTemplate: FC<AddFormHeaderTemplateProps> = (props) => {
   const navigate = useNavigate()
-  const pathToReturn =
-    returnPath ?? paths[`${entityType}s`].children.index.absolute
+  const pathToReturn = props.entityType
+    ? paths[`${props.entityType}s`].children.index.absolute
+    : props.returnPath
 
   return (
     <HeaderGeneric
-      topLeft={{
-        content: `Add ${entityType}`,
-        level: 'h4',
-        type: 'TEXT',
-      }}
+      topLeft={
+        props.entityType && {
+          content: `Add ${props.entityType}`,
+          level: 'h4',
+          type: 'TEXT',
+        }
+      }
       topRight={{
         onClick: () => navigate(pathToReturn),
         type: 'X_BUTTON',
@@ -30,3 +38,4 @@ const AddFormHeaderTemplate: FC<Props> = ({ entityType, returnPath }) => {
 }
 
 export default AddFormHeaderTemplate
+export type { AddFormHeaderTemplateProps }

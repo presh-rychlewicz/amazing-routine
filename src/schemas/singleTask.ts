@@ -1,8 +1,9 @@
-import { TypeOf, number, object, string } from 'zod'
+import { TypeOf, array, number, object, string } from 'zod'
 import { idSchema } from './id'
 import { routineMetaStatusSchema } from './routineMetaStatuses'
-import { singleTaskStatusEnum } from './singleTaskStatusEnum'
 import { scoreSchema } from './score'
+import { singleTaskStatusEnum } from './singleTaskStatusEnum'
+import { taskRunSchema } from './taskRun'
 
 const singleTaskSchema = object({
   contextId: string().optional(),
@@ -16,6 +17,7 @@ const singleTaskSchema = object({
   routineMeta: object({
     status: routineMetaStatusSchema,
   }).optional(),
+  runs: array(taskRunSchema),
   score: scoreSchema,
   status: singleTaskStatusEnum,
 })

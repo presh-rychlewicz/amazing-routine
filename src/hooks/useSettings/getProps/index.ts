@@ -49,6 +49,26 @@ const getProps = (
       }
     }
 
+    case 'SHOW_CONTEXT_DEV_DETAILS': {
+      const isAvailableOnDevice = true
+
+      return {
+        ...getSomeProps(setting, isAvailableOnDevice, toggle),
+        category: 'CONTEXT_LIST',
+        label: 'Show context dev details',
+      }
+    }
+
+    case 'SHOW_TASK_DEV_DETAILS': {
+      const isAvailableOnDevice = true
+
+      return {
+        ...getSomeProps(setting, isAvailableOnDevice, toggle),
+        category: 'TASK_LIST',
+        label: 'Show task dev details',
+      }
+    }
+
     default:
       throw new Error('Unhandled setting key')
   }

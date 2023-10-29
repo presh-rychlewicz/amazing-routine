@@ -1,4 +1,5 @@
 #IN PROGRESS:
+-- PilotVoice: pronounce task count in each context
 -- [M1 BLOCKER]PilotSummary: save run
 ###
 
@@ -7,8 +8,9 @@
 #BUGS:
 - Input type=number allows text and durationInSec in not present
 - Pilot: tts blocking moving to next step immediately
-- Pilot: outro screen
-- PilotSummary: wake lock
+- Pilot: outro screen blinking
+- PilotSummary: wake lock doesn't switch off
+- RoutineDetails: task on add to in progress should get last index within routine
 ###
 
 
@@ -26,9 +28,11 @@
 -- eslint: destruc sorted
 -- BigCard: make is clickable
 -- General: dark mode
+-- General: block right click
+-- eslint: react hooks
 
 - CONTEXTS
-...
+-- ContextList: Add to details task count
 
 - PILOT
 -- Pilot: handle time elapsed
@@ -36,19 +40,21 @@
 -- PilotSettings: switch off intro
 -- ?Pilot: move logic to redux
 -- PilotList: allow to custom sort context 
--- PilotIntro: add Estimation string
+-- PilotList: Add NEW task
+-- PilotSummary: switch view between grouping by context/outcome
 
 - ROUTINES
--- ?SingleTaskSchema: should index be moved to routeMeta
 -- RoutineDetail: add ability to hide incoming section tasks
--- RoutineDetails: add settings
 -- [M1 BLOCKER]RoutineDetails: add stats
+-- RoutineDetails: add task partially following routine schedule
 
 - SETTINGS
 ...
 
 - TASKS
-...
+-- TaskList/RoutineDetails: Edit task name
+-- TaskList/RoutineDetails: Edit task duration
+-- TaskList/RoutineDetails: Edit task context
 ###
 
 
@@ -59,5 +65,4 @@
 
 
 #DONE:
-- Pilot: prevent screen dim
 ###

@@ -1,22 +1,10 @@
-import { PayloadAction } from '@reduxjs/toolkit'
-import { ContextsState, SingleContext, singleContextStatusEnum } from 'schemas'
+import { SingleContext, singleContextStatusEnum } from 'schemas'
+import { addReducerTemplate } from 'store/reducer/_generics'
 
 type Key = 'id' | 'status'
-
-const add = (
-  state: ContextsState,
-  { payload }: PayloadAction<Omit<SingleContext, Key>>
-) => {
-  const missing: Pick<SingleContext, Key> = {
-    id: crypto.randomUUID(),
-    status: singleContextStatusEnum.enum.ACTIVE,
-  }
-  const newContext: SingleContext = {
-    ...payload,
-    ...missing,
-  }
-  const newValue = [...state.value, newContext]
-  state.value = newValue
-}
+const add = addReducerTemplate<SingleContext, Key>(() => ({
+  id: crypto.randomUUID(),
+  status: singleContextStatusEnum.enum.ACTIVE,
+}))
 
 export default add

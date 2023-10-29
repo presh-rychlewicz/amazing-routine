@@ -2,33 +2,25 @@ import dayjs from 'dayjs'
 import { AppThunk, SingleRoutine } from 'schemas'
 import { PastRun } from 'schemas'
 import routines from '..'
-import selectRoutines from '../selectRoutines'
 
 const addPastRun =
   ({ id, pastRunBase }: AddPastRunPayload): AppThunk =>
-  (dispatch, getState) => {
-    const currentValue = selectRoutines(getState())
-    const oldRoutine = currentValue.find((r) => r.id === id)
-
-    if (!oldRoutine) {
-      throw new Error('No old routine')
-    }
-
-    const newPastRun: PastRun = {
-      ...pastRunBase,
-      id: crypto.randomUUID(),
-      timestamp: dayjs().unix(),
-    }
-
+  (dispatch) =>
     dispatch(
       routines.update({
         id,
-        update: {
-          pastRuns: [...oldRoutine.pastRuns, newPastRun],
-        },
+        update: (prev) => ({
+          pastRuns: [
+            ...prev.pastRuns,
+            {
+              ...pastRunBase,
+              id: crypto.randomUUID(),
+              timestamp: dayjs().unix(),
+            },
+          ],
+        }),
       })
     )
-  }
 
 type AddPastRunPayload = {
   id: SingleRoutine['id']

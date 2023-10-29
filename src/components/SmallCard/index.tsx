@@ -1,7 +1,7 @@
 import { Card, Stack, Typography, VariantProp } from '@mui/joy'
 import { FC } from 'react'
-import { Children, ChildrenProps } from './components'
 import { getShouldShowElements } from './utils'
+import Children, { ChildrenProps } from './Children'
 
 type Props = {
   title: string

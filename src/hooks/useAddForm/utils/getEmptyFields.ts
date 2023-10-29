@@ -1,9 +1,9 @@
 import { Field } from 'schemas'
 
-function getEmptyFields<ValuesT extends {}, FieldsT extends Field<ValuesT>>(
+const getEmptyFields = <ValuesT extends {}, FieldsT extends Field<ValuesT>>(
   fields: Array<FieldsT>,
   values: ValuesT
-) {
+) => {
   const emptyFields = fields
     .filter((f) => f.required)
     .map((f) => {

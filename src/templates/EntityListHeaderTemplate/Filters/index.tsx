@@ -2,21 +2,23 @@ import { Stack, Typography } from '@mui/joy'
 import { DrawerWrapper } from 'components'
 import { FC } from 'react'
 import SingleFilter, { SingleFilterProps } from './SingleFilter'
+import { UseModalReturn } from 'hooks'
 
-type Props = {
+type Props = UseModalReturn & {
   filters: Array<SingleFilterProps>
-  onClose: () => void
-  shouldShowFilters: boolean
 }
 
-const Filters: FC<Props> = ({ shouldShowFilters, filters, onClose }) => {
+const Filters: FC<Props> = ({ isModalVisible, filters, setIsModalVisible }) => {
   const hasAnyFilters = filters.length
   if (!hasAnyFilters) {
     return null
   }
 
   return (
-    <DrawerWrapper open={shouldShowFilters} onClose={onClose}>
+    <DrawerWrapper
+      open={isModalVisible}
+      onClose={() => setIsModalVisible(false)}
+    >
       {filters.map(({ label, ...singleFilterProps }) => {
         const visibleLabel =
           singleFilterProps.type !== 'BOOLEAN' ? label : undefined

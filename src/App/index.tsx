@@ -1,7 +1,7 @@
 import { useStoreDispatch } from 'hooks'
 import { useEffect } from 'react'
 import { HashRouter } from 'react-router-dom'
-import { Routes } from './components'
+import Routes from './Routes'
 
 const App = () => {
   const storeDispatch = useStoreDispatch()

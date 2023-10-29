@@ -3,15 +3,15 @@ import { singleTaskSchema } from './singleTask'
 import { singleContextSchema } from './singleContext'
 
 const scheduleTaskStepDataSchema = object({
-  completionSeconds: number(),
+  completionInSeconds: number(),
   contextName: singleContextSchema._def.shape().name.optional(),
   durationInSeconds: singleTaskSchema._def.shape().durationInSeconds.nullish(),
   id: singleTaskSchema._def.shape().id,
   index: number(),
   isDone: boolean(),
   isFailed: boolean(),
-  isFirst: boolean(),
-  isLast: boolean(),
+  isFirstInContext: boolean(),
+  isLastInContext: boolean(),
   isSkipped: boolean(),
   name: singleTaskSchema._def.shape().name,
 })

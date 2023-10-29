@@ -1,16 +1,15 @@
 import { Dispatch, SetStateAction } from 'react'
 import getIsChecked from './getIsChecked'
 
-export function getSingleFilterMultiTypeOption<
+const getSingleFilterMultiTypeOption = <
   ValueT extends string,
-  StateT extends Record<string, unknown>,
-  StateKeyT extends keyof StateT
+  StateT extends Record<string, unknown>
 >(
   value: ValueT,
   state: StateT,
-  stateKey: StateKeyT,
+  stateKey: keyof StateT,
   setState: Dispatch<SetStateAction<StateT>>
-) {
+) => {
   type Alfa = Array<ValueT>
 
   const stateKeyValue = state[stateKey] as Alfa

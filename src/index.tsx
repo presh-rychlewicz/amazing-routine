@@ -16,7 +16,6 @@ dayjs.extend(relativeTime)
 const theme = extendTheme()
 const container = document.getElementById('root')
 if (container) {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const SPACING = '8px'
   const root = createRoot(container)
 
@@ -46,6 +45,7 @@ if (container) {
               // height: '100vh',
               height: '100dvh',
               overflowY: 'hidden',
+              userSelect: 'none',
             },
           }}
         />

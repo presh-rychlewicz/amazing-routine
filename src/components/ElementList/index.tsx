@@ -1,11 +1,10 @@
 import { Stack } from '@mui/joy'
 import HeaderGeneric, { CommonElementProps } from 'components/HeaderGeneric'
 import EmptyState from '../EmptyState'
-import { Content } from './components'
-import { ElementListPropsBase } from './components/Content'
+import Content, { ContentPropsBase } from './Content'
 import { PropsWithChildren } from 'react'
 
-type Props<T extends ElementBase> = ElementListPropsBase<T> & {
+type Props<T extends ElementBase> = ContentPropsBase<T> & {
   emptyStateMessage?: string
   title?: string
   subtitle?: string
@@ -13,7 +12,7 @@ type Props<T extends ElementBase> = ElementListPropsBase<T> & {
   right?: CommonElementProps | Array<CommonElementProps>
 }
 
-function ElementList<ElementT extends ElementBase>({
+const ElementList = <ElementT extends ElementBase>({
   elements,
   renderElement,
   emptyStateMessage,
@@ -23,7 +22,7 @@ function ElementList<ElementT extends ElementBase>({
   subtitle,
   shouldShowEmptyState = true,
   right,
-}: PropsWithChildren<Props<ElementT>>) {
+}: PropsWithChildren<Props<ElementT>>) => {
   const hasAnyelements = !!elements.length
   if (!hasAnyelements) {
     if (shouldShowEmptyState) {

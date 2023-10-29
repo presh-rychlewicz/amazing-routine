@@ -1,43 +1,23 @@
 import { Card, Typography } from '@mui/joy'
 import { FC } from 'react'
-import DetailsGeneric, {
-  DetailsElem,
-  DetailsGenericProps,
-} from '../DetailsGeneric'
-import { Header } from './components'
-import { HeaderProps } from './components/Header'
+import DetailsGeneric, { DetailsGenericProps } from '../DetailsGeneric'
+import Header, { HeaderProps } from './Header'
 
-type BigCardProps = HeaderProps &
-  DetailsGenericProps & {
-    rawData: Array<DetailsElem>
-    note?: string
-  }
+type BigCardProps = {
+  note?: string
+  headerProps: HeaderProps
+  detailsGenericProps: DetailsGenericProps
+}
 
 const BigCard: FC<BigCardProps> = ({
-  rawData,
-  generatedData,
-  onRemoveConfirm,
-  entityName,
-  optionsBase,
+  detailsGenericProps,
   note,
-  name,
-  canRemove,
-  shouldDisplayDetails,
+  headerProps,
 }) => (
   <Card>
-    <Header
-      onRemoveConfirm={onRemoveConfirm}
-      entityName={entityName}
-      optionsBase={optionsBase}
-      name={name}
-      canRemove={canRemove}
-    />
+    <Header {...headerProps} />
 
-    <DetailsGeneric
-      shouldDisplayDetails={shouldDisplayDetails}
-      generatedData={generatedData}
-      rawData={rawData}
-    />
+    <DetailsGeneric {...detailsGenericProps} />
 
     {note && <Typography level="body-xs">{note}</Typography>}
   </Card>

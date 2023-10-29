@@ -19,6 +19,14 @@ const initialState: SettingsState = {
       id: 'DARK_MODE',
       value: false,
     },
+    {
+      id: 'SHOW_CONTEXT_DEV_DETAILS',
+      value: false,
+    },
+    {
+      id: 'SHOW_TASK_DEV_DETAILS',
+      value: false,
+    },
   ],
   version: SETTINGS_SCHEMA_CURRENT_VERSION,
 }

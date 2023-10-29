@@ -1,5 +1,5 @@
 import { FormFieldProps } from 'components/FormField'
-import { FormError } from 'hooks/useAddForm'
+import { FormError } from 'hooks'
 import { Dispatch, SetStateAction } from 'react'
 import { Field } from 'schemas'
 import getFieldLabel from './getFieldLabel'
@@ -7,7 +7,7 @@ import getFieldLabel from './getFieldLabel'
 const KEY_INDEX = 0
 const MESSAGE_INDEX = 1
 
-function getFormFieldProps<
+const getFormFieldProps = <
   ValuesT extends Record<string, string>,
   FieldT extends Field<ValuesT>
 >(
@@ -16,7 +16,7 @@ function getFormFieldProps<
   values: ValuesT,
   setValues: Dispatch<SetStateAction<ValuesT>>,
   isSubmitting: boolean
-): FormFieldProps {
+): FormFieldProps => {
   const { key } = field
   const isError = error?.[KEY_INDEX] === key
 

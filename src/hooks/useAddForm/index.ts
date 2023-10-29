@@ -11,11 +11,11 @@ type AddFormParams<ValuesT extends Record<string, unknown>> = {
   // elementType?: 'context' | 'routine' | 'task'
 }
 
-function useAddForm<ValuesT extends Record<string, unknown>>({
+const useAddForm = <ValuesT extends Record<string, unknown>>({
   initialValues,
   fields,
   pathToGoAfterSubmitting,
-}: AddFormParams<ValuesT>) {
+}: AddFormParams<ValuesT>) => {
   const navigate = useNavigate()
   const [isSubmitting, setIsSubmitting] = useState(false)
 

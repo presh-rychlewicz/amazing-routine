@@ -80,6 +80,15 @@ const paths = {
       },
     },
   },
+  statistics: {
+    core: 'statistics' as const,
+    children: {
+      index: {
+        relative: '',
+        absolute: 'statistics/',
+      },
+    },
+  },
 }
 
 export default paths

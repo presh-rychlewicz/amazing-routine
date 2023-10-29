@@ -29,7 +29,6 @@ const BottomMenu = () => {
       {menuItems.map((menuItem, index) => (
         <IconButtonElement
           key={index}
-          disabled={menuItem.disabled}
           fullWidth
           // TODO: test and replace to final one
           // title="test-title"
@@ -43,43 +42,31 @@ const BottomMenu = () => {
 
 type MenuItem = {
   icon: ReactNode
-} & (
-  | {
-      disabled: true
-      view?: undefined
-    }
-  | {
-      disabled: false
-      view: View
-    }
-)
+  view: View
+}
 
 const menuItems: Array<MenuItem> = [
   {
-    disabled: true,
     icon: <DashboardIcon />,
+    view: paths.dashboard.core,
   },
   {
-    disabled: false,
     icon: <LoopIcon />,
     view: paths.routines.core,
   },
   {
-    disabled: false,
     icon: <TaskIcon />,
     view: paths.tasks.core,
   },
   {
-    disabled: false,
     icon: <MapIcon />,
     view: paths.contexts.core,
   },
   {
-    disabled: true,
     icon: <AnalyticsIcon />,
+    view: paths.statistics.core,
   },
   {
-    disabled: false,
     icon: <SettingsIcon />,
     view: paths.settings.core,
   },
