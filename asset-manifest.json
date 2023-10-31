@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/amazing-routine/static/js/main.142e0bcf.js",
+    "main.js": "/amazing-routine/static/js/main.d12740dd.js",
     "index.html": "/amazing-routine/index.html",
-    "main.142e0bcf.js.map": "/amazing-routine/static/js/main.142e0bcf.js.map"
+    "main.d12740dd.js.map": "/amazing-routine/static/js/main.d12740dd.js.map"
   },
   "entrypoints": [
-    "static/js/main.142e0bcf.js"
+    "static/js/main.d12740dd.js"
   ]
 }
