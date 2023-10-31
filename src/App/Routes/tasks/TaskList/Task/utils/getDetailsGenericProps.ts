@@ -17,12 +17,12 @@ const getDetailsGenericProps = (
       value: task.durationInSeconds ?? 'undefined',
     },
     {
-      label: 'INDEX',
-      value: task.index,
-    },
-    {
       label: 'ROUTINE ID',
       value: task.routineId ?? 'undefined',
+    },
+    {
+      label: 'ROUTINE INDEX',
+      value: task.routineMeta?.index ?? 'undefined',
     },
     {
       label: 'ROUTINE STATUS',

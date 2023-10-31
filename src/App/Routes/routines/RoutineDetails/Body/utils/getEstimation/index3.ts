@@ -5,13 +5,10 @@ import getDurationTotal from './getDurationTotal'
 const getEstimation = (tasks: Array<SingleTask>): string => {
   const { secs, count } = getDurationTotal(tasks)
 
-  const timePart = getDurationString(secs)
-  const countPart = count ? `${count} ${getPluralPart(count, 'task')}` : ''
+  const timePart = `${count ? '~' : ''}${getDurationString(secs)}`
+  const totalPart = getPluralPart(tasks.length, 'task')
 
-  const partsString = [timePart, countPart].filter((e) => e).join(' + ')
-  const result = `Estimation: ${partsString}`
-
-  return result
+  return `Estimation: ${timePart} (${totalPart})`
 }
 
 export default getEstimation

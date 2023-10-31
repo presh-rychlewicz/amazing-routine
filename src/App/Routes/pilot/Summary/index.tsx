@@ -1,11 +1,11 @@
 import { DialogModalGeneric, Route } from 'components'
 import { paths } from 'config'
-import { Navigate, useLocation } from 'react-router-dom'
-import { SingleRoutine, ScheduleTaskStepData } from 'schemas'
 import { useModal, useNavigate, useWakeLock } from 'hooks'
-import Header from './Header'
+import { Navigate, useLocation } from 'react-router-dom'
+import { Id, ScheduleTaskStepData } from 'schemas'
 import Body from './Body'
 import Footer from './Footer'
+import Header from './Header'
 
 const Summary = () => {
   const { state } = useLocation()
@@ -14,7 +14,7 @@ const Summary = () => {
   const { turnOff } = useWakeLock()
 
   const taskData: Array<ScheduleTaskStepData> | undefined = state?.taskData
-  const routineId: SingleRoutine['id'] | undefined = state?.routineId
+  const routineId: Id | undefined = state?.routineId
   if (!taskData || !routineId) {
     return <Navigate to={`/${paths.routines.core}`} />
   }

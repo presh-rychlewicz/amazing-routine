@@ -8,7 +8,7 @@ const presentDurationUnit = (
   const mapping = shouldShowLong ? longUnitMapping : shortUnitMapping
   const unitString = mapping[unit]
 
-  return `${value} ${getPluralPart(value, unitString)}`
+  return getPluralPart(value, unitString)
 }
 
 type Unit = 'hours' | 'minutes' | 'seconds'

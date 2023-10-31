@@ -1,9 +1,9 @@
-import { SingleSetting, SingleSettingCategoryEnum } from 'schemas'
+import { Id, SingleSetting, SingleSettingCategoryEnum } from 'schemas'
 import getSomeProps from './getIsEnabled'
 
 const getProps = (
   setting: SingleSetting,
-  toggle: (id: SingleSetting['id']) => void
+  toggle: (id: Id) => void
 ): GetSettingPropsReturn => {
   switch (setting.id) {
     case 'KEEP_SCREEN_ON': {

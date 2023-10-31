@@ -1,7 +1,7 @@
 import { paths } from 'config'
 import { useModal, useNavigate, useStoreState, useTTS } from 'hooks'
 import { useEffect, useState } from 'react'
-import { ScheduleStep, SingleRoutine, SingleTask } from 'schemas'
+import { Id, ScheduleStep, SingleRoutine, SingleTask } from 'schemas'
 import { EndDecisionModalProps } from '../../EndDecisionModal'
 import { ListProps } from '../../List'
 import { MainProps } from '../../Main'
@@ -22,7 +22,7 @@ import {
 
 const usePilot = (
   tasks: Array<SingleTask>,
-  routineId: SingleRoutine['id'],
+  routineId: Id,
   routineName: SingleRoutine['name']
 ): usePilotReturn => {
   const storeState = useStoreState()

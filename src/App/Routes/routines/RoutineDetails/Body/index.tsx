@@ -13,6 +13,7 @@ import Stats from './Stats'
 import { getEstimation } from './utils'
 import EditNoteIcon from '@mui/icons-material/EditNote'
 import { useStoreDispatch } from 'hooks'
+import { ONE } from 'config'
 
 type Props = Pick<SingleRoutine, 'pastRuns'> & {
   statusData: Array<StatusDataElem>
@@ -63,7 +64,7 @@ const Body: FC<Props> = ({ pastRuns, statusData }) => {
                     {...(!isLastOnTheList && {
                       onDown: () =>
                         storeDispatch.tasks.swapIndexes({
-                          downId: aray[index + 1].id,
+                          downId: aray[index + ONE].id,
                           upId: task.id,
                         }),
                     })}

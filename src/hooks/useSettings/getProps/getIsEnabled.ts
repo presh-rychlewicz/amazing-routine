@@ -1,9 +1,9 @@
-import { SingleSetting } from 'schemas'
+import { Id, SingleSetting } from 'schemas'
 
 const getSomeProps = (
   setting: SingleSetting,
   isAvailableOnDevice: boolean,
-  toggle: (id: SingleSetting['id']) => void
+  toggle: (id: Id) => void
 ) => {
   const userSettingValue = setting.value
 

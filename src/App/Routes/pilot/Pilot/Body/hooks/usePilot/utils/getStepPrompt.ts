@@ -19,7 +19,7 @@ const getStepPrompt = (currentStep: ScheduleStep) => {
       const taskPart = `${
         // eslint-disable-next-line @typescript-eslint/no-magic-numbers
         taskCount === 1 ? 'is only' : 'are'
-      } ${taskCount} ${getPluralPart(taskCount, 'task')}`
+      } ${getPluralPart(taskCount, 'task')}`
       const countPart = `There ${taskPart},`
       //
 

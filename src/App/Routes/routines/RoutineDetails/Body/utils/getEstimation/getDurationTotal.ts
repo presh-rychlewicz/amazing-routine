@@ -1,3 +1,4 @@
+import { ONE } from 'config'
 import { SingleTask } from 'schemas'
 
 const getDurationTotal = (tasks: Array<SingleTask>) =>
@@ -6,6 +7,7 @@ const getDurationTotal = (tasks: Array<SingleTask>) =>
 
     if (curr.durationInSeconds !== undefined) {
       newAcc.secs = newAcc.secs + curr.durationInSeconds
+      newAcc.parens = newAcc.parens + ONE
     } else {
       newAcc.count++
     }
@@ -15,11 +17,13 @@ const getDurationTotal = (tasks: Array<SingleTask>) =>
 
 type DurationTotal = {
   secs: number
+  parens: number
   count: number
 }
 
 const initialDurationTotal: DurationTotal = {
   count: 0,
+  parens: 0,
   secs: 0,
 }
 

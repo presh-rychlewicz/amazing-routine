@@ -1,5 +1,5 @@
 /* eslint-disable sort-keys */
-import { SingleRoutine } from 'schemas'
+import { Id } from 'schemas'
 
 const paths = {
   contexts: {
@@ -50,7 +50,7 @@ const paths = {
       },
       details: {
         relative: ':routineId',
-        absolute: (routineId: SingleRoutine['id']) => `routines/${routineId}`,
+        absolute: (routineId: Id) => `routines/${routineId}`,
       },
       edit: {
         relative: 'edit',

@@ -32,7 +32,7 @@ const HeaderGeneric: FC<Props> = (props) => {
     <Grid
       component="header"
       display="grid"
-      gridTemplateColumns="repeat(2, 1fr)"
+      gridTemplateColumns="repeat(2, auto)"
       // eslint-disable-next-line @typescript-eslint/no-magic-numbers
       gridTemplateRows={`repeat(${hasBottom ? 2 : 1}, auto)`}
       gridTemplateAreas={

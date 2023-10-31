@@ -47,6 +47,8 @@ const useStoreState = (): UseStoreState => {
           t.routineId === routineId &&
           t.status === singleTaskStatusEnum.enum.ACTIVE
       ),
+    getTasksByContextId: (contextId) =>
+      tasksData.filter((t) => t.contextId === contextId),
     getTasksById: (id) => tasksData.find((t) => t.id === id),
     getTasksByRoutineId: (routineId) =>
       tasksData.filter((t) => t.routineId === routineId),
@@ -91,10 +93,9 @@ type CustomGetters = {
   //
 
   // TASKS
-  getActiveTasksByRoutineId: (
-    routineId: SingleRoutine['id']
-  ) => Array<SingleTask>
-  getTasksByRoutineId: (routineId: SingleRoutine['id']) => Array<SingleTask>
+  getActiveTasksByRoutineId: (routineId: Id) => Array<SingleTask>
+  getTasksByContextId: (contextId: Id) => Array<SingleTask>
+  getTasksByRoutineId: (routineId: Id) => Array<SingleTask>
   getTasksByStatus: (statuses: Array<SingleTaskStatusEnum>) => Array<SingleTask>
   //
 }

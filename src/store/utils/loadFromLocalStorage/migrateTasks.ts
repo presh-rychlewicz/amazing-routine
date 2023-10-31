@@ -67,6 +67,41 @@ const migrateTasks = (rawTasks: any): TasksState => {
         })),
       }
       break
+
+    case 7:
+    case 6:
+      newTasks = {
+        ...rawTasks,
+        ...commonProps,
+        value: rawTasks.value.map((t: any) => {
+          const routineMetaOld = t.routineMeta
+          if (routineMetaOld) {
+            return {
+              ...t,
+              routineMeta: {
+                ...routineMetaOld,
+                index: t.index,
+              },
+            }
+          }
+
+          return t
+        }),
+      }
+      break
+
+    case 8:
+      newTasks = {
+        ...rawTasks,
+        ...commonProps,
+        value: rawTasks.value.map((t: any) => {
+          const newT = { ...t }
+          delete t.index
+
+          return newT
+        }),
+      }
+      break
   }
 
   const parsingStatus = tasksStateSchema.safeParse(newTasks)

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-import { MISSING_CONTEXT_VALUE } from 'config'
+import { MISSING_CONTEXT_VALUE, ONE } from 'config'
 import {
   ScheduleContextStep,
   ScheduleStep,
@@ -81,8 +81,8 @@ const getScheduleSteps = (
       }
 
       if (s.type === 'TASK') {
-        const prevStep = aray[index - 1]
-        const nextStep = aray[index + 1]
+        const prevStep = aray[index - ONE]
+        const nextStep = aray[index + ONE]
 
         return {
           ...s,

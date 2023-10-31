@@ -10,7 +10,6 @@
 - Pilot: tts blocking moving to next step immediately
 - Pilot: outro screen blinking
 - PilotSummary: wake lock doesn't switch off
-- RoutineDetails: task on add to in progress should get last index within routine
 ###
 
 
@@ -32,7 +31,7 @@
 -- eslint: react hooks
 
 - CONTEXTS
--- ContextList: Add to details task count
+...
 
 - PILOT
 -- Pilot: handle time elapsed
@@ -65,4 +64,6 @@
 
 
 #DONE:
+-- ContextList: Add to details task count
+- RoutineDetails: task on add to in progress should get last index within routine
 ###

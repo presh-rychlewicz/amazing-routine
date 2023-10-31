@@ -4,10 +4,7 @@ import { getPluralPart } from 'utils'
 const getStepName = (currentStep: ScheduleStep) => {
   switch (currentStep.type) {
     case 'INTRO':
-      return `${currentStep.data.taskCount} ${getPluralPart(
-        currentStep.data.taskCount,
-        'task'
-      )}`
+      return getPluralPart(currentStep.data.taskCount, 'task')
 
     case 'TASK':
     case 'OUTRO':

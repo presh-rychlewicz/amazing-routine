@@ -15,7 +15,9 @@ const getInitialTaskData = (
           : undefined,
         durationInSeconds: t.durationInSeconds,
         id: t.id,
-        index: t.index,
+        // TODO
+        // eslint-disable-next-line @typescript-eslint/no-non-null-asserted-optional-chain
+        index: t.routineMeta?.index!,
         isDone: false,
         isFailed: false,
         isFirstInContext: false,

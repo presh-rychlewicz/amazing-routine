@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { SingleTask, StatusDataElem, routineMetaStatusSchema } from 'schemas'
 
 const getStatusData = (tasksArray: Array<SingleTask>) =>
@@ -5,8 +6,13 @@ const getStatusData = (tasksArray: Array<SingleTask>) =>
     .map((status): StatusDataElem => {
       const tasks = tasksArray
         .filter((t) => t.routineMeta && t.routineMeta.status === status)
-        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-        .sort((prev, next) => (prev.index > next.index ? 1 : -1))
+        .sort((prev, next) => {
+          if (!prev.routineMeta || !next.routineMeta) {
+            return 0
+          }
+
+          return prev.routineMeta.index > next.routineMeta.index ? 1 : -1
+        })
       const hasTasks = !!tasks.length
 
       return {

@@ -1,6 +1,5 @@
 import dayjs from 'dayjs'
-import { AppThunk, SingleRoutine } from 'schemas'
-import { PastRun } from 'schemas'
+import { AppThunk, Id, PastRun } from 'schemas'
 import routines from '..'
 
 const addPastRun =
@@ -23,7 +22,7 @@ const addPastRun =
     )
 
 type AddPastRunPayload = {
-  id: SingleRoutine['id']
+  id: Id
   pastRunBase: Omit<PastRun, 'id' | 'timestamp'>
 }
 

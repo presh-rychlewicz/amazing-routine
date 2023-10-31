@@ -9,12 +9,12 @@ const singleTaskSchema = object({
   contextId: string().optional(),
   durationInSeconds: number().optional(),
   id: idSchema,
-  index: number(),
   name: string(),
   note: string().optional(),
   order: number(),
   routineId: string().optional(),
   routineMeta: object({
+    index: number(),
     status: routineMetaStatusSchema,
   }).optional(),
   runs: array(taskRunSchema),

@@ -18,16 +18,34 @@ const swapIndexes =
     dispatch(
       tasks.update({
         id: upId,
-        update: {
-          index: down.index,
+        update: (prev) => {
+          if (prev.routineMeta && down.routineMeta) {
+            return {
+              routineMeta: {
+                ...prev.routineMeta,
+                index: down.routineMeta.index,
+              },
+            }
+          }
+
+          return {}
         },
       })
     )
     dispatch(
       tasks.update({
         id: downId,
-        update: {
-          index: up.index,
+        update: (prev) => {
+          if (prev.routineMeta && up.routineMeta) {
+            return {
+              routineMeta: {
+                ...prev.routineMeta,
+                index: up.routineMeta.index,
+              },
+            }
+          }
+
+          return {}
         },
       })
     )

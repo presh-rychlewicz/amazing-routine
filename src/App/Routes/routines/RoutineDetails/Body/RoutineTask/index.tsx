@@ -70,7 +70,9 @@ const RoutineTask: FC<Props> = ({ isEditingOrder, onDown, onUp, task }) => {
             icon: <AddIcon />,
             isVisible: inStatusNew && !isEditingOrder,
             onClick: () =>
-              storeDispatch.tasks.promoteToInProgress({ id: task.id }),
+              storeDispatch.tasks.promoteToInProgress({
+                id: task.id,
+              }),
             type: 'ICON_BUTTON',
             variant: 'outlined',
           },

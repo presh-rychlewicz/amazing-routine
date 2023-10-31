@@ -3,11 +3,11 @@ import { DialogModalGeneric, HeaderGeneric } from 'components'
 import { paths } from 'config'
 import { useModal, useNavigate } from 'hooks'
 import { FC } from 'react'
-import { SingleRoutine } from 'schemas'
+import { Id } from 'schemas'
 import Settings from './Settings'
 
 type Props = {
-  routineId: SingleRoutine['id']
+  routineId: Id
 }
 
 const Header: FC<Props> = ({ routineId }) => {

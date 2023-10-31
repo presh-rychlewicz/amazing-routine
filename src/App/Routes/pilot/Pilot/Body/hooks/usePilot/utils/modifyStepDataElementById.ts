@@ -1,8 +1,8 @@
 import { SetStateAction } from 'react'
-import { ScheduleStep } from 'schemas'
+import { Id, ScheduleStep } from 'schemas'
 
 export const modifyStepDataElementById = (
-  id: ScheduleStep['data']['id'],
+  id: Id,
   setStepData: (value: SetStateAction<Array<ScheduleStep>>) => void,
   modification: Partial<ScheduleStep['data']>
 ) => {

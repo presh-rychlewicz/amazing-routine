@@ -1,14 +1,7 @@
 import { PayloadAction } from '@reduxjs/toolkit'
 import { SingleTask, TasksState, singleTaskStatusEnum } from 'schemas'
 
-type Keys =
-  | 'id'
-  | 'index'
-  | 'order'
-  | 'routineMeta'
-  | 'runs'
-  | 'score'
-  | 'status'
+type Keys = 'id' | 'order' | 'routineMeta' | 'runs' | 'score' | 'status'
 
 const add = (
   state: TasksState,
@@ -16,7 +9,6 @@ const add = (
 ) => {
   const missing: Pick<SingleTask, Keys> = {
     id: crypto.randomUUID(),
-    index: state.value.length,
     order: 999,
     runs: [],
     score: 0,
@@ -29,7 +21,13 @@ const add = (
   const newTask: SingleTask = {
     ...newTaskBase,
     ...(payload.routineId
-      ? { routineId: payload.routineId, routineMeta: { status: 'NEW' } }
+      ? {
+          routineId: payload.routineId,
+          routineMeta: {
+            index: 0,
+            status: 'NEW',
+          },
+        }
       : { routineId: undefined, routineMeta: undefined }),
   }
 

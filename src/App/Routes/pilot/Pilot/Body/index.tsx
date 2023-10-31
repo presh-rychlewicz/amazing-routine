@@ -1,5 +1,5 @@
 import { FC } from 'react'
-import { SingleRoutine, SingleTask } from 'schemas'
+import { Id, SingleRoutine, SingleTask } from 'schemas'
 
 import EndDecisionModal from './EndDecisionModal'
 import List from './List'
@@ -9,7 +9,7 @@ import { usePilot } from './hooks'
 type Props = {
   tasks: Array<SingleTask>
   routineName: SingleRoutine['name']
-  routineId: SingleRoutine['id']
+  routineId: Id
 }
 
 const Body: FC<Props> = ({ tasks, routineName, routineId }) => {

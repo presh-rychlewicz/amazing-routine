@@ -1,7 +1,11 @@
 import { DetailsElem } from 'components'
+import { UseStoreState } from 'hooks/useStoreState'
 import { SingleContext } from 'schemas'
 
-const getDetailsGenericProps = (context: SingleContext) => {
+const getDetailsGenericProps = (
+  context: SingleContext,
+  storeState: UseStoreState
+) => {
   const rawData: Array<DetailsElem> = [
     {
       label: 'ID',
@@ -16,7 +20,13 @@ const getDetailsGenericProps = (context: SingleContext) => {
       value: context.status,
     },
   ]
-  const generatedData: Array<DetailsElem> = []
+
+  const generatedData: Array<DetailsElem> = [
+    {
+      label: 'TASK COUNT',
+      value: storeState.getTasksByContextId(context.id).length,
+    },
+  ]
 
   return {
     generatedData,

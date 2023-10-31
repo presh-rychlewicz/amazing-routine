@@ -2,10 +2,10 @@ import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import { FooterGeneric } from 'components'
 import { useStoreDispatch } from 'hooks'
 import { FC } from 'react'
-import { SingleRoutine, ScheduleTaskStepData } from 'schemas'
+import { Id, ScheduleTaskStepData } from 'schemas'
 
 type Props = {
-  routineId: SingleRoutine['id']
+  routineId: Id
   onExit: () => void
   taskData: Array<ScheduleTaskStepData>
 }
