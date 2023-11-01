@@ -38,6 +38,11 @@ const useBigCard = <ElementT extends ElementBase>({
   }
 }
 
+type GetOptionsBase<ElementT extends ElementBase> = (
+  element: ElementT,
+  navigate: ReturnType<typeof useNavigate>
+) => Array<OptionsGenericElement>
+
 type UseGetBigCardProps<ElementT extends ElementBase> = {
   entityName: EntityType
   element: ElementT
@@ -45,10 +50,7 @@ type UseGetBigCardProps<ElementT extends ElementBase> = {
     element: ElementT,
     storeState: UseStoreState
   ) => Omit<DetailsGenericProps, 'shouldDisplayDetails'>
-  getOptionsBase: (
-    element: ElementT,
-    navigate: ReturnType<typeof useNavigate>
-  ) => Array<OptionsGenericElement>
+  getOptionsBase: GetOptionsBase<ElementT>
 }
 
 type ElementBase = {
@@ -59,3 +61,4 @@ type ElementBase = {
 }
 
 export default useBigCard
+export type { GetOptionsBase }

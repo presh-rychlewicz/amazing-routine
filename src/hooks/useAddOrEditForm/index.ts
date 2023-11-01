@@ -1,21 +1,21 @@
 import { useState } from 'react'
 import useNavigate from '../useNavigate'
 import { clearForm, getEmptyFields } from './utils'
-import { Field } from 'schemas'
+import { Field, FormError } from 'schemas'
 
-type AddFormParams<ValuesT extends Record<string, unknown>> = {
+type Params<ValuesT extends Record<string, unknown>> = {
   initialValues: ValuesT
   fields: Array<Field<ValuesT>>
   pathToGoAfterSubmitting: string | undefined
-  // TODO
-  // elementType?: 'context' | 'routine' | 'task'
+  isEdit?: boolean
 }
 
-const useAddForm = <ValuesT extends Record<string, unknown>>({
+const useAddOrEditForm = <ValuesT extends Record<string, unknown>>({
   initialValues,
   fields,
   pathToGoAfterSubmitting,
-}: AddFormParams<ValuesT>) => {
+  isEdit,
+}: Params<ValuesT>) => {
   const navigate = useNavigate()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -60,6 +60,7 @@ const useAddForm = <ValuesT extends Record<string, unknown>>({
     restValues: {
       error,
       fields,
+      isEdit,
       isSubmitting,
       setValues,
       values,
@@ -67,7 +68,4 @@ const useAddForm = <ValuesT extends Record<string, unknown>>({
   }
 }
 
-type FormError<ValuesT> = [keyof ValuesT, string] | undefined
-
-export default useAddForm
-export type { FormError }
+export default useAddOrEditForm

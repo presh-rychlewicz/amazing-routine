@@ -1,5 +1,6 @@
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever'
 import { FooterGeneric } from 'components'
+import { ONE } from 'config'
 import { useStoreDispatch } from 'hooks'
 import { FC } from 'react'
 import { Id, ScheduleTaskStepData } from 'schemas'
@@ -58,7 +59,7 @@ const Footer: FC<Props> = ({ onExit, routineId, taskData }) => {
           // NEW
 
           // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-          taskTotal.slice(0, 1).forEach((t) => {
+          taskTotal.slice(0, ONE).forEach((t) => {
             storeDispatch.tasks.updateScore({
               id: t.id,
               isDone: t.isDone,

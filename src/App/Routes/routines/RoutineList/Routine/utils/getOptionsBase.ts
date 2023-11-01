@@ -1,11 +1,11 @@
 import { OptionsGenericElement } from 'components'
 import { paths } from 'config'
-import { useNavigate } from 'hooks'
+import { GetOptionsBase } from 'hooks/useBigCard'
 import { SingleRoutine, singleRoutineStatusEnum } from 'schemas'
 
-const getOptionsBase = (
-  routine: SingleRoutine,
-  navigate: ReturnType<typeof useNavigate>
+const getOptionsBase: GetOptionsBase<SingleRoutine> = (
+  routine,
+  navigate
 ): Array<OptionsGenericElement> => {
   const optionsBase = []
   if (routine.status !== singleRoutineStatusEnum.enum.REMOVED) {
@@ -17,7 +17,10 @@ const getOptionsBase = (
     optionsBase.push({
       children: 'Edit',
       disabled: true,
-      onClick: () => navigate(paths.routines.children.edit.absolute),
+      onClick: () =>
+        navigate(paths.routines.children.edit.absolute, undefined, {
+          routineId: routine.id,
+        }),
     })
   }
 

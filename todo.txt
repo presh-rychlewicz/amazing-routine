@@ -10,12 +10,12 @@
 - Pilot: tts blocking moving to next step immediately
 - Pilot: outro screen blinking
 - PilotSummary: wake lock doesn't switch off
+- EditTask: cannot remove context
 ###
 
 
 
 #TECH DEBT:
-- AddRoutineBody: why checkboxes field cannot be inside fields?
 ###
 
 
@@ -27,7 +27,6 @@
 -- eslint: destruc sorted
 -- BigCard: make is clickable
 -- General: dark mode
--- General: block right click
 -- eslint: react hooks
 
 - CONTEXTS
@@ -51,9 +50,6 @@
 ...
 
 - TASKS
--- TaskList/RoutineDetails: Edit task name
--- TaskList/RoutineDetails: Edit task duration
--- TaskList/RoutineDetails: Edit task context
 ###
 
 
@@ -64,6 +60,8 @@
 
 
 #DONE:
--- ContextList: Add to details task count
-- RoutineDetails: task on add to in progress should get last index within routine
+-- TaskList/RoutineDetails: Edit task context
+-- TaskList/RoutineDetails: Edit task duration
+-- TaskList/RoutineDetails: Edit task name
+- AddRoutineBody: why checkboxes field cannot be inside fields?
 ###

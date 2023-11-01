@@ -1,3 +1,4 @@
+import { ONE } from 'config'
 import dayjs from 'dayjs'
 import { ScheduleStep } from 'schemas'
 import { getDurationString, getPluralPart } from 'utils'
@@ -17,8 +18,7 @@ const getStepPrompt = (currentStep: ScheduleStep) => {
 
       // COUNT PART
       const taskPart = `${
-        // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-        taskCount === 1 ? 'is only' : 'are'
+        taskCount === ONE ? 'is only' : 'are'
       } ${getPluralPart(taskCount, 'task')}`
       const countPart = `There ${taskPart},`
       //

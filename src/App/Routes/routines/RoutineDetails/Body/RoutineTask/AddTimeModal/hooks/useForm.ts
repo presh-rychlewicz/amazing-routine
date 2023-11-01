@@ -1,10 +1,10 @@
 import { NUMBER_OF_SECONDS_IN_MINUTE } from 'config'
-import { useAddForm, useStoreDispatch } from 'hooks'
+import { useAddOrEditForm, useStoreDispatch } from 'hooks'
 import { Field, Id, UseAddFormReturn } from 'schemas'
 
 const useForm = (taskId: Id, onClose: () => void): UseAddFormReturn<Values> => {
   const storeDispatch = useStoreDispatch()
-  const { getHandleSubmit, restValues } = useAddForm({
+  const { getHandleSubmit, restValues } = useAddOrEditForm({
     fields,
     initialValues,
     pathToGoAfterSubmitting: undefined,
@@ -26,6 +26,7 @@ const useForm = (taskId: Id, onClose: () => void): UseAddFormReturn<Values> => {
     headerProps: {
       // TEMP
       entityType: 'task',
+      isEdit: false,
     },
   }
 }

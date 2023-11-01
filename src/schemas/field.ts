@@ -8,10 +8,11 @@ type Field<ValuesT extends Record<string, any>> = {
     }
   | {
       type: 'checkbox_group'
-      options: Array<{
-        label: string
-        isChecked: boolean
-      }>
+      options: Array<string>
+      // options: Array<{
+      //   label: string
+      //   isChecked: boolean
+      // }>
     }
   | {
       type: 'select'

@@ -2,6 +2,7 @@ import { Grid } from '@mui/joy'
 import { FC } from 'react'
 import { CommonElementProps } from '../CommonElement'
 import { Area } from './components'
+import { ONE } from 'config'
 
 type Props = PropsBase
 
@@ -33,8 +34,7 @@ const HeaderGeneric: FC<Props> = (props) => {
       component="header"
       display="grid"
       gridTemplateColumns="repeat(2, auto)"
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      gridTemplateRows={`repeat(${hasBottom ? 2 : 1}, auto)`}
+      gridTemplateRows={`repeat(${hasBottom ? ONE + ONE : ONE}, auto)`}
       gridTemplateAreas={
         GRID_TEMPLATE_AREAS[props.mergedRight ? 'elements3' : 'elements4']
       }

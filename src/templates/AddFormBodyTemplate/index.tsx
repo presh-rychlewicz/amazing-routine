@@ -1,18 +1,18 @@
 import { Stack } from '@mui/joy'
 import { FormField, SubmitButton } from 'components'
-import { FormError } from 'hooks'
 import { Dispatch, PropsWithChildren, SetStateAction } from 'react'
-import { Field } from 'schemas'
+import { Field, FormError } from 'schemas'
 import getFormFieldProps from './getFormFieldProps'
 import { SubmitButtonProps } from 'components/SubmitButton'
 
-type AddFormBodyTemplateProps<ValuesT extends ValuesTBase> = {
+type AddFormBodyTemplate<ValuesT extends ValuesTBase> = {
   error: FormError<ValuesT>
   isSubmitting: boolean
+  isEdit?: boolean
   setValues: Dispatch<SetStateAction<ValuesT>>
   values: ValuesT
   fields: Array<Field<ValuesT>>
-} & SubmitButtonProps
+} & Omit<SubmitButtonProps, 'label'>
 
 const AddFormBodyTemplate = <ValuesT extends Record<string, any>>({
   error,
@@ -20,10 +20,10 @@ const AddFormBodyTemplate = <ValuesT extends Record<string, any>>({
   values,
   fields,
   setValues,
-  label = 'Add',
+  isEdit = false,
   isSubmitting,
   children,
-}: PropsWithChildren<AddFormBodyTemplateProps<ValuesT>>) => (
+}: PropsWithChildren<AddFormBodyTemplate<ValuesT>>) => (
   <Stack spacing={1} component="form" onSubmit={(e) => e.preventDefault()}>
     {fields.map((field) => {
       const formFieldProps = getFormFieldProps(
@@ -39,11 +39,11 @@ const AddFormBodyTemplate = <ValuesT extends Record<string, any>>({
 
     {children}
 
-    <SubmitButton label={label} handleSubmit={handleSubmit} />
+    <SubmitButton label={isEdit ? 'Edit' : 'Add'} handleSubmit={handleSubmit} />
   </Stack>
 )
 
 type ValuesTBase = Record<string, any>
 
 export default AddFormBodyTemplate
-export type { AddFormBodyTemplateProps }
+export type { AddFormBodyTemplate }

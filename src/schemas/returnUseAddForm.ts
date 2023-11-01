@@ -1,9 +1,11 @@
-import { AddFormBodyTemplateProps } from 'templates/AddFormBodyTemplate'
-import { AddFormHeaderTemplateProps } from 'templates/AddFormHeaderTemplate'
+import { AddFormBodyTemplate } from 'templates/AddFormBodyTemplate'
+import { AddOrEditFormHeaderTemplate } from 'templates/AddOrEditFormHeaderTemplate'
 
-type UseAddFormReturn<ValuesT extends Record<string, any>> = {
-  bodyProps: AddFormBodyTemplateProps<ValuesT>
-  headerProps: AddFormHeaderTemplateProps
+type UseAddFormReturn<ValuesT extends ValuesBase> = {
+  bodyProps: AddFormBodyTemplate<ValuesT>
+  headerProps: AddOrEditFormHeaderTemplate
 }
+
+type ValuesBase = Record<string, any>
 
 export type { UseAddFormReturn }

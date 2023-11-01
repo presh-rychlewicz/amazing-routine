@@ -1,17 +1,44 @@
-import { paths } from 'config'
+import { ONE, paths } from 'config'
 import dayjs from 'dayjs'
-import { useAddForm, useStoreDispatch, useStoreState } from 'hooks'
+import { useAddOrEditForm, useStoreDispatch, useStoreState } from 'hooks'
 import { useLocation } from 'react-router-dom'
 import { Field, UseAddFormReturn, singleContextStatusEnum } from 'schemas'
 
-const useForm = (): UseAddFormReturn<Values> => {
+const useForm = (isEdit: boolean): UseAddFormReturn<Values> | null => {
   const storeDispatch = useStoreDispatch()
   const storeState = useStoreState()
-
   const { state } = useLocation()
+
+  let initialValues: Values = {
+    contextId: '',
+    duration: '',
+    name: '',
+    note: '',
+  }
+
+  const taskId = state?.taskId
+  const task = storeState.getTasksById(taskId)
+  if (isEdit) {
+    if (!taskId || !task) {
+      return null
+    }
+
+    initialValues = {
+      contextId: task.contextId ?? '',
+      duration: task.durationInSeconds
+        ? dayjs
+            .duration(task.durationInSeconds, 'seconds')
+            .asMinutes()
+            .toString()
+        : '',
+      name: task.name,
+      note: task.note ?? '',
+    }
+  }
+
   const returnPath =
     state && state.returnPath
-      ? state.returnPath.slice(SLICE_START)
+      ? state.returnPath.slice(ONE)
       : paths.tasks.children.index.absolute
 
   const activeContexts = storeState.getContextsByStatus([
@@ -41,7 +68,7 @@ const useForm = (): UseAddFormReturn<Values> => {
     },
   ]
 
-  const { getHandleSubmit, restValues } = useAddForm({
+  const { getHandleSubmit, restValues } = useAddOrEditForm({
     fields,
     initialValues,
     pathToGoAfterSubmitting: returnPath,
@@ -51,8 +78,26 @@ const useForm = (): UseAddFormReturn<Values> => {
     bodyProps: {
       ...restValues,
       handleSubmit: () =>
-        getHandleSubmit((values) =>
-          storeDispatch.tasks.add({
+        getHandleSubmit((values) => {
+          if (isEdit) {
+            return storeDispatch.tasks.update({
+              // @ts-expect-error
+              id: task.id,
+              update: {
+                contextId: values.contextId,
+                durationInSeconds:
+                  values.duration !== ''
+                    ? dayjs
+                        .duration(parseInt(values.duration), 'minutes')
+                        .asSeconds()
+                    : undefined,
+                name: values.name,
+                note: values.note || undefined,
+              },
+            })
+          }
+
+          return storeDispatch.tasks.add({
             contextId: values.contextId,
             durationInSeconds:
               values.duration !== ''
@@ -64,10 +109,11 @@ const useForm = (): UseAddFormReturn<Values> => {
             note: values.note || undefined,
             routineId: state && state.routineId ? state.routineId : undefined,
           })
-        ),
+        }),
     },
     headerProps: {
       entityType: 'task',
+      isEdit: false,
       returnPath,
     },
   }
@@ -79,14 +125,5 @@ type Values = {
   duration: string
   contextId: string
 }
-
-const initialValues: Values = {
-  contextId: '',
-  duration: '',
-  name: '',
-  note: '',
-}
-
-const SLICE_START = 1
 
 export default useForm

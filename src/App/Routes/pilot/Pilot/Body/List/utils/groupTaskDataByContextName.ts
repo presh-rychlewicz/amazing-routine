@@ -1,5 +1,5 @@
 import { ScheduleTaskStepData } from 'schemas'
-import { MISSING_CONTEXT_VALUE } from 'config'
+import { MISSING_CONTEXT_VALUE, ONE } from 'config'
 
 const groupTaskDataByContextName = (
   taskData: Array<ScheduleTaskStepData>
@@ -13,8 +13,7 @@ const groupTaskDataByContextName = (
         tasks: [curr],
       })
     } else {
-      // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-      const lastContextIndex = acc.length - 1
+      const lastContextIndex = acc.length - ONE
       const lastContext = acc[lastContextIndex]
       const isSameContextAsLast = lastContext.name === contextName
 

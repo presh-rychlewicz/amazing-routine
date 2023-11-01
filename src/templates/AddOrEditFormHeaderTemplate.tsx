@@ -4,7 +4,9 @@ import { useNavigate } from 'hooks'
 import { FC } from 'react'
 import { EntityType } from 'schemas'
 
-type AddFormHeaderTemplateProps =
+type AddOrEditFormHeaderTemplate = {
+  isEdit: boolean
+} & (
   | {
       entityType: EntityType
       returnPath?: undefined
@@ -13,18 +15,23 @@ type AddFormHeaderTemplateProps =
       entityType?: undefined
       returnPath: string
     }
+)
 
-const AddFormHeaderTemplate: FC<AddFormHeaderTemplateProps> = (props) => {
+const AddOrEditFormHeaderTemplate: FC<AddOrEditFormHeaderTemplate> = ({
+  isEdit,
+  ...props
+}) => {
   const navigate = useNavigate()
   const pathToReturn = props.entityType
     ? paths[`${props.entityType}s`].children.index.absolute
     : props.returnPath
+  const title = `${isEdit ? 'Edit' : 'Add'} ${props.entityType}`
 
   return (
     <HeaderGeneric
       topLeft={
         props.entityType && {
-          content: `Add ${props.entityType}`,
+          content: title,
           level: 'h4',
           type: 'TEXT',
         }
@@ -37,5 +44,5 @@ const AddFormHeaderTemplate: FC<AddFormHeaderTemplateProps> = (props) => {
   )
 }
 
-export default AddFormHeaderTemplate
-export type { AddFormHeaderTemplateProps }
+export default AddOrEditFormHeaderTemplate
+export type { AddOrEditFormHeaderTemplate }

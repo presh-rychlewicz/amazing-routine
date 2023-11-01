@@ -1,5 +1,6 @@
 import { Stack } from '@mui/joy'
 import { ElementList, SmallCard } from 'components'
+import { ONE } from 'config'
 import dayjs from 'dayjs'
 import { FC } from 'react'
 import { SingleRoutine } from 'schemas'
@@ -40,8 +41,7 @@ const Stats: FC<Props> = ({ pastRuns }) => {
   // }))
 
   const pastRunsSorted = [...pastRuns].sort((prev, next) =>
-    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-    dayjs.unix(prev.timestamp).isAfter(dayjs.unix(next.timestamp)) ? -1 : 1
+    dayjs.unix(prev.timestamp).isAfter(dayjs.unix(next.timestamp)) ? -ONE : ONE
   )
 
   return (

@@ -1,12 +1,55 @@
-import { useAddForm } from 'hooks'
+import { useAddOrEditForm } from 'hooks'
 import { useStoreDispatch } from 'hooks'
-import { paths } from 'config'
+import { DAYS, paths } from 'config'
 import { Field, UseAddFormReturn } from 'schemas'
 import { getUnixFromDateString } from 'utils'
 
 const useForm = (): UseAddFormReturn<Values> => {
   const storeDispatch = useStoreDispatch()
-  const { getHandleSubmit, restValues } = useAddForm<Values>({
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const days = DAYS.map((day) => ({
+    isChecked: false,
+    label: day,
+  }))
+
+  const fields: Array<Field<Values>> = [
+    {
+      key: 'name',
+      required: true,
+      type: 'text',
+    },
+    {
+      key: 'note',
+      type: 'text',
+    },
+    {
+      key: 'time',
+      type: 'time',
+    },
+    {
+      key: 'startDateInUnix',
+      required: true,
+      type: 'date',
+    },
+    {
+      key: 'endDateInUnix',
+      type: 'date',
+    },
+    {
+      key: 'interval',
+      required: true,
+      type: 'number',
+    },
+    {
+      key: 'days',
+      options: DAYS,
+      required: true,
+      type: 'checkbox_group',
+    },
+  ]
+
+  const { getHandleSubmit, restValues } = useAddOrEditForm<Values>({
     fields,
     initialValues,
     pathToGoAfterSubmitting: paths.routines.children.index.absolute,
@@ -32,6 +75,7 @@ const useForm = (): UseAddFormReturn<Values> => {
     },
     headerProps: {
       entityType: 'routine',
+      isEdit: false,
     },
   }
 }
@@ -55,35 +99,5 @@ const initialValues: Values = {
   startDateInUnix: '',
   time: '',
 }
-
-const fields: Array<Field<Values>> = [
-  {
-    key: 'name',
-    required: true,
-    type: 'text',
-  },
-  {
-    key: 'note',
-    type: 'text',
-  },
-  {
-    key: 'time',
-    type: 'time',
-  },
-  {
-    key: 'startDateInUnix',
-    required: true,
-    type: 'date',
-  },
-  {
-    key: 'endDateInUnix',
-    type: 'date',
-  },
-  {
-    key: 'interval',
-    required: true,
-    type: 'number',
-  },
-]
 
 export default useForm

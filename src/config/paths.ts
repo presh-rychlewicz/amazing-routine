@@ -13,6 +13,10 @@ const paths = {
         relative: 'add',
         absolute: 'contexts/add',
       },
+      edit: {
+        relative: 'edit',
+        absolute: 'contexts/edit',
+      },
     },
   },
   dashboard: {
@@ -68,6 +72,10 @@ const paths = {
       add: {
         relative: 'add',
         absolute: 'tasks/add',
+      },
+      edit: {
+        relative: 'edit',
+        absolute: 'tasks/edit',
       },
     },
   },

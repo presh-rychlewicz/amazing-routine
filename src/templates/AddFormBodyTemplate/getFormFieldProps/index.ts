@@ -1,7 +1,6 @@
 import { FormFieldProps } from 'components/FormField'
-import { FormError } from 'hooks'
 import { Dispatch, SetStateAction } from 'react'
-import { Field } from 'schemas'
+import { Field, FormError } from 'schemas'
 import getFieldLabel from './getFieldLabel'
 
 const KEY_INDEX = 0
@@ -20,7 +19,7 @@ const getFormFieldProps = <
   const { key } = field
   const isError = error?.[KEY_INDEX] === key
 
-  const onChange = (value: string) =>
+  const onChange = (value: string | Array<boolean>) =>
     setValues((prev) => ({
       ...prev,
       [key]: value,
@@ -55,8 +54,16 @@ const getFormFieldProps = <
   if (field.type === 'checkbox_group') {
     return {
       ...common,
-      onChange: (event) => onChange(event.target.value),
-      options: field.options,
+      onChange: (_, index) => {
+        const newState = [...(values[key] as unknown as Array<boolean>)]
+        newState[index] = !newState[index]
+
+        return onChange(newState)
+      },
+      options: field.options.map((o, i) => ({
+        isChecked: values[key][i] as unknown as boolean,
+        label: o,
+      })),
       type: field.type,
     }
   }

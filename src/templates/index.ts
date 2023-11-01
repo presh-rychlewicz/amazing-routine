@@ -1,5 +1,5 @@
 export { default as AddFormBodyTemplate } from './AddFormBodyTemplate'
-export { default as AddFormHeaderTemplate } from './AddFormHeaderTemplate'
+export { default as AddOrEditFormHeaderTemplate } from './AddOrEditFormHeaderTemplate'
 export { default as EntityListFooterTemplate } from './EntityListFooterTemplate'
 export { default as EntityListHeaderTemplate } from './EntityListHeaderTemplate'
 export { default as SettingsTemplate } from './SettingsTemplate'

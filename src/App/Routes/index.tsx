@@ -4,13 +4,13 @@ import { Navigate, useRoutes } from 'react-router-dom'
 
 import { Typography } from '@mui/joy'
 import { paths } from 'config'
-import { AddContext, ContextList } from './contexts'
+import { AddOrEditContext, ContextList } from './contexts'
+import { Dashboard } from './dashboard'
 import { Pilot, Summary } from './pilot'
 import { AddRoutine, RoutineDetails, RoutineList } from './routines'
 import { Settings } from './settings'
-import { AddTask, TaskList } from './tasks'
-import { Dashboard } from './dashboard'
 import { Statistics } from './statistics'
+import { AddOrEditTask, TaskList } from './tasks'
 
 const Routes = () =>
   useRoutes([
@@ -27,7 +27,11 @@ const Routes = () =>
         },
         {
           path: paths.contexts.children.add.relative,
-          element: <AddContext />,
+          element: <AddOrEditContext />,
+        },
+        {
+          path: paths.contexts.children.edit.relative,
+          element: <AddOrEditContext isEdit={true} />,
         },
       ],
     },
@@ -79,7 +83,11 @@ const Routes = () =>
         },
         {
           path: paths.tasks.children.add.relative,
-          element: <AddTask />,
+          element: <AddOrEditTask isEdit={false} />,
+        },
+        {
+          path: paths.tasks.children.edit.relative,
+          element: <AddOrEditTask isEdit />,
         },
       ],
     },
