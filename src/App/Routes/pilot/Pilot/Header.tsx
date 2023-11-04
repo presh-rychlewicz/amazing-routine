@@ -4,7 +4,7 @@ import { paths } from 'config'
 import { useModal, useNavigate } from 'hooks'
 import { FC } from 'react'
 import { Id } from 'schemas'
-import Settings from './Settings'
+import SettingsDrawerTemplate from 'templates/SettingsDrawerTemplate'
 
 type Props = {
   routineId: Id
@@ -12,25 +12,19 @@ type Props = {
 
 const Header: FC<Props> = ({ routineId }) => {
   const navigate = useNavigate()
-  const {
-    isModalVisible: isCloseModalVisible,
-    setIsModalVisible: setIsCloseModalVisible,
-  } = useModal()
-  const {
-    isModalVisible: isSettingsDrawerVisible,
-    setIsModalVisible: setIsSettingsDrawerVisible,
-  } = useModal()
+  const closeModalProps = useModal()
+  const settingsDrawerProps = useModal()
 
   return (
     <>
       <HeaderGeneric
         topLeft={{
           icon: <SettingsIcon />,
-          onClick: () => setIsSettingsDrawerVisible(true),
+          onClick: settingsDrawerProps.show,
           type: 'ICON_BUTTON',
         }}
         topRight={{
-          onClick: () => setIsCloseModalVisible(true),
+          onClick: closeModalProps.show,
           type: 'X_BUTTON',
         }}
       />
@@ -39,13 +33,13 @@ const Header: FC<Props> = ({ routineId }) => {
         onConfirm={() =>
           navigate(paths.routines.children.details.absolute(routineId))
         }
-        isModalVisible={isCloseModalVisible}
-        setIsModalVisible={setIsCloseModalVisible}
+        {...closeModalProps}
       />
 
-      <Settings
-        isModalVisible={isSettingsDrawerVisible}
-        setIsModalVisible={setIsSettingsDrawerVisible}
+      <SettingsDrawerTemplate
+        {...settingsDrawerProps}
+        title="Settings"
+        categories={['PILOT']}
       />
     </>
   )

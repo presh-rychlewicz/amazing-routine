@@ -34,6 +34,7 @@ const DrawerWrapper: FC<PropsWithChildren<Props>> = ({
 
       <Stack
         component="main"
+        height="100%"
         spacing={1}
         sx={{
           overflowY: 'scroll',

@@ -27,6 +27,10 @@ const initialState: SettingsState = {
       id: 'SHOW_TASK_DEV_DETAILS',
       value: false,
     },
+    {
+      id: 'GROUP_ROUTINE_DETAILS_LIST_BY_CONTEXT',
+      value: false,
+    },
   ],
   version: SETTINGS_SCHEMA_CURRENT_VERSION,
 }

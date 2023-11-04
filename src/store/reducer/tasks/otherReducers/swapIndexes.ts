@@ -11,6 +11,11 @@ const swapIndexes =
 
     const up = currentValue[upIndex]
     const down = currentValue[downIndex]
+
+    console.log({
+      down,
+      up,
+    })
     if (!up || !down) {
       throw new Error('ERROR')
     }

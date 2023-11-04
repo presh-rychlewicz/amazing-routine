@@ -1,9 +1,9 @@
 import { DrawerWrapper, ElementList } from 'components'
 import { FC } from 'react'
 import { Id, ScheduleStep, ScheduleTaskStepData } from 'schemas'
+import { groupElementsByContextId } from 'utils'
 import { getIsStepTask } from '../hooks/usePilot/utils'
 import ListTask from './ListTask'
-import groupTaskDataByContextName from './utils/groupTaskDataByContextName'
 
 type ListProps = {
   stepData: Array<ScheduleStep>
@@ -26,13 +26,13 @@ const List: FC<ListProps> = ({
     <DrawerWrapper open={isListVisible} onClose={onClose}>
       <ElementList
         spacingBetweenElements="medium"
-        elements={groupTaskDataByContextName(taskData)}
-        renderElement={({ name, tasks }, index) => (
+        elements={groupElementsByContextId(taskData)}
+        renderElement={({ groupName, elements }, index) => (
           <ElementList
             shouldShowEmptyState={false}
-            key={name + index}
-            title={name}
-            elements={tasks}
+            key={groupName + index}
+            title={groupName}
+            elements={elements}
             renderElement={(task) => (
               <ListTask
                 isCurrent={task.id === currentTaskId}

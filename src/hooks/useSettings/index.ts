@@ -3,7 +3,11 @@ import { SingleSettingCategoryEnum } from 'schemas'
 import useStoreState from '../useStoreState'
 import getProps from './getProps'
 
-const useSettings = (categories?: Array<SingleSettingCategoryEnum>) => {
+type UseSettingsProps = {
+  categories: Array<SingleSettingCategoryEnum>
+}
+
+const useSettings = (props?: UseSettingsProps) => {
   const storeState = useStoreState()
   const storeDispatch = useStoreDispatch()
   const { speak } = useTTS()
@@ -23,11 +27,14 @@ const useSettings = (categories?: Array<SingleSettingCategoryEnum>) => {
     })
   )
 
-  if (categories && categories.length) {
-    return settingsWithProps.filter((s) => categories.includes(s.category))
+  if (props?.categories && props.categories.length) {
+    return settingsWithProps.filter((s) =>
+      props.categories.includes(s.category)
+    )
   }
 
   return settingsWithProps
 }
 
 export default useSettings
+export type { UseSettingsProps }

@@ -39,12 +39,8 @@ const usePilot = (
   const [stepData, setStepData] = useState(scheduleSteps)
   const [isPlaying, setIsPlaying] = useState(true)
 
-  const { isModalVisible: isListVisible, setIsModalVisible: setIsListVisible } =
-    useModal()
-  const {
-    isModalVisible: isEndDecisionModalVisible,
-    setIsModalVisible: setIsEndDecisionModalVisible,
-  } = useModal()
+  const listModalProps = useModal()
+  const endDecisionModalProps = useModal()
 
   const stepDataToDo = getStepDataToDo(stepData)
   const tasksDataSkipped = getTasksDataSkipped(stepData)
@@ -103,7 +99,7 @@ const usePilot = (
 
     if (isOutro) {
       if (tasksDataSkipped.length) {
-        setIsEndDecisionModalVisible(true)
+        endDecisionModalProps.show()
       } else {
         onEnd()
       }
@@ -119,12 +115,12 @@ const usePilot = (
   return {
     endDecisionModalProps: {
       onEnd,
-      open: isEndDecisionModalVisible,
+      open: endDecisionModalProps.isOpen,
     },
     listProps: {
       currentTaskId: currentStep.data.id,
-      isListVisible,
-      onClose: () => setIsListVisible(false),
+      isListVisible: listModalProps.isOpen,
+      onClose: listModalProps.hide,
       stepData,
     },
     mainProps: {
@@ -216,7 +212,7 @@ const usePilot = (
             })
           }
         },
-        toggleList: () => setIsListVisible((prev) => !prev),
+        toggleList: listModalProps.toggle,
       },
     },
   }

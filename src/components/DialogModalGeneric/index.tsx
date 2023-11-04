@@ -9,11 +9,10 @@ import {
   ModalDialog,
 } from '@mui/joy'
 import ButtonElement from 'components/CommonElement/ButtonElement'
-import { Dispatch, FC, SetStateAction } from 'react'
+import { UseModalReturn } from 'hooks'
+import { FC } from 'react'
 
-type Props = {
-  isModalVisible: boolean
-  setIsModalVisible: Dispatch<SetStateAction<Props['isModalVisible']>>
+type Props = UseModalReturn & {
   message?: string
   confirmButtonLabel?: string
   cancelButtonLabel?: string
@@ -21,21 +20,19 @@ type Props = {
 }
 
 const DialogModalGeneric: FC<Props> = ({
-  isModalVisible,
-  setIsModalVisible,
+  isOpen,
+  hide,
   message = 'Are you sure?',
   confirmButtonLabel = 'Confirm',
   cancelButtonLabel = 'Cancel',
   onConfirm,
 }) => {
-  if (!isModalVisible) {
+  if (!isOpen) {
     return null
   }
 
-  const closeModal = () => setIsModalVisible(false)
-
   return (
-    <Modal open={!!isModalVisible} onClose={closeModal}>
+    <Modal open={!!isOpen} onClose={hide}>
       <ModalDialog size="lg" variant="outlined" role="alertdialog">
         <DialogTitle>
           <WarningRoundedIcon />
@@ -54,7 +51,7 @@ const DialogModalGeneric: FC<Props> = ({
             color="danger"
             onClick={() => {
               onConfirm()
-              closeModal()
+              hide()
             }}
             label={confirmButtonLabel}
           />
@@ -62,7 +59,7 @@ const DialogModalGeneric: FC<Props> = ({
           <ButtonElement
             variant="plain"
             color="neutral"
-            onClick={closeModal}
+            onClick={hide}
             label={cancelButtonLabel}
           />
         </DialogActions>

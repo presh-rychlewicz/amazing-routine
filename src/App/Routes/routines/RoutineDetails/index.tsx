@@ -3,9 +3,10 @@ import { paths } from 'config'
 import { useStoreState } from 'hooks'
 import { Navigate, useParams } from 'react-router-dom'
 import Body from './Body'
-import Header from './Header'
-import { getStatusData } from './utils'
 import Footer from './Footer'
+import Header from './Header'
+import { groupElementsByStatus } from './utils'
+import { groupElementsByContextId } from 'utils'
 
 const RoutineDetails = () => {
   const { routineId } = useParams()
@@ -15,27 +16,36 @@ const RoutineDetails = () => {
     return <Navigate to={`/${paths.routines.core}`} />
   }
 
-  const thisRoutine = storeState.getRoutinesById(routineId)
-  if (!thisRoutine) {
+  const routine = storeState.getRoutinesById(routineId)
+  if (!routine) {
     return <Navigate to={`/${paths.routines.core}`} />
   }
 
   const routineTasks = storeState.getActiveTasksByRoutineId(routineId)
-  const statusData = getStatusData(routineTasks)
+  const routineTasksByStatus = groupElementsByStatus(routineTasks)
+  const routineTasksByContext = groupElementsByContextId(routineTasks)
 
   const inProgressTasks =
-    statusData.find((s) => s.status === 'IN_PROGRESS')?.tasks ?? []
+    routineTasksByStatus.find((s) => s.groupName === 'IN_PROGRESS')?.elements ??
+    []
   const hasAnyTasksInProgress = Boolean(inProgressTasks.length)
+
+  const shouldGroupByContext = storeState.getSettingsById(
+    'GROUP_ROUTINE_DETAILS_LIST_BY_CONTEXT'
+  )?.value
+  const groupedTasks = shouldGroupByContext
+    ? routineTasksByContext
+    : routineTasksByStatus
 
   return (
     <Route>
       <Header
-        name={thisRoutine.name}
-        score={thisRoutine.score}
-        statusData={statusData}
+        hasAnyTasksInProgress={hasAnyTasksInProgress}
+        name={routine.name}
+        score={routine.score}
       />
 
-      <Body pastRuns={thisRoutine.pastRuns} statusData={statusData} />
+      <Body pastRuns={routine.pastRuns} groupedTasks={groupedTasks} />
 
       <Footer hasAnyTasksInProgress={hasAnyTasksInProgress} />
     </Route>

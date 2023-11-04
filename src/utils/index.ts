@@ -7,5 +7,6 @@ export { default as getSingleFilterMultiTypeOption } from './getSingleFilterMult
 export { default as getTaskDataSections } from './getTaskDataSections'
 export { default as getTimeStringFromUnix } from './getTimeStringFromUnix'
 export { default as getUnixFromDateString } from './getUnixFromDateString'
+export { default as groupElementsByContextId } from './groupElementsByContextId'
 export { default as presentDurationUnit } from './presentDurationUnit'
 export { default as presentScore } from './presentScore'

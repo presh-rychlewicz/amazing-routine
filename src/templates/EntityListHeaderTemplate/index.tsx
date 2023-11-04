@@ -1,19 +1,17 @@
 import { CommonElementProps, HeaderGeneric } from 'components'
 // import Sorting from './Sorting'
+import { UseModalReturn } from 'hooks'
 import { EntityType, SingleSettingCategoryEnum } from 'schemas'
+import SettingsDrawerTemplate from 'templates/SettingsDrawerTemplate'
 import Filters, { SingleFilterProps } from './Filters'
-import Settings from './Settings'
 
 type EntityListHeaderTemplateTemplateProps = {
-  shouldShowFilters: boolean
-  shouldShowSorting: boolean
-  shouldShowSettings: boolean
-  toggleFilters: () => void
-  toggleSettings: () => void
-  toggleSorting: () => void
   topRight: Array<CommonElementProps>
   filtersConfig: Array<SingleFilterProps>
   entityType: EntityType
+  filtersModal: UseModalReturn
+  settingsModal: UseModalReturn
+  sortingModal: UseModalReturn
 }
 
 const EntityListHeaderTemplateTemplate = (
@@ -26,19 +24,14 @@ const EntityListHeaderTemplateTemplate = (
     <>
       <HeaderGeneric topRight={props.topRight} />
 
-      {/* {props.shouldShowSorting && <Sorting />} */}
+      {/* <Sorting {...props.sortingModal} /> */}
 
-      <Settings
-        category={category}
-        isModalVisible={props.shouldShowSettings}
-        setIsModalVisible={props.toggleSettings}
+      <SettingsDrawerTemplate
+        {...props.settingsModal}
+        categories={[category]}
       />
 
-      <Filters
-        isModalVisible={props.shouldShowFilters}
-        setIsModalVisible={props.toggleFilters}
-        filters={props.filtersConfig}
-      />
+      <Filters {...props.filtersModal} filters={props.filtersConfig} />
     </>
   )
 }

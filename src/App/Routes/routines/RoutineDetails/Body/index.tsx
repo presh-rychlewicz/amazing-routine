@@ -1,28 +1,25 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
+import EditNoteIcon from '@mui/icons-material/EditNote'
 import { Stack } from '@mui/joy'
 import { ElementList } from 'components'
+import { MISSING_CONTEXT_VALUE, ONE } from 'config'
+import { useStoreDispatch, useStoreState } from 'hooks'
 import { FC, useState } from 'react'
-import {
-  RoutineMetaStatus,
-  SingleRoutine,
-  SingleTask,
-  StatusDataElem,
-} from 'schemas'
+import { GroupedElement, SingleRoutine, SingleTask } from 'schemas'
 import RoutineTask from './RoutineTask'
 import Stats from './Stats'
 import { getEstimation } from './utils'
-import EditNoteIcon from '@mui/icons-material/EditNote'
-import { useStoreDispatch } from 'hooks'
-import { ONE } from 'config'
 
 type Props = Pick<SingleRoutine, 'pastRuns'> & {
-  statusData: Array<StatusDataElem>
+  groupedTasks: Array<GroupedElement<SingleTask>>
 }
 
-const Body: FC<Props> = ({ pastRuns, statusData }) => {
+const Body: FC<Props> = ({ pastRuns, groupedTasks }) => {
+  const storeState = useStoreState()
   const storeDispatch = useStoreDispatch()
   const [isEditingOrder, setIsEditingOrder] = useState(
-    Object.fromEntries(statusData.map((a) => a.status).map((s) => [s, false]))
+    Object.fromEntries(
+      groupedTasks.map((a) => a.groupName).map((s) => [s, false])
+    )
   )
 
   return (
@@ -31,53 +28,65 @@ const Body: FC<Props> = ({ pastRuns, statusData }) => {
 
       <ElementList
         emptyStateMessage="No tasks :("
-        elements={statusData}
+        elements={groupedTasks}
         spacingBetweenElements="medium"
-        renderElement={({ status, tasks }) => {
-          const hasMultipleTasks = tasks.length > 1
-          const isEditingList = isEditingOrder[status]
+        renderElement={({ groupName, elements, hasMultipleElements }) => {
+          const isEditingList = isEditingOrder[groupName]
+          const title =
+            titleMapping[groupName] ||
+            storeState.getContextsById(groupName)?.name
+          const subtitle = getEstimation(elements)
 
           return (
             <ElementList
               right={{
-                disabled: !hasMultipleTasks,
+                disabled: !hasMultipleElements,
                 icon: <EditNoteIcon />,
                 onClick: () =>
                   setIsEditingOrder((prev) => ({
                     ...prev,
-                    [status]: !prev[status],
+                    [groupName]: !prev[groupName],
                   })),
                 type: 'ICON_BUTTON',
                 variant: isEditingList ? 'solid' : 'plain',
               }}
               shouldShowEmptyState={false}
-              key={status}
-              title={titleMapping[status]}
-              subtitle={subtitleMapping[status](tasks)}
-              elements={tasks}
+              key={groupName}
+              title={title}
+              subtitle={subtitle}
+              elements={elements.sort((prev, next) => {
+                if (!prev.routineMeta || !next.routineMeta) {
+                  return ONE - ONE
+                }
+
+                return prev.routineMeta.index < next.routineMeta.index
+                  ? ONE
+                  : -ONE
+              })}
               renderElement={(task, index, aray) => {
+                const { id } = task
                 const isFirstOnTheList = !index
-                const isLastOnTheList = index === aray.length - 1
+                const isLastOnTheList = index === aray.length - ONE
 
                 return (
                   <RoutineTask
+                    {...(!isFirstOnTheList && {
+                      onUp: () =>
+                        storeDispatch.tasks.swapIndexes({
+                          downId: id,
+                          upId: aray[index - ONE].id,
+                        }),
+                    })}
                     {...(!isLastOnTheList && {
                       onDown: () =>
                         storeDispatch.tasks.swapIndexes({
                           downId: aray[index + ONE].id,
-                          upId: task.id,
-                        }),
-                    })}
-                    {...(!isFirstOnTheList && {
-                      onUp: () =>
-                        storeDispatch.tasks.swapIndexes({
-                          downId: aray[index - 1].id,
-                          upId: task.id,
+                          upId: id,
                         }),
                     })}
                     isEditingOrder={isEditingList}
                     task={task}
-                    key={task.id}
+                    key={id}
                   />
                 )
               }}
@@ -89,17 +98,10 @@ const Body: FC<Props> = ({ pastRuns, statusData }) => {
   )
 }
 
-const titleMapping: Record<RoutineMetaStatus, string> = {
+const titleMapping: Record<string, string> = {
+  '': MISSING_CONTEXT_VALUE,
   IN_PROGRESS: 'Current',
   NEW: 'Incoming',
-}
-
-const subtitleMapping: Record<
-  RoutineMetaStatus,
-  (tasks: Array<SingleTask>) => string
-> = {
-  IN_PROGRESS: (tasks) => getEstimation(tasks),
-  NEW: (tasks) => getEstimation(tasks),
 }
 
 export default Body

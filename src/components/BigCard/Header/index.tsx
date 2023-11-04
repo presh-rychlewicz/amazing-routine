@@ -37,9 +37,9 @@ const Header: FC<HeaderProps> = ({
         content: (
           <OptionsGeneric options={options}>
             <DialogModalGeneric
+              {...removeModalProps}
               onConfirm={onRemoveConfirm}
               message={`Are you sure you want to remove this ${entityName}?`}
-              {...removeModalProps}
               confirmButtonLabel="Remove"
             />
           </OptionsGeneric>

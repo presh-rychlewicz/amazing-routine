@@ -10,7 +10,7 @@ import Header from './Header'
 const Summary = () => {
   const { state } = useLocation()
   const navigate = useNavigate()
-  const { isModalVisible, setIsModalVisible } = useModal()
+  const modalProps = useModal()
   const { turnOff } = useWakeLock()
 
   const taskData: Array<ScheduleTaskStepData> | undefined = state?.taskData
@@ -19,21 +19,22 @@ const Summary = () => {
     return <Navigate to={`/${paths.routines.core}`} />
   }
 
-  const onExit = () => setIsModalVisible(true)
-
   return (
     <>
       <Route>
-        <Header onExit={onExit} />
+        <Header onExit={modalProps.show} />
 
         <Body taskData={taskData} />
 
-        <Footer taskData={taskData} onExit={onExit} routineId={routineId} />
+        <Footer
+          taskData={taskData}
+          onExit={modalProps.show}
+          routineId={routineId}
+        />
       </Route>
 
       <DialogModalGeneric
-        setIsModalVisible={setIsModalVisible}
-        isModalVisible={isModalVisible}
+        {...modalProps}
         onConfirm={async () => {
           await turnOff()
           navigate(paths.dashboard.core)

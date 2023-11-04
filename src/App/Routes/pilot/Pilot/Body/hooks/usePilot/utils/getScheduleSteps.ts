@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
-import { MISSING_CONTEXT_VALUE, ONE } from 'config'
+import { ONE } from 'config'
 import {
   ScheduleContextStep,
   ScheduleStep,
@@ -16,8 +15,8 @@ const getScheduleSteps = (
     data: {
       durationInSeconds: 10,
       durationInSecondsTotal: initialTaskData.reduce(
-        (acc, curr) => acc + (curr.durationInSeconds ?? 0),
-        0
+        (acc, curr) => acc + (curr.durationInSeconds ?? ONE - ONE),
+        ONE - ONE
       ),
       id: 'INTRO',
       isDone: false,
@@ -49,7 +48,7 @@ const getScheduleSteps = (
             isDone: false,
             isFirst: !acc.some((s) => s.type === 'CONTEXT'),
             isLast: false,
-            name: curr.contextName ?? MISSING_CONTEXT_VALUE,
+            name: curr.contextName,
           },
           type: 'CONTEXT',
         })

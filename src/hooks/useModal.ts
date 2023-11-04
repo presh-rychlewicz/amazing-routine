@@ -1,17 +1,21 @@
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 
 const useModal = (): UseModalReturn => {
-  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [isOpen, setIsOpen] = useState(false)
 
   return {
-    isModalVisible,
-    setIsModalVisible,
+    hide: () => setIsOpen(false),
+    isOpen,
+    show: () => setIsOpen(true),
+    toggle: () => setIsOpen((prev) => !prev),
   }
 }
 
 type UseModalReturn = {
-  isModalVisible: boolean
-  setIsModalVisible: Dispatch<SetStateAction<boolean>>
+  isOpen: boolean
+  toggle: () => void
+  show: () => void
+  hide: () => void
 }
 
 export default useModal

@@ -2,55 +2,41 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt'
 import SettingsIcon from '@mui/icons-material/Settings'
 import SortIcon from '@mui/icons-material/Sort'
 import { CommonElementProps } from 'components'
-import { useState } from 'react'
 import { EntityType, SingleSettingCategoryEnum } from 'schemas'
 import { EntityListFooterTemplateProps } from 'templates/EntityListFooterTemplate'
 import { EntityListHeaderTemplateTemplateProps } from 'templates/EntityListHeaderTemplate'
 import { SingleFilterProps } from 'templates/EntityListHeaderTemplate/Filters'
 import useFilters, { UseFilters } from './useFilters'
+import useModal from 'hooks/useModal'
 
 const useListControls = <FiltersShapeT extends Record<string, any>>(
   params: Params<FiltersShapeT>
 ): UseListControlsReturn<FiltersShapeT> => {
   const filtersProps = useFilters(params.initialFiltersState)
-  const [visibility, setVisibility] = useState({
-    filters: false,
-    settings: false,
-    sorting: false,
-  })
 
-  const shouldShowFilters = visibility.filters
-  const shouldShowSettings = visibility.settings
-  const shouldShowSorting = visibility.sorting
-
-  const toggleVisibility = (key: keyof typeof visibility) => () =>
-    setVisibility((prev) => ({
-      ...prev,
-      [key]: !prev[key],
-    }))
-  const toggleFilters = toggleVisibility('filters')
-  const toggleSorting = toggleVisibility('sorting')
-  const toggleSettings = toggleVisibility('settings')
+  const settingsModalProps = useModal()
+  const filtersModalProps = useModal()
+  const sortingModalProps = useModal()
 
   const topRight: Array<CommonElementProps> = [
     {
       disabled: params.disableSorting,
       icon: <SortIcon />,
-      onClick: () => toggleSorting(),
+      onClick: sortingModalProps.toggle,
       type: 'ICON_BUTTON',
-      variant: shouldShowSorting ? 'solid' : 'plain',
+      variant: sortingModalProps.isOpen ? 'solid' : 'plain',
     },
     {
       icon: <FilterAltIcon />,
-      onClick: () => toggleFilters(),
+      onClick: filtersModalProps.toggle,
       type: 'ICON_BUTTON',
-      variant: shouldShowFilters ? 'solid' : 'plain',
+      variant: filtersModalProps.isOpen ? 'solid' : 'plain',
     },
     {
       icon: <SettingsIcon />,
-      onClick: () => toggleSettings(),
+      onClick: settingsModalProps.toggle,
       type: 'ICON_BUTTON',
-      variant: shouldShowSettings ? 'solid' : 'plain',
+      variant: settingsModalProps.isOpen ? 'solid' : 'plain',
     },
   ]
 
@@ -70,12 +56,9 @@ const useListControls = <FiltersShapeT extends Record<string, any>>(
         filtersProps.filters,
         filtersProps.setFilters
       ),
-      shouldShowFilters,
-      shouldShowSettings,
-      shouldShowSorting,
-      toggleFilters,
-      toggleSettings,
-      toggleSorting,
+      filtersModal: filtersModalProps,
+      settingsModal: settingsModalProps,
+      sortingModal: sortingModalProps,
       topRight,
     },
   }

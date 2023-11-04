@@ -8,6 +8,7 @@ import { getDurationString } from 'utils'
 import AddTimeModal from './AddTimeModal'
 import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward'
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward'
+import { MISSING_CONTEXT_VALUE } from 'config'
 
 type Props = {
   task: SingleTask
@@ -19,14 +20,13 @@ type Props = {
 const RoutineTask: FC<Props> = ({ isEditingOrder, onDown, onUp, task }) => {
   const storeState = useStoreState()
   const storeDispatch = useStoreDispatch()
-  const {
-    isModalVisible: isAddTimeModalVisible,
-    setIsModalVisible: setIsAddTimeModalVisible,
-  } = useModal()
+  const addTimeModalProps = useModal()
 
-  const inStatusNew = task.routineMeta?.status === 'NEW'
-  const hasDuration = !!task.durationInSeconds
-  const durationInMins = getDurationString(task.durationInSeconds, {
+  const { durationInSeconds, contextId, id, name, routineMeta } = task
+
+  const inStatusNew = routineMeta?.status === 'NEW'
+  const hasDuration = !!durationInSeconds
+  const durationInMins = getDurationString(durationInSeconds, {
     shouldShowEmptyMessage: true,
   })
 
@@ -41,17 +41,14 @@ const RoutineTask: FC<Props> = ({ isEditingOrder, onDown, onUp, task }) => {
         ]
       : []
 
-  let contextName: string
-  if (task.contextId) {
-    const context = storeState.getContextsById(task.contextId)
-    if (!context) {
-      throw new Error('Error 231')
-    }
+  const contextName =
+    (contextId && storeState.getContextsById(contextId)?.name) ||
+    MISSING_CONTEXT_VALUE
 
-    contextName = context.name
-  } else {
-    contextName = 'Missing context'
-  }
+  const subtitle =
+    inStatusNew || isEditingOrder
+      ? `${contextName} | ${durationInMins}`
+      : contextName
 
   return (
     <>
@@ -60,7 +57,7 @@ const RoutineTask: FC<Props> = ({ isEditingOrder, onDown, onUp, task }) => {
           {
             icon: <MoreTimeIcon />,
             isVisible: !hasDuration && !isEditingOrder,
-            onClick: () => setIsAddTimeModalVisible(true),
+            onClick: addTimeModalProps.show,
             type: 'ICON_BUTTON',
             variant: 'outlined',
           },
@@ -69,10 +66,7 @@ const RoutineTask: FC<Props> = ({ isEditingOrder, onDown, onUp, task }) => {
             disabled: !hasDuration,
             icon: <AddIcon />,
             isVisible: inStatusNew && !isEditingOrder,
-            onClick: () =>
-              storeDispatch.tasks.promoteToInProgress({
-                id: task.id,
-              }),
+            onClick: () => storeDispatch.tasks.promoteToInProgress({ id }),
             type: 'ICON_BUTTON',
             variant: 'outlined',
           },
@@ -96,18 +90,14 @@ const RoutineTask: FC<Props> = ({ isEditingOrder, onDown, onUp, task }) => {
           //
           ...alfa,
         ]}
-        title={task.name}
-        subtitle={
-          inStatusNew || isEditingOrder
-            ? `${contextName} | ${durationInMins}`
-            : contextName
-        }
+        title={name}
+        subtitle={subtitle}
       />
 
       <AddTimeModal
-        isOpen={isAddTimeModalVisible}
-        taskId={task.id}
-        onClose={() => setIsAddTimeModalVisible(false)}
+        isOpen={addTimeModalProps.isOpen}
+        taskId={id}
+        onClose={addTimeModalProps.hide}
       />
     </>
   )

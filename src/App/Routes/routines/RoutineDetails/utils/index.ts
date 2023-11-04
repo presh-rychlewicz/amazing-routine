@@ -1,1 +1,1 @@
-export { default as getStatusData } from './getStatusData'
+export { default as groupElementsByStatus } from './groupElementsByStatus'

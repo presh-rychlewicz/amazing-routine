@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
+import { MISSING_CONTEXT_VALUE, ONE } from 'config'
 import { UseStoreState } from 'hooks/useStoreState'
 import { ScheduleTaskStepData, SingleTask } from 'schemas'
 
@@ -10,9 +10,10 @@ const getInitialTaskData = (
     .map(
       (t): ScheduleTaskStepData => ({
         completionInSeconds: 0,
-        contextName: t.contextId
-          ? storeState.getContextsById(t.contextId)?.name
-          : undefined,
+        contextId: t.contextId,
+        contextName:
+          (t.contextId && storeState.getContextsById(t.contextId)?.name) ||
+          MISSING_CONTEXT_VALUE,
         durationInSeconds: t.durationInSeconds,
         id: t.id,
         // TODO
@@ -26,6 +27,6 @@ const getInitialTaskData = (
         name: t.name,
       })
     )
-    .sort((prev, next) => (prev.index < next.index ? -1 : 1))
+    .sort((prev, next) => (prev.index < next.index ? -ONE : ONE))
 
 export default getInitialTaskData

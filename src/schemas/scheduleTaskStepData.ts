@@ -1,10 +1,11 @@
 import { TypeOf, boolean, number, object } from 'zod'
-import { singleTaskSchema } from './singleTask'
 import { singleContextSchema } from './singleContext'
+import { singleTaskSchema } from './singleTask'
 
 const scheduleTaskStepDataSchema = object({
   completionInSeconds: number(),
-  contextName: singleContextSchema._def.shape().name.optional(),
+  contextId: singleTaskSchema._def.shape().contextId,
+  contextName: singleContextSchema._def.shape().name,
   durationInSeconds: singleTaskSchema._def.shape().durationInSeconds.nullish(),
   id: singleTaskSchema._def.shape().id,
   index: number(),

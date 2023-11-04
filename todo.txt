@@ -1,4 +1,6 @@
 #IN PROGRESS:
+-- PilotList: Add NEW task
+- Pilot: tts blocking moving to next step immediately
 -- PilotVoice: pronounce task count in each context
 -- [M1 BLOCKER]PilotSummary: save run
 ###
@@ -7,7 +9,6 @@
 
 #BUGS:
 - Input type=number allows text and durationInSec in not present
-- Pilot: tts blocking moving to next step immediately
 - Pilot: outro screen blinking
 - PilotSummary: wake lock doesn't switch off
 - EditTask: cannot remove context
@@ -38,7 +39,6 @@
 -- PilotSettings: switch off intro
 -- ?Pilot: move logic to redux
 -- PilotList: allow to custom sort context 
--- PilotList: Add NEW task
 -- PilotSummary: switch view between grouping by context/outcome
 
 - ROUTINES

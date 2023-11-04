@@ -2,17 +2,15 @@ import type { OptionsGenericElement } from 'components'
 import { useModal } from 'hooks'
 
 const useRemoveModal = () => {
-  const { isModalVisible, setIsModalVisible } = useModal()
-
+  const modalProps = useModal()
   const removeOption: OptionsGenericElement = {
     children: 'Delete',
-    onClick: () => setIsModalVisible(true),
+    onClick: modalProps.show,
   }
 
   return {
-    isModalVisible,
+    ...modalProps,
     removeOption,
-    setIsModalVisible,
   }
 }
 

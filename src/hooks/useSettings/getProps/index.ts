@@ -69,6 +69,16 @@ const getProps = (
       }
     }
 
+    case 'GROUP_ROUTINE_DETAILS_LIST_BY_CONTEXT': {
+      const isAvailableOnDevice = true
+
+      return {
+        ...getSomeProps(setting, isAvailableOnDevice, toggle),
+        category: 'ROUTINE_DETAILS',
+        label: 'Group tasks by context',
+      }
+    }
+
     default:
       throw new Error('Unhandled setting key')
   }
