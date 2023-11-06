@@ -41,7 +41,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --passWithNoTests",
-    "eject": "react-scripts eject",
+    "test:coverage": "npm run test -- --coverage",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "lint": "npx eslint ."
